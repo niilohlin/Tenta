@@ -10,6 +10,10 @@
 		744C2671216D007A00A40EA6 /* TestFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C2667216D007900A40EA6 /* TestFramework.framework */; };
 		744C2676216D007A00A40EA6 /* TestFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2675216D007A00A40EA6 /* TestFrameworkTests.swift */; };
 		744C2678216D007A00A40EA6 /* TestFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 744C266A216D007900A40EA6 /* TestFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2681216D008B00A40EA6 /* RoseTree.swift */; };
+		744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2683216D00B700A40EA6 /* RoseTreeTests.swift */; };
+		8E8907FC12761000679288B8 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890F17CFDEDA3A1F1C4266 /* Generator.swift */; };
+		8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890A83B74300654007736F /* GeneratorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		744C2670216D007A00A40EA6 /* TestFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		744C2675216D007A00A40EA6 /* TestFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFrameworkTests.swift; sourceTree = "<group>"; };
 		744C2677216D007A00A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		744C2681216D008B00A40EA6 /* RoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTree.swift; sourceTree = "<group>"; };
+		744C2683216D00B700A40EA6 /* RoseTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTreeTests.swift; sourceTree = "<group>"; };
+		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
+		8E890F17CFDEDA3A1F1C4266 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +81,8 @@
 			children = (
 				744C266A216D007900A40EA6 /* TestFramework.h */,
 				744C266B216D007900A40EA6 /* Info.plist */,
+				744C2681216D008B00A40EA6 /* RoseTree.swift */,
+				8E890F17CFDEDA3A1F1C4266 /* Generator.swift */,
 			);
 			path = TestFramework;
 			sourceTree = "<group>";
@@ -82,6 +92,8 @@
 			children = (
 				744C2675216D007A00A40EA6 /* TestFrameworkTests.swift */,
 				744C2677216D007A00A40EA6 /* Info.plist */,
+				744C2683216D00B700A40EA6 /* RoseTreeTests.swift */,
+				8E890A83B74300654007736F /* GeneratorTests.swift */,
 			);
 			path = TestFrameworkTests;
 			sourceTree = "<group>";
@@ -148,6 +160,7 @@
 				TargetAttributes = {
 					744C2666216D007900A40EA6 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					744C266F216D007A00A40EA6 = {
 						CreatedOnToolsVersion = 10.0;
@@ -194,6 +207,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */,
+				8E8907FC12761000679288B8 /* Generator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +216,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */,
 				744C2676216D007A00A40EA6 /* TestFrameworkTests.swift in Sources */,
+				8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +358,7 @@
 		744C267C216D007A00A40EA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -358,6 +376,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ohlin.niil.TestFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +385,7 @@
 		744C267D216D007A00A40EA6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -391,6 +411,7 @@
 		744C267F216D007A00A40EA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U23BF8AN44;
 				INFOPLIST_FILE = TestFrameworkTests/Info.plist;
@@ -409,6 +430,7 @@
 		744C2680216D007A00A40EA6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U23BF8AN44;
 				INFOPLIST_FILE = TestFrameworkTests/Info.plist;
