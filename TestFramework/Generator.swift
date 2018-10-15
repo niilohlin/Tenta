@@ -17,5 +17,14 @@ func generateIntegers(range: Range<Int>) -> RoseTree<Int> {
     return RoseTree(root: { value }, forest: { [generateIntegers(range: lowerRange), generateIntegers(range: upperRange)] })
 }
 
+func generateArrayOfIntegers(range: Range<Int>) -> RoseTree<[Int]> {
+    fatalError()
+}
 
 
+
+//func usage() {
+//    test(Int.linear) { int in
+//        return int > 0
+//    }
+//}

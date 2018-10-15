@@ -12,6 +12,8 @@
 		744C2678216D007A00A40EA6 /* TestFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 744C266A216D007900A40EA6 /* TestFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2681216D008B00A40EA6 /* RoseTree.swift */; };
 		744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2683216D00B700A40EA6 /* RoseTreeTests.swift */; };
+		8E89012AA18EDB966D3BDB79 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF7AE76B901FA571DED /* RandomNumberGenerator.swift */; };
+		8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
 		8E8907FC12761000679288B8 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890F17CFDEDA3A1F1C4266 /* Generator.swift */; };
 		8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890A83B74300654007736F /* GeneratorTests.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +37,9 @@
 		744C2677216D007A00A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744C2681216D008B00A40EA6 /* RoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTree.swift; sourceTree = "<group>"; };
 		744C2683216D00B700A40EA6 /* RoseTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTreeTests.swift; sourceTree = "<group>"; };
+		8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGeneratorTests.swift; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
+		8E890EF7AE76B901FA571DED /* RandomNumberGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNumberGenerator.swift; sourceTree = "<group>"; };
 		8E890F17CFDEDA3A1F1C4266 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +87,7 @@
 				744C266B216D007900A40EA6 /* Info.plist */,
 				744C2681216D008B00A40EA6 /* RoseTree.swift */,
 				8E890F17CFDEDA3A1F1C4266 /* Generator.swift */,
+				8E890EF7AE76B901FA571DED /* RandomNumberGenerator.swift */,
 			);
 			path = TestFramework;
 			sourceTree = "<group>";
@@ -94,6 +99,7 @@
 				744C2677216D007A00A40EA6 /* Info.plist */,
 				744C2683216D00B700A40EA6 /* RoseTreeTests.swift */,
 				8E890A83B74300654007736F /* GeneratorTests.swift */,
+				8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */,
 			);
 			path = TestFrameworkTests;
 			sourceTree = "<group>";
@@ -209,6 +215,7 @@
 			files = (
 				744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */,
 				8E8907FC12761000679288B8 /* Generator.swift in Sources */,
+				8E89012AA18EDB966D3BDB79 /* RandomNumberGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +226,7 @@
 				744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */,
 				744C2676216D007A00A40EA6 /* TestFrameworkTests.swift in Sources */,
 				8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */,
+				8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
