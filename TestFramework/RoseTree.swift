@@ -38,3 +38,12 @@ struct RoseIterator<Value>: IteratorProtocol {
         return value
     }
 }
+
+extension RoseTree {
+    func printTree(indentation: String = "") {
+        print(indentation + "\(root())")
+        forest().forEach { tree in
+            tree.printTree(indentation: indentation + "  ")
+        }
+    }
+}

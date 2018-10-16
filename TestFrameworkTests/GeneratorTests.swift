@@ -20,4 +20,10 @@ class GeneratorTests: XCTestCase {
             print("element: \(i) = \(element)")
         }
     }
+
+    func testRunTest() {
+        runTest(gen: IntGenerator()) { int in
+            int < 50
+        }
+    }
 }

@@ -9,35 +9,35 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>RoseTreeTests.testRose.xcscheme</key>
+		<key>SeededRandomNumberGeneratorTests.testRandomNumberGenerator_withInts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>GeneratorTests.testGenerateInts.xcscheme</key>
+		<key>GeneratorTests.testRunTest.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>SeededRandomNumberGeneratorTests.testRandomNumberGenerator.xcscheme</key>
+		<key>ShrinkTests.testShrinkInt.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>SeededRandomNumberGeneratorTests.testRandomNumberGenerator_returnsDifferent.xcscheme</key>
+		<key>ShrinkTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>SeededRandomNumberGeneratorTests.testRandomNumberGenerator_withInts.xcscheme</key>
+		<key>ShrinkTests.testShrink.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
