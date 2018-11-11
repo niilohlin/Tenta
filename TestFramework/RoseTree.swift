@@ -13,7 +13,7 @@ struct RoseTree<Value> {
     let root: () -> Value
     let forest: () -> [RoseTree<Value>]
 
-    init(root: @escaping () -> Value, forest: @escaping () -> [RoseTree<Value>]) {
+    init(root: @escaping () -> Value, forest: @escaping () -> [RoseTree<Value>] = { [] }) {
         self.root = root
         self.forest = forest
     }
@@ -26,6 +26,7 @@ struct RoseTree<Value> {
             RoseTree.generateForest(seed: seed, unfoldFunction)
         }
     }
+
 
     // `unfoldForest`
     static func generateForest<T>(seed: T, _ unfoldFunction: @escaping (T) -> [T]) -> [RoseTree<T>] {
@@ -88,4 +89,15 @@ extension RoseTree {
 //            RoseTree(root: { val }, forest: { expandTree(initial: val, f) })
 //        }
 //    }
+    static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
+        guard let first = forest.first else {
+            return RoseTree<[TestValue]>(root: { [] })
+        }
+        let rest = Array(forest.dropFirst())
+        return first.flatMap { (value: TestValue) in
+            sequence(forest: rest).flatMap { (other: [TestValue]) in
+                RoseTree<[TestValue]>(root: { [value] + other })
+            }
+        }
+    }
 }

@@ -60,13 +60,6 @@ extension Generator {
             }
         }
     }
-
-    static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
-        let first = forest[0]
-        let second = forest[1]
-        fatalError()
-        //return first.flat
-    }
 }
 
 //struct ArrayGenerator<Element>: Generator {

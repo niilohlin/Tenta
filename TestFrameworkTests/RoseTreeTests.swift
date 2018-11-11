@@ -71,6 +71,12 @@ class RoseTreeTests: XCTestCase {
 
     }
 
+    func testSequence() {
+        let forest = (0..<5).map { int in RoseTree(root: { int }) }
+        let array = RoseTree<Int>.sequence(forest: forest).root()
+        XCTAssertEqual(array, [0, 1, 2, 3, 4])
+    }
+
 //    func testExpandRose() {
 //        let doubleFunc = { (i: Int) -> [Int] in
 //            [-i * 2, i * 2]
