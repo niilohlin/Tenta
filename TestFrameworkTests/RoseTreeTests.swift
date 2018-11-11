@@ -54,6 +54,20 @@ class RoseTreeTests: XCTestCase {
 
         let expanded = rose.expand { x in [x + 1, x - 1] }
         XCTAssertEqual(expanded.prefix(10).map { $0.root() }, [1, -2, 2, 2, 0, 4, -4, -1, -3, -4])
+    }
+
+    func testFlatMap() {
+        let rose = RoseTree<Int>(seed: 1) { value in
+            [value * -2, value * 2]
+        }
+        let flatMapped = rose.flatMap { (int: Int) -> RoseTree<String> in
+            return RoseTree<String>(root: { "\(int)" }, forest: {
+                [RoseTree<String>(root: { "\(int) is an int"}, forest: {[RoseTree<String>]()}),
+                 RoseTree<String>(root: { "\(int) is fun"}, forest: {[RoseTree<String>]()})
+                ]
+            })
+        }
+        XCTAssertEqual(flatMapped.prefix(5).map { $0.root() }, ["1", "1 is an int", "1 is fun", "-2", "2"])
 
     }
 

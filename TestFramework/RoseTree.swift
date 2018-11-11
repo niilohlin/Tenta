@@ -68,6 +68,11 @@ extension RoseTree {
         return RoseTree<T>(root: { f(self.root()) }, forest: { self.forest().map { $0.map(f) } })
     }
 
+    func flatMap<T>(_ createNewTree: @escaping (Value) -> RoseTree<T>) -> RoseTree<T> {
+        let rose = createNewTree(root())
+        return RoseTree<T>(root: rose.root, forest: { (rose.forest() + self.forest().map { $0.flatMap(createNewTree) } )})
+    }
+
     func printTree(indentation: String = "") {
         print(indentation + "\(root())")
         forest().forEach { tree in

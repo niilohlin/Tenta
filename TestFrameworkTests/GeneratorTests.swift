@@ -32,4 +32,12 @@ class GeneratorTests: XCTestCase {
             int < 21 || int % 2 == 1
         }
     }
+
+    func testRunArray() {
+        let intGenerator: Generator<Int, SeededRandomNumberGenerator> = Generator<Int, SeededRandomNumberGenerator>.int()
+        runTest(gen: Generator<Int, SeededRandomNumberGenerator>.array(elementGenerator: intGenerator)) { array in
+            print("got array: \(array)")
+            return !array.contains { $0 > 30}
+        }
+    }
 }

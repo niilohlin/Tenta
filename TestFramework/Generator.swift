@@ -42,19 +42,31 @@ extension Generator {
         }
     }
 
-//    static func array<TestValue, RNG: RandomNumberGenerator>(elementGenerator: Generator<TestValue, RNG>) -> Generator<[TestValue], RNG> {
-//        let span = Span(origin: 0, span: { (-Int($0), Int($0)) })
-//        return Generator<[TestValue], RNG> { size, rng in
-//            if size <= 0 {
-//                return RoseTree(root: { [] }, forest: { [] })
-//            }
-//            let range = span.span(size).0 ... span.span(size).1
-//            let value = elementGenerator.generate(size, &rng)
-//            return RoseTree(root: { value }, forest: {
-//                0.shrinkTowards(destination: value)
-//            })
-//        }
-//    }
+    static func array<TestValue, RNG: RandomNumberGenerator>(elementGenerator: Generator<TestValue, RNG>) -> Generator<[TestValue], RNG> {
+        let span = Span(origin: 0, span: { (0, Int($0)) })
+        return Generator<[TestValue], RNG> { size, rng in
+            if size <= 0 {
+                return RoseTree(root: { [] }, forest: { [] })
+            }
+            let range = span.span(size).0 ... span.span(size).1
+            var value = [RoseTree<TestValue>]()
+            for _ in range {
+                value.append(elementGenerator.generate(size, &rng))
+            }
+            let finalArrayWithValues = value.map { $0.root() }
+
+            return RoseTree<[TestValue]>(seed: finalArrayWithValues) { (parent: [TestValue]) -> [[TestValue]] in
+                parent.shrink()
+            }
+        }
+    }
+
+    static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
+        let first = forest[0]
+        let second = forest[1]
+        fatalError()
+        //return first.flat
+    }
 }
 
 //struct ArrayGenerator<Element>: Generator {
