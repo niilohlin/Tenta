@@ -15,6 +15,7 @@
 		8E89012AA18EDB966D3BDB79 /* SeededRandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */; };
 		8E89015C492DB1F2BB94EC0D /* ShrinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE977F432F2F78955F1 /* ShrinkTests.swift */; };
 		8E8901A16D46FA19CAE712B1 /* Shrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890E369D88E63EFFB794CC /* Shrink.swift */; };
+		8E89048932464D7A5538C79C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
 		8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
 		8E8907F2D182284645D3AAC1 /* Span.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8901FD179E88BCC2A3E305 /* Span.swift */; };
 		8E8907FC12761000679288B8 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890F17CFDEDA3A1F1C4266 /* Generator.swift */; };
@@ -47,6 +48,7 @@
 		8E890E369D88E63EFFB794CC /* Shrink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shrink.swift; sourceTree = "<group>"; };
 		8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGenerator.swift; sourceTree = "<group>"; };
 		8E890F17CFDEDA3A1F1C4266 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		8E890FF115A2715C7DDE9499 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */,
 				8E8901FD179E88BCC2A3E305 /* Span.swift */,
 				8E890E369D88E63EFFB794CC /* Shrink.swift */,
+				8E890FF115A2715C7DDE9499 /* Property.swift */,
 			);
 			path = TestFramework;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				8E89012AA18EDB966D3BDB79 /* SeededRandomNumberGenerator.swift in Sources */,
 				8E8907F2D182284645D3AAC1 /* Span.swift in Sources */,
 				8E8901A16D46FA19CAE712B1 /* Shrink.swift in Sources */,
+				8E89048932464D7A5538C79C /* Property.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

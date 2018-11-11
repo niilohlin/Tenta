@@ -38,24 +38,38 @@ struct IntGenerator: Generator {
     }
 }
 
-func generateIntegers(range: Range<Int>) -> RoseTree<Int> {
-    let value = Int.random(in: range)
-    let lowerRange = Range(uncheckedBounds: (lower: range.lowerBound - 1, upper: range.upperBound))
-    let upperRange = Range(uncheckedBounds: (lower: range.lowerBound, upper: range.upperBound + 1))
-    return RoseTree(root: { value }, forest: { [generateIntegers(range: lowerRange), generateIntegers(range: upperRange)] })
-}
+func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestValue) -> Bool) -> TestValue{
+//    rose.printTree()
+    var forest = rose.forest()
+    var cont = true
+    var failedValue = rose.root()
+    while cont {
+        if forest.isEmpty {
+            break
+        }
+        cont = false
 
-func generateArrayOfIntegers(range: Range<Int>) -> RoseTree<[Int]> {
-    fatalError()
+        for subRose in forest {
+            if !predicate(subRose.root()) {
+                cont = true
+                forest = subRose.forest()
+                failedValue = subRose.root()
+                break
+            }
+
+        }
+    }
+    return failedValue
 }
 
 func runTest<Gen: Generator, TestValue>(gen: Gen, predicate: @escaping (TestValue) -> Bool) where Gen.Value == TestValue {
-    print("starting test")
     var rng = SeededRandomNumberGenerator(seed: 100)
+
     for size in 0..<100 {
         let rose = gen.generate(size: Double(size), rng: &rng)
         if !predicate(rose.root()) {
-            print("test failed with \(rose.root())")
+            let failedValue = shrink(rose, predicate: predicate)
+            print("failed with value: \(failedValue)")
             break
         }
     }

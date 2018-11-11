@@ -7,29 +7,35 @@ import Foundation
 
 extension Int {
     func halves() -> [Int] {
-        if self == 0 {
-            return []
+        var result: [Int] = []
+        var half = self
+        while true {
+            if half == 0 {
+                return result
+            }
+            if half == -1 {
+                return result + [-1]
+            }
+            result.append(half)
+            half /= 2
         }
-        if self == -1 {
-            return []
-        }
-        return [self] + (self / 2).halves()
     }
 
     func towards(destination: Int) -> [Int] {
         if self == destination {
             return []
         }
-        if self > destination {
-            return destination.towards(destination: self)
-        }
         let difference = destination / 2 - self / 2
-        return [self] + difference.halves().map { destination - $0 }
+        let result = difference.halves().map { destination - $0 }
+        return result.contains(self) ? result : [self] + result
     }
 
     func shrinkTowards(destination: Int) -> [RoseTree<Int>] {
-        return self.towards(destination: destination).map { smaller in
-            RoseTree(root: { smaller }, forest: { smaller.shrinkTowards(destination: destination) })
+        return RoseTree<Int>.generateForest(seed: destination) { smaller in
+            0.towards(destination: self)
         }
+//        return towards(destination: destination).filter { $0 != self }.map { smaller in
+//            RoseTree(root: { smaller }, forest: { smaller.shrinkTowards(destination: destination) })
+//        }
     }
 }
