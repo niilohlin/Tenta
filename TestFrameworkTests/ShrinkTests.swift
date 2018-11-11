@@ -29,11 +29,24 @@ class ShrinkTests: XCTestCase {
         XCTAssertEqual(array.removing(numberOfElements: 2), [[3, 4], [1, 2]])
     }
 
+    func testRemoving1() {
+        let array = [1, 2, 3, 4]
+        XCTAssertEqual(array.removing(numberOfElements: 1), [[2,3,4], [1,3,4], [1,2,4], [1,2,3]])
+
+    }
+
     func testSplitAt_firstHalf() {
         XCTAssertEqual([1, 2, 3, 4].splitAt(position: 2).0, [1, 2])
     }
 
     func testSplitAt_secondHalf() {
         XCTAssertEqual([1, 2, 3, 4].splitAt(position: 2).1, [3, 4])
+    }
+
+    func testShrinkArray() {
+        let array = [1, 2, 3, 4]
+        let expected = [[],[3,4],[1,2],[2,3,4],[1,3,4],[1,2,4],[1,2,3]]
+        XCTAssertEqual(array.shrink(), expected)
+
     }
 }

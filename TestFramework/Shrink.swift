@@ -38,8 +38,20 @@ extension Int {
 }
 
 extension Array {
+    func shrink() -> [[Element]] {
+        return self.count.halves().flatMap { halve in
+            self.removing(numberOfElements: halve)
+        }
+    }
+
     func splitAt(position: Int) -> ([Element], [Element]) {
-        let firstHalf = self.dropLast(position)
+        if position <= 0 {
+            return ([], self)
+        }
+        if position >= count {
+            return (self, [])
+        }
+        let firstHalf = self.prefix(position)
         let secondHalf = self.dropFirst(position)
         return (Array(firstHalf), Array(secondHalf))
     }
@@ -57,8 +69,5 @@ extension Array {
         } else {
             return [secondHalf] + secondHalf.removing(numberOfElements: numberOfElements, count - numberOfElements).map { firstHalf + $0 }
         }
-
-
-
     }
 }
