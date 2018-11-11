@@ -34,8 +34,31 @@ extension Int {
         return RoseTree<Int>.generateForest(seed: destination) { smaller in
             0.towards(destination: self)
         }
-//        return towards(destination: destination).filter { $0 != self }.map { smaller in
-//            RoseTree(root: { smaller }, forest: { smaller.shrinkTowards(destination: destination) })
-//        }
+    }
+}
+
+extension Array {
+    func splitAt(position: Int) -> ([Element], [Element]) {
+        let firstHalf = self.dropLast(position)
+        let secondHalf = self.dropFirst(position)
+        return (Array(firstHalf), Array(secondHalf))
+    }
+
+    func removing(numberOfElements: Int) -> [[Element]] {
+        return removing(numberOfElements: numberOfElements, self.count)
+    }
+
+    private func removing(numberOfElements: Int, _ count: Int) -> [[Element]] {
+        let (firstHalf, secondHalf) = self.splitAt(position: numberOfElements)
+        if numberOfElements > count {
+            return []
+        } else if secondHalf.isEmpty {
+            return [[]]
+        } else {
+            return [secondHalf] + secondHalf.removing(numberOfElements: numberOfElements, count - numberOfElements).map { firstHalf + $0 }
+        }
+
+
+
     }
 }

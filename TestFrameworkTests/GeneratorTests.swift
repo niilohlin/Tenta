@@ -22,13 +22,13 @@ class GeneratorTests: XCTestCase {
     }
 
     func testRunTest() {
-        runTest(gen: IntGenerator()) { int in
+        runTest(gen: Generator<Int, SeededRandomNumberGenerator>.int()) { int in
             int < 10
         }
     }
 
     func testRunMoreComplicatedIntTest() {
-        runTest(gen: IntGenerator()) { int in
+        runTest(gen: Generator<Int, SeededRandomNumberGenerator>.int()) { int in
             int < 21 || int % 2 == 1
         }
     }

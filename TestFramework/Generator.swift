@@ -5,9 +5,13 @@
 
 import Foundation
 
-protocol Generator {
-    associatedtype Value
-    func generate<T: RandomNumberGenerator>(size: Double, rng: inout T) -> RoseTree<Value>
+//protocol Generator {
+//    associatedtype Value
+//    func generate<T: RandomNumberGenerator>(size: Double, rng: inout T) -> RoseTree<Value>
+//}
+
+struct Generator<T, RNG: RandomNumberGenerator> {
+    let generate: (Double, inout RNG) -> RoseTree<T>
 }
 
 //struct Gen<Value>: Generator {
@@ -22,21 +26,53 @@ protocol Generator {
 //    }
 //}
 
+extension Generator {
+    static func int<RNG: RandomNumberGenerator>() -> Generator<Int, RNG> {
+        let span = Span(origin: 0, span: { (-Int($0), Int($0)) })
+        return Generator<Int, RNG> { size, rng in
+            if size <= 0 {
+                return RoseTree(root: { span.origin }, forest: { [] })
+            }
+            let range = span.span(size).0 ... span.span(size).1
+            let value = Int.random(in: range, using: &rng)
+            return RoseTree(root: { value }, forest: {
+                0.shrinkTowards(destination: value)
+            })
 
-struct IntGenerator: Generator {
-    let span = Span(origin: 0, span: { (-Int($0), Int($0)) })
-
-    func generate<T: RandomNumberGenerator>(size: Double, rng: inout T) -> RoseTree<Int> {
-        if size <= 0 {
-            return RoseTree(root: { self.span.origin }, forest: { [] })
         }
-        let range = span.span(size).0 ... span.span(size).1
-        let value = Int.random(in: range, using: &rng)
-        return RoseTree(root: { value }, forest: {
-            0.shrinkTowards(destination: value)
-        })
     }
+
+//    static func array<TestValue, RNG: RandomNumberGenerator>(elementGenerator: Generator<TestValue, RNG>) -> Generator<[TestValue], RNG> {
+//        let span = Span(origin: 0, span: { (-Int($0), Int($0)) })
+//        return Generator<[TestValue], RNG> { size, rng in
+//            if size <= 0 {
+//                return RoseTree(root: { [] }, forest: { [] })
+//            }
+//            let range = span.span(size).0 ... span.span(size).1
+//            let value = elementGenerator.generate(size, &rng)
+//            return RoseTree(root: { value }, forest: {
+//                0.shrinkTowards(destination: value)
+//            })
+//        }
+//    }
 }
+
+//struct ArrayGenerator<Element>: Generator {
+//    let elementGenerator: Generator
+//    let span = Span(origin: 0, span: { (-Int($0), Int($0)) })
+//
+//    func generate<T: RandomNumberGenerator>(size: Double, rng: inout T) -> RoseTree<[Element]> {
+//        if size <= 0 {
+//            return RoseTree(root: { self.span.origin }, forest: { [] })
+//        }
+//        let range = span.span(size).0 ... span.span(size).1
+//        let value = Int.random(in: range, using: &rng)
+//        return RoseTree(root: { value }, forest: {
+//            0.shrinkTowards(destination: value)
+//        })
+//    }
+//
+//}
 
 func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestValue) -> Bool) -> TestValue{
 //    rose.printTree()
@@ -62,11 +98,11 @@ func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestVa
     return failedValue
 }
 
-func runTest<Gen: Generator, TestValue>(gen: Gen, predicate: @escaping (TestValue) -> Bool) where Gen.Value == TestValue {
+func runTest<TestValue>(gen: Generator<TestValue, SeededRandomNumberGenerator>, predicate: @escaping (TestValue) -> Bool) {
     var rng = SeededRandomNumberGenerator(seed: 100)
 
     for size in 0..<100 {
-        let rose = gen.generate(size: Double(size), rng: &rng)
+        let rose = gen.generate(Double(size), &rng)
         if !predicate(rose.root()) {
             let failedValue = shrink(rose, predicate: predicate)
             print("failed with value: \(failedValue)")
