@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct Generator<T, RNG: RandomNumberGenerator> {
-    let generate: (Double, inout RNG) -> RoseTree<T>
+struct Generator<T> {
+    let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<T>
 }
 
 extension Generator {
-    static func int<RNG: RandomNumberGenerator>() -> Generator<Int, RNG> {
+    static func int() -> Generator<Int> {
         let span = Span(origin: 0) { (-Int($0), Int($0)) }
-        return Generator<Int, RNG> { size, rng in
+        return Generator<Int> { size, rng in
             if size <= 0 {
                 return RoseTree(root: { span.origin }, forest: { [] })
             }
@@ -25,10 +25,10 @@ extension Generator {
         }
     }
 
-    static func array<TestValue, RNG: RandomNumberGenerator>(
-            elementGenerator: Generator<TestValue, RNG>) -> Generator<[TestValue], RNG> {
+    static func array<TestValue>(
+            elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
         let span = Span(origin: 0) { (0, Int($0)) }
-        return Generator<[TestValue], RNG> { size, rng in
+        return Generator<[TestValue]> { size, rng in
             if size <= 0 {
                 return RoseTree(root: { [] }, forest: { [] })
             }
@@ -47,7 +47,7 @@ extension Generator {
 }
 
 func runTest<TestValue>(
-        gen: Generator<TestValue, SeededRandomNumberGenerator>, predicate: @escaping (TestValue) -> Bool) {
+        gen: Generator<TestValue>, predicate: @escaping (TestValue) -> Bool) {
     var rng = SeededRandomNumberGenerator(seed: 100)
 
     for size in 0..<100 {
