@@ -82,7 +82,7 @@ extension Generator {
 //
 //}
 
-func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestValue) -> Bool) -> TestValue{
+func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestValue) -> Bool) -> TestValue {
 //    rose.printTree()
     var forest = rose.forest()
     var cont = true
@@ -118,7 +118,6 @@ func runTest<TestValue>(gen: Generator<TestValue, SeededRandomNumberGenerator>, 
         }
     }
 }
-
 
 //func usage() {
 //    runTest(Gen<Int>.linear) { int in

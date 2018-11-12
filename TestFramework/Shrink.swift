@@ -31,7 +31,7 @@ extension Int {
     }
 
     func shrinkTowards(destination: Int) -> [RoseTree<Int>] {
-        return RoseTree<Int>.generateForest(seed: destination) { smaller in
+        return RoseTree<Int>.generateForest(seed: destination) { _ in
             0.towards(destination: self)
         }
     }

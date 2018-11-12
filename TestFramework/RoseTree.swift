@@ -27,7 +27,6 @@ struct RoseTree<Value> {
         }
     }
 
-
     // `unfoldForest`
     static func generateForest<T>(seed: T, _ unfoldFunction: @escaping (T) -> [T]) -> [RoseTree<T>] {
         return unfoldFunction(seed).map { RoseTree<T>(seed: $0, unfoldFunction) }
@@ -36,7 +35,7 @@ struct RoseTree<Value> {
     func expand(_ f: @escaping (Value) -> [Value]) -> RoseTree<Value> {
         let root = self.root()
         let forest = self.forest()
-        return RoseTree(root: { root }, forest: { forest.map { $0.expand(f) } + RoseTree<Value>.generateForest(seed: root, f)  })
+        return RoseTree(root: { root }, forest: { forest.map { $0.expand(f) } + RoseTree<Value>.generateForest(seed: root, f) })
     }
 }
 
@@ -71,7 +70,7 @@ extension RoseTree {
 
     func flatMap<T>(_ createNewTree: @escaping (Value) -> RoseTree<T>) -> RoseTree<T> {
         let rose = createNewTree(root())
-        return RoseTree<T>(root: rose.root, forest: { (rose.forest() + self.forest().map { $0.flatMap(createNewTree) } )})
+        return RoseTree<T>(root: rose.root, forest: { (rose.forest() + self.forest().map { $0.flatMap(createNewTree) }) })
     }
 
     func printTree(indentation: String = "") {
@@ -80,7 +79,6 @@ extension RoseTree {
             tree.printTree(indentation: indentation + "  ")
         }
     }
-
 
 //    static func expandTree(initial: Value, _ f: @escaping (Value) -> [Value]) -> [RoseTree<Value>] {
 //        print("initial value: \(initial)")

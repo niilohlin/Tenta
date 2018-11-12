@@ -4,8 +4,8 @@
 //
 
 import Foundation
-import XCTest
 @testable import TestFramework
+import XCTest
 
 class SeededRandomNumberGeneratorTests: XCTestCase {
     func testRandomNumberGenerator_returnsDifferent() {

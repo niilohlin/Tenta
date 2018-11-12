@@ -6,8 +6,8 @@
 //  Copyright © 2018 Niil Öhlin. All rights reserved.
 //
 
-import XCTest
 @testable import TestFramework
+import XCTest
 
 class TestFrameworkTests: XCTestCase {
 

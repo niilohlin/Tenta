@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import XCTest
 @testable import TestFramework
+import XCTest
 
 class RoseTreeTests: XCTestCase {
     func testRose() {
         let rose = RoseTree(root: { 0 }, forest: { [
-            RoseTree(root: {1}, forest: { [
-                RoseTree(root: {3}, forest: { [] })
+            RoseTree(root: { 1 }, forest: { [
+                RoseTree(root: { 3 }, forest: { [] })
                 ] }),
-            RoseTree(root: {2}, forest: { [
-                RoseTree(root: {4}, forest: { [] })
+            RoseTree(root: { 2 }, forest: { [
+                RoseTree(root: { 4 }, forest: { [] })
                 ] })
             ]})
         let array = Array(rose).map { $0.root() }
@@ -26,11 +26,11 @@ class RoseTreeTests: XCTestCase {
 
     func testMapRose() {
         let rose = RoseTree(root: { 0 }, forest: { [
-            RoseTree(root: {1}, forest: { [
-                RoseTree(root: {3}, forest: { [] })
+            RoseTree(root: { 1 }, forest: { [
+                RoseTree(root: { 3 }, forest: { [] })
             ] }),
-            RoseTree(root: {2}, forest: { [
-                RoseTree(root: {4}, forest: { [] })
+            RoseTree(root: { 2 }, forest: { [
+                RoseTree(root: { 4 }, forest: { [] })
             ] })
         ]})
 
@@ -61,9 +61,9 @@ class RoseTreeTests: XCTestCase {
             [value * -2, value * 2]
         }
         let flatMapped = rose.flatMap { (int: Int) -> RoseTree<String> in
-            return RoseTree<String>(root: { "\(int)" }, forest: {
-                [RoseTree<String>(root: { "\(int) is an int"}, forest: {[RoseTree<String>]()}),
-                 RoseTree<String>(root: { "\(int) is fun"}, forest: {[RoseTree<String>]()})
+            RoseTree<String>(root: { "\(int)" }, forest: {
+                [RoseTree<String>(root: { "\(int) is an int" }, forest: { [RoseTree<String>]() }),
+                 RoseTree<String>(root: { "\(int) is fun" }, forest: { [RoseTree<String>]() })
                 ]
             })
         }

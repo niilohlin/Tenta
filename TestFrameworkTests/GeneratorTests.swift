@@ -4,8 +4,8 @@
 //
 
 import Foundation
-import XCTest
 @testable import TestFramework
+import XCTest
 
 class GeneratorTests: XCTestCase {
 
@@ -37,7 +37,7 @@ class GeneratorTests: XCTestCase {
         let intGenerator: Generator<Int, SeededRandomNumberGenerator> = Generator<Int, SeededRandomNumberGenerator>.int()
         runTest(gen: Generator<Int, SeededRandomNumberGenerator>.array(elementGenerator: intGenerator)) { array in
             print("got array: \(array)")
-            return !array.contains { $0 > 30}
+            return !array.contains { $0 > 30 }
         }
     }
 }

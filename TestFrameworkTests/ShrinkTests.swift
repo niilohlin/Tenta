@@ -4,8 +4,8 @@
 //
 
 import Foundation
-import XCTest
 @testable import TestFramework
+import XCTest
 
 class ShrinkTests: XCTestCase {
     func testHalves() {
@@ -31,7 +31,7 @@ class ShrinkTests: XCTestCase {
 
     func testRemoving1() {
         let array = [1, 2, 3, 4]
-        XCTAssertEqual(array.removing(numberOfElements: 1), [[2,3,4], [1,3,4], [1,2,4], [1,2,3]])
+        XCTAssertEqual(array.removing(numberOfElements: 1), [[2, 3, 4], [1, 3, 4], [1, 2, 4], [1, 2, 3]])
 
     }
 
@@ -45,7 +45,7 @@ class ShrinkTests: XCTestCase {
 
     func testShrinkArray() {
         let array = [1, 2, 3, 4]
-        let expected = [[],[3,4],[1,2],[2,3,4],[1,3,4],[1,2,4],[1,2,3]]
+        let expected = [[], [3, 4], [1, 2], [2, 3, 4], [1, 3, 4], [1, 2, 4], [1, 2, 3]]
         XCTAssertEqual(array.shrink(), expected)
 
     }
