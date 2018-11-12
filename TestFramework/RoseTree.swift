@@ -77,11 +77,8 @@ extension RoseTree {
         }
     }
 
-    func printTree(indentation: String = "") {
-        print(indentation + "\(root())")
-        forest().forEach { tree in
-            tree.printTree(indentation: indentation + "  ")
-        }
+    func printTree() {
+        print(description)
     }
 
     static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
@@ -94,5 +91,21 @@ extension RoseTree {
                 RoseTree<[TestValue]>(root: { [value] + other })
             }
         }
+    }
+}
+
+extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible {
+    var description: String {
+        return getDescription(depth: 0)
+    }
+
+    private func getDescription(depth: Int) -> String {
+        let indentation = String(repeating: "  ", count: depth)
+        guard depth < 10 else {
+            return indentation + "...\n"
+        }
+        return indentation + root().description +
+                "\n" +
+                forest().map { $0.getDescription(depth: depth + 1) }.joined()
     }
 }

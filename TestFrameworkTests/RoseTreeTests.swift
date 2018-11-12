@@ -90,6 +90,13 @@ class RoseTreeTests: XCTestCase {
         XCTAssertEqual(Array(roseTree).map { $0.root() }, expected)
     }
 
+    func testDescription_terminates() {
+        let rose = RoseTree<Int>(seed: 1) { value in
+            [value * -2, value * 2]
+        }
+        _ = rose.description
+    }
+
 //    func testExpandRose() {
 //        let doubleFunc = { (i: Int) -> [Int] in
 //            [-i * 2, i * 2]
