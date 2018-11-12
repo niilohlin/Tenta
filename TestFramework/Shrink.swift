@@ -67,7 +67,9 @@ extension Array {
         } else if secondHalf.isEmpty {
             return [[]]
         } else {
-            return [secondHalf] + secondHalf.removing(numberOfElements: numberOfElements, count - numberOfElements).map { firstHalf + $0 }
+            return [secondHalf] + secondHalf
+                    .removing(numberOfElements: numberOfElements, count - numberOfElements)
+                    .map { firstHalf + $0 }
         }
     }
 }

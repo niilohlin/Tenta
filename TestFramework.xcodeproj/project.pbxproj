@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		744C2671216D007A00A40EA6 /* TestFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C2667216D007900A40EA6 /* TestFramework.framework */; };
-		744C2676216D007A00A40EA6 /* TestFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2675216D007A00A40EA6 /* TestFrameworkTests.swift */; };
 		744C2678216D007A00A40EA6 /* TestFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 744C266A216D007900A40EA6 /* TestFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2681216D008B00A40EA6 /* RoseTree.swift */; };
 		744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2683216D00B700A40EA6 /* RoseTreeTests.swift */; };
@@ -37,7 +36,6 @@
 		744C266A216D007900A40EA6 /* TestFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFramework.h; sourceTree = "<group>"; };
 		744C266B216D007900A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744C2670216D007A00A40EA6 /* TestFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		744C2675216D007A00A40EA6 /* TestFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFrameworkTests.swift; sourceTree = "<group>"; };
 		744C2677216D007A00A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744C2681216D008B00A40EA6 /* RoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTree.swift; sourceTree = "<group>"; };
 		744C2683216D00B700A40EA6 /* RoseTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTreeTests.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 		744C2674216D007A00A40EA6 /* TestFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				744C2675216D007A00A40EA6 /* TestFrameworkTests.swift */,
 				744C2677216D007A00A40EA6 /* Info.plist */,
 				744C2683216D00B700A40EA6 /* RoseTreeTests.swift */,
 				8E890A83B74300654007736F /* GeneratorTests.swift */,
@@ -239,7 +236,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */,
-				744C2676216D007A00A40EA6 /* TestFrameworkTests.swift in Sources */,
 				8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */,
 				8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */,
 				8E89015C492DB1F2BB94EC0D /* ShrinkTests.swift in Sources */,

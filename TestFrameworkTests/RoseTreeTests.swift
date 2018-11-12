@@ -52,7 +52,7 @@ class RoseTreeTests: XCTestCase {
             [value * -2, value * 2]
         }
 
-        let expanded = rose.expand { x in [x + 1, x - 1] }
+        let expanded = rose.expand { int in [int + 1, int - 1] }
         XCTAssertEqual(expanded.prefix(10).map { $0.root() }, [1, -2, 2, 2, 0, 4, -4, -1, -3, -4])
     }
 
@@ -86,7 +86,8 @@ class RoseTreeTests: XCTestCase {
         })
         let forest = [firstTree, secondTree]
         let roseTree = RoseTree<Int>.sequence(forest: forest)
-        XCTAssertEqual(Array(roseTree).map { $0.root() }, [[0, 3], [0, 4], [0, 5], [1, 3], [2, 3], [1, 4], [1, 5], [2, 4], [2, 5]])
+        let expected = [[0, 3], [0, 4], [0, 5], [1, 3], [2, 3], [1, 4], [1, 5], [2, 4], [2, 5]]
+        XCTAssertEqual(Array(roseTree).map { $0.root() }, expected)
     }
 
 //    func testExpandRose() {
