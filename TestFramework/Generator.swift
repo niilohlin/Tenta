@@ -5,26 +5,9 @@
 
 import Foundation
 
-//protocol Generator {
-//    associatedtype Value
-//    func generate<T: RandomNumberGenerator>(size: Double, rng: inout T) -> RoseTree<Value>
-//}
-
 struct Generator<T, RNG: RandomNumberGenerator> {
     let generate: (Double, inout RNG) -> RoseTree<T>
 }
-
-//struct Gen<Value>: Generator {
-//    let span: Span<Value>
-//    func generate<T: RandomNumberGenerator>(size: Double, rng: inout T) -> RoseTree<Value> {
-//        if size <= 0 {
-//            return RoseTree(root: { self.span.origin }, forest: { [] })
-//        }
-//        let range = span.span(size).0 ... span.span(size).1
-//        let value = Int.random(in: range, using: &rng)
-//        return RoseTree(root: { value }, forest: { [] })
-//    }
-//}
 
 extension Generator {
     static func int<RNG: RandomNumberGenerator>() -> Generator<Int, RNG> {
@@ -55,19 +38,15 @@ extension Generator {
                 value.append(elementGenerator.generate(size, &rng))
             }
             return RoseTree<[Int]>.sequence(forest: value).flatMap { array in
-                RoseTree(seed: array, { $0.shrink() })
+                RoseTree(seed: array) { (parentArray: [TestValue]) in
+                    parentArray.shrink()
+                }
             }
-//            let finalArrayWithValues = value.map { $0.root() }
-//
-//            return RoseTree<[TestValue]>(seed: finalArrayWithValues) { (parent: [TestValue]) -> [[TestValue]] in
-//                parent.shrink()
-//            }
         }
     }
 }
 
 func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestValue) -> Bool) -> TestValue {
-//    rose.printTree()
     var forest = rose.forest()
     var cont = true
     var failedValue = rose.root()
@@ -104,8 +83,3 @@ func runTest<TestValue>(
     }
 }
 
-//func usage() {
-//    runTest(Gen<Int>.linear) { int in
-//        return int > 0
-//    }
-//}

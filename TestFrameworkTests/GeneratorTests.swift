@@ -9,18 +9,6 @@ import XCTest
 
 class GeneratorTests: XCTestCase {
 
-    func testGenerateInts() {
-//        let rose = generateIntegers(range: Range(uncheckedBounds: (lower: 0, upper: 1)))
-//        var i = 0
-//        for element in rose {
-//            i += 1
-//            if i > 20 {
-//                break
-//            }
-//            print("element: \(i) = \(element)")
-//        }
-    }
-
     func testRunTest() {
         runTest(gen: Generator<Int, SeededRandomNumberGenerator>.int()) { int in
             int < 10
@@ -37,8 +25,8 @@ class GeneratorTests: XCTestCase {
         let intGenerator: Generator<Int, SeededRandomNumberGenerator> =
                 Generator<Int, SeededRandomNumberGenerator>.int()
         runTest(gen: Generator<Int, SeededRandomNumberGenerator>.array(elementGenerator: intGenerator)) { array in
-            print("got array: \(array)")
-            return !array.contains { $0 > 30 }
+            print("got array count: \(array.count)")
+            return array.count < 20
         }
     }
 }

@@ -77,10 +77,6 @@ extension RoseTree {
         }
     }
 
-    func printTree() {
-        print(description)
-    }
-
     static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
         guard let first = forest.first else {
             return RoseTree<[TestValue]>(root: { [] })

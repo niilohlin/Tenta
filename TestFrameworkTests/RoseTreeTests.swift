@@ -96,19 +96,4 @@ class RoseTreeTests: XCTestCase {
         }
         _ = rose.description
     }
-
-//    func testExpandRose() {
-//        let doubleFunc = { (i: Int) -> [Int] in
-//            [-i * 2, i * 2]
-//        }
-//        let tree = RoseTree<Int>.expandTree(initial: 1, doubleFunc)
-//        var results = [Int]()
-//        for subRose in tree {
-//            results.append(subRose.root())
-//            if results.count > 8 {
-//                break
-//            }
-//        }
-//        print("results: \(results)")
-//    }
 }
