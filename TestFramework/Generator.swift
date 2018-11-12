@@ -53,11 +53,14 @@ extension Generator {
             for _ in range {
                 value.append(elementGenerator.generate(size, &rng))
             }
-            let finalArrayWithValues = value.map { $0.root() }
-
-            return RoseTree<[TestValue]>(seed: finalArrayWithValues) { (parent: [TestValue]) -> [[TestValue]] in
-                parent.shrink()
+            return RoseTree<[Int]>.sequence(forest: value).flatMap { array in
+                RoseTree(seed: array, { $0.shrink() })
             }
+//            let finalArrayWithValues = value.map { $0.root() }
+//
+//            return RoseTree<[TestValue]>(seed: finalArrayWithValues) { (parent: [TestValue]) -> [[TestValue]] in
+//                parent.shrink()
+//            }
         }
     }
 }

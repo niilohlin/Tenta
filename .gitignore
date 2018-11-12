@@ -1,5 +1,6 @@
 build
 xcuserdata
+xcuserdatad
 *.pbxuser
 *.perspectivev3
 *.mode1v3

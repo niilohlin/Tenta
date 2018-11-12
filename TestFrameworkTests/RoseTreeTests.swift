@@ -77,6 +77,18 @@ class RoseTreeTests: XCTestCase {
         XCTAssertEqual(array, [0, 1, 2, 3, 4])
     }
 
+    func testBigSequence() {
+        let firstTree = RoseTree<Int>(root: { 0 }, forest: {
+            [RoseTree<Int>(root: { 1 }), RoseTree<Int>(root: { 2 })]
+        })
+        let secondTree = RoseTree<Int>(root: { 3 }, forest: {
+            [RoseTree<Int>(root: { 4 }), RoseTree<Int>(root: { 5 })]
+        })
+        let forest = [firstTree, secondTree]
+        let roseTree = RoseTree<Int>.sequence(forest: forest)
+        XCTAssertEqual(Array(roseTree).map { $0.root() }, [[0, 3], [0, 4], [0, 5], [1, 3], [2, 3], [1, 4], [1, 5], [2, 4], [2, 5]])
+    }
+
 //    func testExpandRose() {
 //        let doubleFunc = { (i: Int) -> [Int] in
 //            [-i * 2, i * 2]

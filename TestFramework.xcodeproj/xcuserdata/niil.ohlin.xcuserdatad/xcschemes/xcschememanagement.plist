@@ -16,35 +16,35 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>RoseTreeTests.testInitWithGenerator.xcscheme</key>
+		<key>RoseTreeTests.testExpand.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>RoseTreeTests.testExpand.xcscheme</key>
+		<key>ShrinkTests.testSplitAt.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>ShrinkTests.testSplitAt.xcscheme</key>
+		<key>ShrinkTests.testRemoving.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>ShrinkTests.testRemoving.xcscheme</key>
+		<key>GeneratorTests.testRunArray.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>GeneratorTests.testRunArray.xcscheme</key>
+		<key>RoseTreeTests.testBigSequence.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
