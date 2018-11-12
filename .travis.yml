@@ -9,4 +9,4 @@ script:
 - xcodebuild -version
 - xcodebuild -showsdks
 - swift -version
-- fastlane scan
+- fastlane unit_tests
