@@ -4,15 +4,12 @@ default_platform(:ios)
 platform :ios do
   desc "Build and run unit tests"
   lane :unit_tests  do
+    swiftlint(strict: true)
     scan(
       scheme: 'TestFramework',
       clean: true,
-      slack_only_on_failure: true,
       devices: ['iPhone 7'],
       output_types: 'junit',
-      output_directory: output_directory,
-      address_sanitizer: options[:address_sanitizer],
-      thread_sanitizer: options[:thread_sanitizer]
     )
   end
 end
