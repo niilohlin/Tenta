@@ -11,12 +11,11 @@ struct Generator<T> {
 
 extension Generator {
     static func int() -> Generator<Int> {
-        let span = Span(origin: 0) { (-Int($0), Int($0)) }
         return Generator<Int> { size, rng in
             if size <= 0 {
-                return RoseTree(root: { span.origin }, forest: { [] })
+                return RoseTree(root: { 0 }, forest: { [] })
             }
-            let range = span.span(size).0 ... span.span(size).1
+            let range = 0 ... Int(size)
             let value = Int.random(in: range, using: &rng)
             return RoseTree(root: { value }, forest: {
                 0.shrinkTowards(destination: value)
@@ -27,14 +26,12 @@ extension Generator {
 
     static func array<TestValue>(
             elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
-        let span = Span(origin: 0) { (0, Int($0)) }
         return Generator<[TestValue]> { size, rng in
             if size <= 0 {
                 return RoseTree(root: { [] }, forest: { [] })
             }
-            let range = span.span(size).0 ... span.span(size).1
             var value = [RoseTree<TestValue>]()
-            for _ in range {
+            for _ in 0 ... Int(size) {
                 value.append(elementGenerator.generate(size, &rng))
             }
             return RoseTree<[Int]>.sequence(forest: value).flatMap { array in
