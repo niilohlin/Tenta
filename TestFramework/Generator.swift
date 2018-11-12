@@ -46,29 +46,6 @@ extension Generator {
     }
 }
 
-func shrink<TestValue>(_ rose: RoseTree<TestValue>, predicate: @escaping (TestValue) -> Bool) -> TestValue {
-    var forest = rose.forest()
-    var cont = true
-    var failedValue = rose.root()
-    while cont {
-        if forest.isEmpty {
-            break
-        }
-        cont = false
-
-        for subRose in forest {
-            if !predicate(subRose.root()) {
-                cont = true
-                forest = subRose.forest()
-                failedValue = subRose.root()
-                break
-            }
-
-        }
-    }
-    return failedValue
-}
-
 func runTest<TestValue>(
         gen: Generator<TestValue, SeededRandomNumberGenerator>, predicate: @escaping (TestValue) -> Bool) {
     var rng = SeededRandomNumberGenerator(seed: 100)
@@ -76,7 +53,7 @@ func runTest<TestValue>(
     for size in 0..<100 {
         let rose = gen.generate(Double(size), &rng)
         if !predicate(rose.root()) {
-            let failedValue = shrink(rose, predicate: predicate)
+            let failedValue = rose.shrink(predicate: predicate)
             print("failed with value: \(failedValue)")
             break
         }
