@@ -73,3 +73,28 @@ extension Array {
         }
     }
 }
+
+extension RoseTree {
+    func shrink(predicate: @escaping (Value) -> Bool) -> Value {
+        var currentForest = forest()
+        var cont = true
+        var failedValue = root()
+        while cont {
+            if currentForest.isEmpty {
+                break
+            }
+            cont = false
+
+            for subRose in currentForest {
+                if !predicate(subRose.root()) {
+                    cont = true
+                    currentForest = subRose.forest()
+                    failedValue = subRose.root()
+                    break
+                }
+
+            }
+        }
+        return failedValue
+    }
+}
