@@ -5,8 +5,23 @@
 
 import Foundation
 
-public struct Generator<T> {
-    let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<T>
+public struct Generator<ValueToTest> {
+    private let maxFilterTries = 500
+    let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+}
+
+public extension Generator {
+    func filter(_ predicate: @escaping (ValueToTest) -> Bool) -> Generator<ValueToTest> {
+        return Generator { size, rng in
+            for retrySize in Int(size)..<(Int(size) + self.maxFilterTries) {
+                let rose = self.generate(Double(retrySize), &rng)
+                if let filteredRose = rose.filter(predicate) {
+                    return filteredRose
+                }
+            }
+            fatalError("Max filter retries. Try easing filter requirement or use a constructive approach")
+        }
+    }
 }
 
 public extension Generator {

@@ -77,6 +77,16 @@ public extension RoseTree {
         }
     }
 
+    func filter(_ predicate: @escaping (Value) -> Bool) -> RoseTree<Value>? {
+        let rootValue = root()
+        guard predicate(rootValue) else {
+            return nil
+        }
+        return RoseTree(root: { rootValue }, forest: {
+            self.forest().compactMap { $0.filter(predicate) }
+        })
+    }
+
     static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
         guard let first = forest.first else {
             return RoseTree<[TestValue]>(root: { [] })
