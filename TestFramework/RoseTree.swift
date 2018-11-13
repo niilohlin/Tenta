@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Non empty, multi way tree
+/// Non empty, multi way lazy tree. Used to hold the generated value in the `root` and the shrink values in the `forest`
 public struct RoseTree<Value> {
     let root: () -> Value
     let forest: () -> [RoseTree<Value>]
