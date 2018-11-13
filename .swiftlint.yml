@@ -21,7 +21,6 @@ opt_in_rules:
   - let_var_whitespace
   - multiline_arguments
   - multiline_parameters
-  - no_extension_access_modifier
   - operator_usage_whitespace
   - overridden_super_call
   - private_outlet
