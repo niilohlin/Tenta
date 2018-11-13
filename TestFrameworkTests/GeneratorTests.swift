@@ -22,11 +22,21 @@ class GeneratorTests: XCTestCase {
     }
 
     func testRunArray() {
-        let intGenerator: Generator<Int> =
-                Generator<Int>.int()
+        let intGenerator: Generator<Int> = Generator<Int>.int()
         runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
             print("got array count: \(array.count)")
             return array.count < 20
+        }
+    }
+
+    func testFilterGenerator() {
+        let positiveEvenGenerator = Generator<Int>.int().filter { int in
+            (int > 0 && int % 2 == 0)
+        }
+        runTest(gen: positiveEvenGenerator) { positiveEven in
+            XCTAssert(positiveEven > 0)
+            XCTAssert(positiveEven % 2 == 0)
+            return positiveEven > 0 && positiveEven % 2 == 0
         }
     }
 }
