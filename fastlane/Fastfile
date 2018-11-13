@@ -6,7 +6,7 @@ platform :ios do
   lane :unit_tests  do
     swiftlint(strict: true)
     scan(
-      scheme: 'TestFramework',
+      scheme: 'Tenta',
       clean: true,
       devices: ['iPhone 7'],
       output_types: 'junit',
