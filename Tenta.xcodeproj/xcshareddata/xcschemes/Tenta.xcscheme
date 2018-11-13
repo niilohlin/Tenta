@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "744C2666216D007900A40EA6"
-               BuildableName = "TestFramework.framework"
-               BlueprintName = "TestFramework"
-               ReferencedContainer = "container:TestFramework.xcodeproj">
+               BuildableName = "Tenta.framework"
+               BlueprintName = "Tenta"
+               ReferencedContainer = "container:Tenta.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "744C266F216D007A00A40EA6"
-               BuildableName = "TestFrameworkTests.xctest"
-               BlueprintName = "TestFrameworkTests"
-               ReferencedContainer = "container:TestFramework.xcodeproj">
+               BuildableName = "TentaTests.xctest"
+               BlueprintName = "TentaTests"
+               ReferencedContainer = "container:Tenta.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "744C2666216D007900A40EA6"
-            BuildableName = "TestFramework.framework"
-            BlueprintName = "TestFramework"
-            ReferencedContainer = "container:TestFramework.xcodeproj">
+            BuildableName = "Tenta.framework"
+            BlueprintName = "Tenta"
+            ReferencedContainer = "container:Tenta.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "744C2666216D007900A40EA6"
-            BuildableName = "TestFramework.framework"
-            BlueprintName = "TestFramework"
-            ReferencedContainer = "container:TestFramework.xcodeproj">
+            BuildableName = "Tenta.framework"
+            BlueprintName = "Tenta"
+            ReferencedContainer = "container:Tenta.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "744C2666216D007900A40EA6"
-            BuildableName = "TestFramework.framework"
-            BlueprintName = "TestFramework"
-            ReferencedContainer = "container:TestFramework.xcodeproj">
+            BuildableName = "Tenta.framework"
+            BlueprintName = "Tenta"
+            ReferencedContainer = "container:Tenta.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

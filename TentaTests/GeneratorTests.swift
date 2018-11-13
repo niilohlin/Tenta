@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import TestFramework
+import Tenta
 import XCTest
 
 class GeneratorTests: XCTestCase {

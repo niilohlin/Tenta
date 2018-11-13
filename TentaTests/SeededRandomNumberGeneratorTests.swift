@@ -4,7 +4,7 @@
 //
 
 import Foundation
-@testable import TestFramework
+@testable import Tenta
 import XCTest
 
 class SeededRandomNumberGeneratorTests: XCTestCase {

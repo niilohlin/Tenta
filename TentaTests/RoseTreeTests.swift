@@ -1,13 +1,13 @@
 //
 //  RoseTreeTests.swift
-//  TestFramework
+//  Tenta
 //
 //  Created by Niil Öhlin on 2018-10-09.
 //  Copyright © 2018 Niil Öhlin. All rights reserved.
 //
 
 import Foundation
-@testable import TestFramework
+@testable import Tenta
 import XCTest
 
 class RoseTreeTests: XCTestCase {
