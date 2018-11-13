@@ -5,12 +5,25 @@
 
 import Foundation
 
+/**
+   Generator is a wrapper for a function that generates a value with accompanying shrink values in a `RoseTree`
+*/
 public struct Generator<ValueToTest> {
     private let maxFilterTries = 500
     let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
 }
 
 public extension Generator {
+    /**
+     Filters values from a generator.
+
+     Usage:
+     ```
+     let even = Generator<Int>.int.filter { $0 % 2 == 0 }
+     ```
+     - Parameter predicate: The predicate for which the values must pass.
+     - Returns: A new generator with values which holds for `predicate`
+    */
     func filter(_ predicate: @escaping (ValueToTest) -> Bool) -> Generator<ValueToTest> {
         return Generator { size, rng in
             for retrySize in Int(size)..<(Int(size) + self.maxFilterTries) {
@@ -25,6 +38,15 @@ public extension Generator {
 }
 
 public extension Generator {
+    /**
+     Generates an `Int`s and shrinks towards 0.
+
+     Usage:
+     ```
+     runTest(Generator<Int>.int()) { int in int % 1 == 0 }
+     ```
+     - Returns: A generator that generates `Int`s.
+     */
     static func int() -> Generator<Int> {
         return Generator<Int> { size, rng in
             if size <= 0 {
@@ -39,6 +61,19 @@ public extension Generator {
         }
     }
 
+    /**
+     Generates arrays of type `TestValue` and shrinks towards `[]`.
+
+     - Usage:
+     ```
+     let intGenerator: Generator<Int> = Generator<Int>.int()
+     runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
+         array.count >= 0
+     }
+     ```
+     - Parameter elementGenerator: Generator used when generating the values of the array.
+     - Returns: A generator that generates arrays.
+     */
     static func array<TestValue>(
             elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
         return Generator<[TestValue]> { size, rng in
@@ -58,6 +93,9 @@ public extension Generator {
     }
 }
 
+/**
+ Placeholder function for running tests.
+ */
 public func runTest<TestValue>(
         gen: Generator<TestValue>, predicate: @escaping (TestValue) -> Bool) {
     var rng = SeededRandomNumberGenerator(seed: 100)

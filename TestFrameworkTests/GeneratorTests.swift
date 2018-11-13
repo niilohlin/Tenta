@@ -24,8 +24,7 @@ class GeneratorTests: XCTestCase {
     func testRunArray() {
         let intGenerator: Generator<Int> = Generator<Int>.int()
         runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
-            print("got array count: \(array.count)")
-            return array.count < 20
+            array.count < 20
         }
     }
 
