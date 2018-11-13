@@ -4,7 +4,7 @@
 //
 
 import Foundation
-@testable import TestFramework
+import TestFramework
 import XCTest
 
 class GeneratorTests: XCTestCase {

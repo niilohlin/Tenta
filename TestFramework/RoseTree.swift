@@ -9,7 +9,7 @@
 import Foundation
 
 // Non empty, multi way tree
-struct RoseTree<Value> {
+public struct RoseTree<Value> {
     let root: () -> Value
     let forest: () -> [RoseTree<Value>]
 
@@ -47,7 +47,7 @@ extension RoseTree: Sequence {
     }
 }
 
-struct RoseIterator<Value>: IteratorProtocol {
+public struct RoseIterator<Value>: IteratorProtocol {
     var roseTree: RoseTree<Value>
     var queue: [RoseTree<Value>] = []
 
@@ -65,7 +65,7 @@ struct RoseIterator<Value>: IteratorProtocol {
     }
 }
 
-extension RoseTree {
+public extension RoseTree {
     func map<T>(_ transform: @escaping (Value) -> T) -> RoseTree<T> {
         return RoseTree<T>(root: { transform(self.root()) }, forest: { self.forest().map { $0.map(transform) } })
     }
@@ -91,7 +91,7 @@ extension RoseTree {
 }
 
 extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return getDescription(depth: 0)
     }
 

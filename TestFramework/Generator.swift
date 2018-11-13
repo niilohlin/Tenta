@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct Generator<T> {
+public struct Generator<T> {
     let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<T>
 }
 
-extension Generator {
+public extension Generator {
     static func int() -> Generator<Int> {
         return Generator<Int> { size, rng in
             if size <= 0 {
@@ -43,7 +43,7 @@ extension Generator {
     }
 }
 
-func runTest<TestValue>(
+public func runTest<TestValue>(
         gen: Generator<TestValue>, predicate: @escaping (TestValue) -> Bool) {
     var rng = SeededRandomNumberGenerator(seed: 100)
 
