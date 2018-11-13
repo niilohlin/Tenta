@@ -1,5 +1,5 @@
 build
-xcuserdata
+*.xcuserdata
 *.xcuserdatad
 *.pbxuser
 *.perspectivev3
