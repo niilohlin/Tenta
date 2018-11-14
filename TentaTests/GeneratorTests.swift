@@ -38,4 +38,10 @@ class GeneratorTests: XCTestCase {
             return positiveEven > 0 && positiveEven % 2 == 0
         }
     }
+
+    func testRunTestWithDefaultGenerator() {
+        runTest { (int: Int) in
+            int > 0
+        }
+    }
 }
