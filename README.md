@@ -8,7 +8,6 @@ Tenta is Swedish slang for "Test" typically in a University setting.
 
 ```swift
     // Assert that the reverse of any array keeps its length.
-    let intGenerator: Generator<Int> = Generator<Int>.int()
     runTest { (array: [Int]) in
         array.count == array.reversed().count
     }
