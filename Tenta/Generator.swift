@@ -37,7 +37,7 @@ public extension Generator {
     }
 }
 
-public extension Generator {
+public extension Generator where ValueToTest == Int {
     /**
      Generates an `Int`s and shrinks towards 0.
 
@@ -52,7 +52,7 @@ public extension Generator {
             if size <= 0 {
                 return RoseTree(root: { 0 }, forest: { [] })
             }
-            let range = 0 ... Int(size)
+            let range = 0...Int(size)
             let value = Int.random(in: range, using: &rng)
             return RoseTree(root: { value }, forest: {
                 0.shrinkTowards(destination: value)
@@ -60,7 +60,9 @@ public extension Generator {
 
         }
     }
+}
 
+public extension Generator {
     /**
      Generates arrays of type `TestValue` and shrinks towards `[]`.
 
@@ -108,4 +110,11 @@ public func runTest<TestValue>(
             break
         }
     }
+}
+
+/**
+ Run a test with the default generator.
+ */
+public func runTest<TestValue: Generatable>(_ predicate: @escaping (TestValue) -> Bool) {
+    runTest(gen: TestValue.self.generator, predicate: predicate)
 }
