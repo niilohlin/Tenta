@@ -1,5 +1,6 @@
 
 identifier_name:
+  excluded: [id, i, j, x, y]
   severity: warning
 
 disabled_rules:

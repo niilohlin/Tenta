@@ -31,9 +31,11 @@ extension Int {
     }
 
     func shrinkTowards(destination: Int) -> [RoseTree<Int>] {
-        return RoseTree<Int>.generateForest(seed: destination) { _ in
-            0.towards(destination: self)
+        let result = RoseTree<Int>.generateForest(seed: self) { smaller in
+            destination.towards(destination: smaller).filter { $0 != smaller } + [destination]
         }
+        print(Array(result.prefix(10)).map { $0.root() })
+        return result
     }
 }
 

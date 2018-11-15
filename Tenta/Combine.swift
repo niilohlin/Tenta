@@ -19,25 +19,14 @@ public class Combiner {
     }
 }
 
-//public extension Generator {
-//    static func combine<T>(_ generateNewType: @escaping (Combiner) -> T) -> Generator<T> {
-//        return Generator<T> { size, rng in
-//            let combiner = Combiner(size: size, rng: &rng)
-//            let newType = generateNewType(combiner)
-//            return newType
-//        }
-//    }
-//}
-//
-//struct Point {
-//    var x: Int
-//    var y: Int
-//}
-//
-//func testCombine() {
-//    let pointGenerator = Generator<Point>.combine { combiner -> Point in
-//        let x = combiner.generate(generator: Int.generator)
-//        let y = combiner.generate(generator: Int.generator)
-//        return Point(x: x, y: y)
-//    }
-//}
+public extension Generator {
+    func combine<OtherValue, Transformed>(
+            with other: Generator<OtherValue>,
+            transform: @escaping (ValueToTest, OtherValue) -> Transformed) -> Generator<Transformed> {
+        return Generator<Transformed> { size, rng in
+            let firstRose = self.generate(size, &rng)
+            let secondRose = other.generate(size, &rng)
+            return firstRose.combine(with: secondRose, transform: transform)
+        }
+    }
+}

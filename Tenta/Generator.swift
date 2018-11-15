@@ -52,10 +52,10 @@ public extension Generator where ValueToTest == Int {
             if size <= 0 {
                 return RoseTree(root: { 0 }, forest: { [] })
             }
-            let range = 0...Int(size)
+            let range = Int(-size)...Int(size)
             let value = Int.random(in: range, using: &rng)
             return RoseTree(root: { value }, forest: {
-                0.shrinkTowards(destination: value)
+                value.shrinkTowards(destination: 0)
             })
 
         }
@@ -105,6 +105,9 @@ public func runTest<TestValue>(
     for size in 0..<100 {
         let rose = gen.generate(Double(size), &rng)
         if !predicate(rose.root()) {
+//            print("failed with tree: \(rose.description)")
+            print("failed with value: \(rose.root())")
+            print("starting shrink")
             let failedValue = rose.shrink(predicate: predicate)
             print("failed with value: \(failedValue)")
             break

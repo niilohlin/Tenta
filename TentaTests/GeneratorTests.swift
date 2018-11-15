@@ -44,4 +44,21 @@ class GeneratorTests: XCTestCase {
             int > 0
         }
     }
+
+    struct Point {
+        var x: Int
+        var y: Int
+    }
+
+    func testCombine() {
+        let pointGenerator = Int.generator.combine(with: Int.generator) { x, y in
+            Point(x: x, y: y)
+        }
+
+        runTest(gen: pointGenerator) { (point: Point) in
+            print("point: \(point)")
+            return point.y < 20
+        }
+
+    }
 }

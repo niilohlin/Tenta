@@ -117,7 +117,7 @@ public extension RoseTree {
     }
 }
 
-extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible {
+extension RoseTree: CustomStringConvertible {
     public var description: String {
         return getDescription(depth: 0)
     }
@@ -127,7 +127,7 @@ extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible
         guard depth < 10 else {
             return indentation + "...\n"
         }
-        return indentation + root().description +
+        return indentation + String(describing: root()) +
                 "\n" +
                 forest().map { $0.getDescription(depth: depth + 1) }.joined()
     }
