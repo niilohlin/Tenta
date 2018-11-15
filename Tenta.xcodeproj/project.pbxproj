@@ -18,6 +18,7 @@
 		8E8906B90C67FCA8540DD929 /* Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BE14D9CEC77ED2315A7 /* Generatable.swift */; };
 		8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
 		8E8907FC12761000679288B8 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890F17CFDEDA3A1F1C4266 /* Generator.swift */; };
+		8E890B76E16051572948B7C6 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902631B1619B438F3FCFD /* Combine.swift */; };
 		8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890A83B74300654007736F /* GeneratorTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		744C2677216D007A00A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744C2681216D008B00A40EA6 /* RoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTree.swift; sourceTree = "<group>"; };
 		744C2683216D00B700A40EA6 /* RoseTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTreeTests.swift; sourceTree = "<group>"; };
+		8E8902631B1619B438F3FCFD /* Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
 		8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGeneratorTests.swift; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
 		8E890BE14D9CEC77ED2315A7 /* Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generatable.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				8E890E369D88E63EFFB794CC /* Shrink.swift */,
 				8E890FF115A2715C7DDE9499 /* Property.swift */,
 				8E890BE14D9CEC77ED2315A7 /* Generatable.swift */,
+				8E8902631B1619B438F3FCFD /* Combine.swift */,
 			);
 			path = Tenta;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				8E8901A16D46FA19CAE712B1 /* Shrink.swift in Sources */,
 				8E89048932464D7A5538C79C /* Property.swift in Sources */,
 				8E8906B90C67FCA8540DD929 /* Generatable.swift in Sources */,
+				8E890B76E16051572948B7C6 /* Combine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

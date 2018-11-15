@@ -96,4 +96,21 @@ class RoseTreeTests: XCTestCase {
         }
         _ = rose.description
     }
+
+    func testCombine() {
+        let rose = RoseTree(root: { 0 }, forest: { [
+            RoseTree(root: { 1 }, forest: { [ ] }),
+            RoseTree(root: { 2 }, forest: { [ ] })
+        ]})
+        let other = RoseTree(root: { 3 }, forest: { [
+            RoseTree(root: { 4 }, forest: { [ ] }),
+            RoseTree(root: { 5 }, forest: { [ ] }),
+            RoseTree(root: { 6 }, forest: { [
+                RoseTree(root: { 7 }, forest: { [ ] })
+            ] })
+        ]})
+
+        let combined = rose.combine(with: other, transform: (+))
+        XCTAssertEqual(Array(combined).map { $0.root() }, [3, 4, 5, 6, 4, 5, 7, 5, 6, 7, 6, 7, 8, 8, 9])
+    }
 }

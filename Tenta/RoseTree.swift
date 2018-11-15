@@ -98,6 +98,23 @@ public extension RoseTree {
             }
         }
     }
+
+    func combine<OtherValue, Transformed>(
+            with other: RoseTree<OtherValue>,
+            transform: @escaping (Value, OtherValue) -> Transformed) -> RoseTree<Transformed> {
+        let firstRoot = root()
+        let secondRoot = other.root()
+        return RoseTree<Transformed>(root: { transform(firstRoot, secondRoot) }, forest: {
+            let firstForest = self.forest()
+            let secondForest = other.forest()
+            let mapTransformWithFirstRoot = { (rose: RoseTree<OtherValue>) -> RoseTree<Transformed> in
+                rose.map { transform(firstRoot, $0) }
+            }
+            return secondForest.map(mapTransformWithFirstRoot) + firstForest.map { firstSubForest in
+                firstSubForest.combine(with: other, transform: transform)
+            }
+        })
+    }
 }
 
 extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible {

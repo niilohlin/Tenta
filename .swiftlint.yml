@@ -18,7 +18,6 @@ opt_in_rules:
   - force_unwrapping
   - implicit_return
   - joined_default_parameter
-  - let_var_whitespace
   - multiline_arguments
   - multiline_parameters
   - operator_usage_whitespace
