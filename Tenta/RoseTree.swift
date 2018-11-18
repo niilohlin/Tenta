@@ -98,9 +98,26 @@ public extension RoseTree {
             }
         }
     }
+
+    func combine<OtherValue, Transformed>(
+            with other: RoseTree<OtherValue>,
+            transform: @escaping (Value, OtherValue) -> Transformed) -> RoseTree<Transformed> {
+        let firstRoot = root()
+        let secondRoot = other.root()
+        return RoseTree<Transformed>(root: { transform(firstRoot, secondRoot) }, forest: {
+            let firstForest = self.forest()
+            let secondForest = other.forest()
+            let mapTransformWithFirstRoot = { (rose: RoseTree<OtherValue>) -> RoseTree<Transformed> in
+                rose.map { transform(firstRoot, $0) }
+            }
+            return secondForest.map(mapTransformWithFirstRoot) + firstForest.map { firstSubForest in
+                firstSubForest.combine(with: other, transform: transform)
+            }
+        })
+    }
 }
 
-extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible {
+extension RoseTree: CustomStringConvertible {
     public var description: String {
         return getDescription(depth: 0)
     }
@@ -110,7 +127,7 @@ extension RoseTree: CustomStringConvertible where Value: CustomStringConvertible
         guard depth < 10 else {
             return indentation + "...\n"
         }
-        return indentation + root().description +
+        return indentation + String(describing: root()) +
                 "\n" +
                 forest().map { $0.getDescription(depth: depth + 1) }.joined()
     }

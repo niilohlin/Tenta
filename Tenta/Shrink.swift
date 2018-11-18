@@ -21,18 +21,19 @@ extension Int {
         }
     }
 
-    func towards(destination: Int) -> [Int] {
-        if self == destination {
+    /// Shrink towards `self` from `from`
+    func towards(from: Int) -> [Int] {
+        if self == from {
             return []
         }
-        let difference = destination / 2 - self / 2
-        let result = difference.halves().map { destination - $0 }
+        let difference = from / 2 - self / 2
+        let result = difference.halves().map { from - $0 }
         return result.contains(self) ? result : [self] + result
     }
 
-    func shrinkTowards(destination: Int) -> [RoseTree<Int>] {
-        return RoseTree<Int>.generateForest(seed: destination) { _ in
-            0.towards(destination: self)
+    func shrinkFrom(source: Int) -> [RoseTree<Int>] {
+        return RoseTree<Int>.generateForest(seed: source) { smaller in
+            self.towards(from: smaller)
         }
     }
 }
