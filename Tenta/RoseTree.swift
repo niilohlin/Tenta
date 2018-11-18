@@ -87,13 +87,13 @@ public extension RoseTree {
         })
     }
 
-    static func sequence<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
+    static func combine<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {
         guard let first = forest.first else {
             return RoseTree<[TestValue]>(root: { [] })
         }
         let rest = Array(forest.dropFirst())
         return first.flatMap { (value: TestValue) in
-            sequence(forest: rest).flatMap { (other: [TestValue]) in
+            combine(forest: rest).flatMap { (other: [TestValue]) in
                 RoseTree<[TestValue]>(root: { [value] + other })
             }
         }
