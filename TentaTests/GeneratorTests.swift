@@ -4,15 +4,15 @@
 //
 
 import Foundation
-import Tenta
+@testable import Tenta
 import XCTest
 
 class GeneratorTests: XCTestCase {
 
     func testRunTest() {
-        runTest(gen: Generator<Int>.int()) { int in
+        assert(generator: Generator<Int>.int(), shrinksTo: 10, predicate: { (int: Int) in
             int < 10
-        }
+        })
     }
 
     func testRunMoreComplicatedIntTest() {
@@ -45,7 +45,7 @@ class GeneratorTests: XCTestCase {
         }
     }
 
-    struct Point {
+    struct Point: Equatable {
         var x: Int
         var y: Int
     }
@@ -55,10 +55,35 @@ class GeneratorTests: XCTestCase {
             Point(x: x, y: y)
         }
 
-        runTest(gen: pointGenerator) { (point: Point) in
-            print("point: \(point)")
-            return point.y < 20
-        }
+        assert(generator: pointGenerator, shrinksTo: Point(x: 0, y: 20), predicate: { (point: Point) in
+            point.y < 20
+        })
+    }
 
+    func assert<T: Equatable>(
+            generator: Generator<T>,
+            shrinksTo minimumFailing: T,
+            predicate: @escaping (T) -> Bool,
+            file: StaticString = #file,
+            line: UInt = #line) {
+        guard let value = generator.runAndReturnShrink(with: predicate) else {
+            XCTFail("Generator did not fail", file: file, line: line)
+            return
+        }
+        XCTAssertEqual(value, minimumFailing, "Generator did not shrink to \(minimumFailing)", file: file, line: line)
+    }
+}
+
+extension Generator {
+    func runAndReturnShrink(with predicate: @escaping (ValueToTest) -> Bool) -> ValueToTest? {
+        var rng = SeededRandomNumberGenerator(seed: 100)
+
+        for size in 0..<100 {
+            let rose = generate(Double(size), &rng)
+            if !predicate(rose.root()) {
+                return rose.shrink(predicate: predicate)
+            }
+        }
+        return nil
     }
 }

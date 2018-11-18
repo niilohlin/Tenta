@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct SeededRandomNumberGenerator: RandomNumberGenerator {
-    var seed: UInt64
+public struct SeededRandomNumberGenerator: RandomNumberGenerator {
+    public var seed: UInt64
 
-    init(seed: UInt64) {
+    public init(seed: UInt64) {
         self.seed = seed
     }
 
-    mutating func next() -> UInt64 {
+    public mutating func next() -> UInt64 {
         seed = 6364136223846793005 &* seed &+ 1442695040888963407
         return seed
     }

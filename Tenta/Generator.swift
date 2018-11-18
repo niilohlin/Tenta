@@ -10,7 +10,10 @@ import Foundation
 */
 public struct Generator<ValueToTest> {
     private let maxFilterTries = 500
-    let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+    public let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+    public init(generate: @escaping (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>) {
+        self.generate = generate
+    }
 }
 
 public extension Generator {
@@ -55,7 +58,7 @@ public extension Generator where ValueToTest == Int {
             let range = Int(-size)...Int(size)
             let value = Int.random(in: range, using: &rng)
             return RoseTree(root: { value }, forest: {
-                value.shrinkFrom(source: 0)
+                0.shrinkFrom(source: value)
             })
 
         }
