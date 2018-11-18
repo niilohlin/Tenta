@@ -60,6 +60,27 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testInternallyShrinkingArray() {
+        // This is why we do not shrink the elements in the array. The shrink tree _really_ explodes.
+        let arrayOfGeneratorsGenerator = Int.generator.map {
+            [Generator<Int>](repeating: Int.generator, count: abs($0))
+        }
+
+        let arrayGeneratorWithInternalIntShrinks = Generator<[Int]> { size, rng in
+            let treeOfGenerators = arrayOfGeneratorsGenerator.generate(size, &rng)
+            let treeOfInts = treeOfGenerators.flatMap { (generators: [Generator<Int>]) -> RoseTree<[Int]> in
+                let forest: [RoseTree<Int>] = generators.map { (generator: Generator<Int>) in
+                    generator.generate(size, &rng)
+                }
+                return RoseTree<[Int]>.combine(forest: forest)
+            }
+            return treeOfInts
+        }
+        runTest(gen: arrayGeneratorWithInternalIntShrinks) { (integers: [Int]) in
+            integers.count < 3
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,

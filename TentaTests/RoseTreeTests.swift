@@ -73,7 +73,7 @@ class RoseTreeTests: XCTestCase {
 
     func testSequence() {
         let forest = (0..<5).map { int in RoseTree(root: { int }) }
-        let array = RoseTree<Int>.sequence(forest: forest).root()
+        let array = RoseTree<Int>.combine(forest: forest).root()
         XCTAssertEqual(array, [0, 1, 2, 3, 4])
     }
 
@@ -85,7 +85,7 @@ class RoseTreeTests: XCTestCase {
             [RoseTree<Int>(root: { 4 }), RoseTree<Int>(root: { 5 })]
         })
         let forest = [firstTree, secondTree]
-        let roseTree = RoseTree<Int>.sequence(forest: forest)
+        let roseTree = RoseTree<Int>.combine(forest: forest)
         let expected = [[0, 3], [0, 4], [0, 5], [1, 3], [2, 3], [1, 4], [1, 5], [2, 4], [2, 5]]
         XCTAssertEqual(Array(roseTree).map { $0.root() }, expected)
     }
