@@ -55,7 +55,7 @@ public extension Generator where ValueToTest == Int {
             let range = Int(-size)...Int(size)
             let value = Int.random(in: range, using: &rng)
             return RoseTree(root: { value }, forest: {
-                value.shrinkTowards(destination: 0)
+                value.shrinkFrom(source: 0)
             })
 
         }

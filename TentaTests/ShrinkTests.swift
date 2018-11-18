@@ -13,15 +13,15 @@ class ShrinkTests: XCTestCase {
     }
 
     func testTowards() {
-        XCTAssertEqual(0.towards(destination: 10), [0, 5, 8, 9])
+        XCTAssertEqual(0.towards(from: 10), [0, 5, 8, 9])
     }
 
     func testTowards_backwards() {
-        XCTAssertEqual(10.towards(destination: 0), [10, 5, 2, 1])
+        XCTAssertEqual(10.towards(from: 0), [10, 5, 2, 1])
     }
 
     func testShrink() {
-        XCTAssertEqual((3.shrinkTowards(destination: 0)).flatMap(Array.init).map { $0.root() }, [0, 2, 0, 1, 0])
+        XCTAssertEqual((0.shrinkFrom(source: 3)).flatMap(Array.init).map { $0.root() }, [0, 2, 0, 1, 0])
     }
 
     func testRemoving() {
