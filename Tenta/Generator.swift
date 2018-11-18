@@ -95,11 +95,15 @@ public extension Generator {
             for _ in 0 ... Int(size) {
                 value.append(elementGenerator.generate(size, &rng))
             }
-            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
-                RoseTree(seed: array) { (parentArray: [TestValue]) in
-                    parentArray.shrink()
-                }
+            let resultingArray = value.map { $0.root() }
+            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
+                parentArray.shrink()
             }
+//            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
+//                RoseTree(seed: array) { (parentArray: [TestValue]) in
+//                    parentArray.shrink()
+//                }
+//            }
         }
     }
 }
@@ -116,7 +120,7 @@ public func runTest<TestValue>(
         if !predicate(rose.root()) {
 //            print("failed with tree: \(rose.description)")
             print("failed with value: \(rose.root())")
-            print("failed with rose: \(rose)")
+            //print("failed with rose: \(rose)")
             print("starting shrink")
             let failedValue = rose.shrink(predicate: predicate)
             print("failed with value: \(failedValue)")
