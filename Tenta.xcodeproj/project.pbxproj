@@ -14,6 +14,7 @@
 		8E89012AA18EDB966D3BDB79 /* SeededRandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */; };
 		8E89015C492DB1F2BB94EC0D /* ShrinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE977F432F2F78955F1 /* ShrinkTests.swift */; };
 		8E8901A16D46FA19CAE712B1 /* Shrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890E369D88E63EFFB794CC /* Shrink.swift */; };
+		8E8902351C0DECD947042796 /* Character+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89050BB85CE89094A55346 /* Character+Generatable.swift */; };
 		8E89048932464D7A5538C79C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
 		8E8906B90C67FCA8540DD929 /* Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BE14D9CEC77ED2315A7 /* Generatable.swift */; };
 		8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
@@ -44,6 +45,7 @@
 		8E890030DAB509A6DF2D00A3 /* Double+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Generatable.swift"; sourceTree = "<group>"; };
 		8E8902631B1619B438F3FCFD /* Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
 		8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGeneratorTests.swift; sourceTree = "<group>"; };
+		8E89050BB85CE89094A55346 /* Character+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Generatable.swift"; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
 		8E890BE14D9CEC77ED2315A7 /* Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generatable.swift; sourceTree = "<group>"; };
 		8E890DE977F432F2F78955F1 /* ShrinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShrinkTests.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				8E890BE14D9CEC77ED2315A7 /* Generatable.swift */,
 				8E8902631B1619B438F3FCFD /* Combine.swift */,
 				8E890030DAB509A6DF2D00A3 /* Double+Generatable.swift */,
+				8E89050BB85CE89094A55346 /* Character+Generatable.swift */,
 			);
 			path = Tenta;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				8E8906B90C67FCA8540DD929 /* Generatable.swift in Sources */,
 				8E890B76E16051572948B7C6 /* Combine.swift in Sources */,
 				8E890E3FC4A4CFD53F333EA8 /* Double+Generatable.swift in Sources */,
+				8E8902351C0DECD947042796 /* Character+Generatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
