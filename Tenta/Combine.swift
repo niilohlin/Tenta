@@ -55,4 +55,9 @@ public extension Generator {
             transform: @escaping ([Value]) -> Transformed) -> Generator<Transformed> {
         return Generator.combine(generators).map(transform)
     }
+
+    /// Should only be used when combining large structs or classes.
+    func generateWithoutShrinking(_ size: Double, _ rng: inout SeededRandomNumberGenerator) -> ValueToTest {
+        return generate(size, &rng).root()
+    }
 }

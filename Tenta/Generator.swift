@@ -52,11 +52,11 @@ public extension Generator where ValueToTest == Int {
 
      Usage:
      ```
-     runTest(Generator<Int>.int()) { int in int % 1 == 0 }
+     runTest(Generator<Int>.int) { int in int % 1 == 0 }
      ```
      - Returns: A generator that generates `Int`s.
      */
-    static func int() -> Generator<Int> {
+    static var int: Generator<Int> {
         return Generator<Int> { size, rng in
             if size <= 0 {
                 return RoseTree(root: { 0 }, forest: { [] })
@@ -77,7 +77,7 @@ public extension Generator {
 
      - Usage:
      ```
-     let intGenerator: Generator<Int> = Generator<Int>.int()
+     let intGenerator: Generator<Int> = Generator<Int>.int
      runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
          array.count >= 0
      }
