@@ -87,6 +87,14 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testGenerateFromSequence() {
+        let letters = "abcdefghijklmnopqrstuvwxyz"
+        let letterGenerator = Generator<Character>.element(from: letters)
+        assert(generator: letterGenerator, shrinksTo: Character("l"), predicate: { character in
+            !"lmnopqrstuvwxyz".contains(character)
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,

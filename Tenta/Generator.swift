@@ -44,6 +44,23 @@ public extension Generator {
             fatalError("Max filter retries. Try easing filter requirement or use a constructive approach")
         }
     }
+
+    /// Create a generator that generate elements in `Sequence`
+    static func element<S: Sequence>(from sequence: S) -> Generator<S.Element> {
+        var array = [S.Element]()
+        var iterator = sequence.makeIterator()
+        return Generator<S.Element> { _, rng in
+            if let nextElement = iterator.next() {
+                array.append(nextElement)
+            }
+            guard let element = array.randomElement(using: &rng) else {
+                fatalError("Could not generate an element from an empty sequence")
+            }
+            return RoseTree<S.Element>(root: { () -> S.Element in element }, forest: { () -> [RoseTree<S.Element>] in
+                array.map { elementInGeneratedSequence in RoseTree(root: { elementInGeneratedSequence }) }
+            })
+        }
+    }
 }
 
 public extension Generator where ValueToTest == Int {
