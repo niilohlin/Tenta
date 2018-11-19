@@ -47,6 +47,13 @@ class ShrinkTests: XCTestCase {
         let array = [1, 2, 3, 4]
         let expected = [[], [3, 4], [1, 2], [2, 3, 4], [1, 3, 4], [1, 2, 4], [1, 2, 3]]
         XCTAssertEqual(array.shrink(), expected)
+    }
 
+    func testDoubleTowards() {
+        let expectedValues = [0.0, 50.0, 75.0, 87.5, 93.75, 96.875, 98.4375]
+        let actualValues = 0.0.towards(source: 100).prefix(7)
+        for (expected, actual) in zip(expectedValues, actualValues) {
+            XCTAssertEqual(expected, actual, accuracy: 0.001)
+        }
     }
 }

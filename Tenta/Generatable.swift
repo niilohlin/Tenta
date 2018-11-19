@@ -15,7 +15,7 @@ public protocol Generatable {
 extension Int: Generatable {
     /// The default int generator. Generates `Int`s according to the `size` parameter.
     public static var generator: Generator<Int> {
-        return Generator<Int>.int()
+        return Generator<Int>.int
     }
 }
 
