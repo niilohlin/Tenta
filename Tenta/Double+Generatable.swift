@@ -38,3 +38,9 @@ public extension Generator {
         }
     }
 }
+
+extension Double: Generatable {
+    public static var generator: Generator<Double> {
+        return Generator<Double>.double
+    }
+}
