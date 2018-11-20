@@ -5,6 +5,16 @@
 
 import Foundation
 
-extension Character {
+public extension Generator where ValueToTest == Character {
+    static var char: Generator<Character> {
+        return Generator<UInt8>.element(from: 32...255).map { uInt8 in
+            Character(UnicodeScalar(uInt8))
+        }
+    }
+}
 
+extension Character: Generatable {
+    public static var generator: Generator<Character> {
+        return Generator<Character>.char
+    }
 }
