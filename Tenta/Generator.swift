@@ -72,68 +72,6 @@ public extension Generator {
     }
 }
 
-public extension Generator where ValueToTest == Int {
-    /**
-     Generates an `Int`s and shrinks towards 0.
-
-     Usage:
-     ```
-     runTest(Generator<Int>.int) { int in int % 1 == 0 }
-     ```
-     - Returns: A generator that generates `Int`s.
-     */
-    static var int: Generator<Int> {
-        return Generator<Int> { size, rng in
-            if size <= 0 {
-                return RoseTree(root: { 0 }, forest: { [] })
-            }
-            let range = Int(-size)...Int(size)
-            let value = Int.random(in: range, using: &rng)
-            return RoseTree(root: { value }, forest: {
-                0.shrinkFrom(source: value)
-            })
-
-        }
-    }
-}
-
-public extension Generator {
-    /**
-     Generates arrays of type `TestValue` and shrinks towards `[]`.
-
-     - Usage:
-     ```
-     let intGenerator: Generator<Int> = Generator<Int>.int
-     runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
-         array.count >= 0
-     }
-     ```
-     - Parameter elementGenerator: Generator used when generating the values of the array.
-     - Returns: A generator that generates arrays.
-     */
-    static func array<TestValue>(
-            elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
-        return Generator<[TestValue]> { size, rng in
-            if size <= 0 {
-                return RoseTree(root: { [] }, forest: { [] })
-            }
-            var value = [RoseTree<TestValue>]()
-            for _ in 0 ... Int(size) {
-                value.append(elementGenerator.generate(size, &rng))
-            }
-            let resultingArray = value.map { $0.root() }
-            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
-                parentArray.shrink()
-            }
-//            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
-//                RoseTree(seed: array) { (parentArray: [TestValue]) in
-//                    parentArray.shrink()
-//                }
-//            }
-        }
-    }
-}
-
 /**
  Placeholder function for running tests.
  */
