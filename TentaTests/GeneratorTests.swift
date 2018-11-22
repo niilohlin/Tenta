@@ -152,6 +152,18 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testBool() {
+        assert(generator: Bool.generator, shrinksTo: false, predicate: { (bool: Bool) in
+            bool
+        })
+    }
+
+    func testOptional() {
+        assert(generator: Int?.generator, shrinksTo: 4, predicate: { (int: Int?) -> Bool in
+            int.map { $0 != 4 } ?? true
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
