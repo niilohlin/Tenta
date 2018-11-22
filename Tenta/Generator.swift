@@ -5,6 +5,8 @@
 
 import Foundation
 
+public typealias Size = Double
+
 /**
    Generator is a wrapper for a function that generates a value with accompanying shrink values in a `RoseTree`
 */
@@ -46,19 +48,26 @@ public extension Generator {
     }
 
     /// Create a generator that generate elements in `Sequence`
-    static func element<S: Sequence>(from sequence: S) -> Generator<S.Element> {
-        var array = [S.Element]()
+    static func element<SequenceType: Sequence>(from sequence: SequenceType) -> Generator<SequenceType.Element> {
+        var array = [SequenceType.Element]()
         var iterator = sequence.makeIterator()
-        return Generator<S.Element> { _, rng in
+        return Generator<SequenceType.Element> { _, rng in
             if let nextElement = iterator.next() {
                 array.append(nextElement)
             }
             guard let element = array.randomElement(using: &rng) else {
                 fatalError("Could not generate an element from an empty sequence")
             }
-            return RoseTree<S.Element>(root: { () -> S.Element in element }, forest: { () -> [RoseTree<S.Element>] in
+            return RoseTree<SequenceType.Element>(root: { element }, forest: { () -> [RoseTree<SequenceType.Element>] in
                 array.map { elementInGeneratedSequence in RoseTree(root: { elementInGeneratedSequence }) }
             })
+        }
+    }
+
+    /// Create a generator which depend on the size.
+    static func withSize<Type>(_ createGeneratorWithSize: @escaping (Size) -> Generator<Type>) -> Generator<Type> {
+        return Generator<Type> { size, rng in
+            createGeneratorWithSize(size).generate(size, &rng)
         }
     }
 }
