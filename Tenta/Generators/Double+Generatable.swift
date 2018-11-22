@@ -30,7 +30,7 @@ extension Double {
     }
 }
 
-public extension Generator {
+public extension Generator where ValueToTest == Double {
     static var double: Generator<Double> {
         return Generator<Double> { size, rng in
             let value = Double.random(in: -size...size, using: &rng)
