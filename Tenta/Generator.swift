@@ -25,6 +25,21 @@ public extension Generator {
         }
     }
 
+    func flatMap<Transformed>(
+            _ transform: @escaping (ValueToTest) -> Generator<Transformed>
+    ) -> Generator<Transformed> {
+        return Generator<Transformed> { size, rng in
+            let roseTree = self.generate(size, &rng)
+
+            let newRng = rng
+
+            return roseTree.flatMap { generatedValue in
+                var newRng = newRng
+                return transform(generatedValue).generate(size, &newRng)
+            }
+        }
+    }
+
     /**
      Filters values from a generator.
 

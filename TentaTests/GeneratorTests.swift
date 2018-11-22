@@ -7,6 +7,39 @@ import Foundation
 @testable import Tenta
 import XCTest
 
+struct ComplexTest: Generatable {
+    var firstName: String
+    var lastName: String
+    var age: Int
+    var email: String
+    var address: String
+    var zipCode: String
+    var sex: String
+
+    static var generator: Generator<ComplexTest> {
+        return Generator<ComplexTest> { size, rng in
+            let firstName = String.generator.generateWithoutShrinking(size, &rng)
+            let lastName = String.generator.generateWithoutShrinking(size, &rng)
+            let age = Int.generator.generateWithoutShrinking(size, &rng)
+            let email = String.generator.generateWithoutShrinking(size, &rng)
+            let address = String.generator.generateWithoutShrinking(size, &rng)
+            let zipCode = String.generator.generateWithoutShrinking(size, &rng)
+            let sex = String.generator.generateWithoutShrinking(size, &rng)
+            return RoseTree<ComplexTest>(root: {
+                ComplexTest(
+                        firstName: firstName,
+                        lastName: lastName,
+                        age: age,
+                        email: email,
+                        address: address,
+                        zipCode: zipCode,
+                        sex: sex
+                )
+            })
+        }
+    }
+}
+
 class GeneratorTests: XCTestCase {
 
     func testRunTest() {
@@ -110,6 +143,24 @@ class GeneratorTests: XCTestCase {
     func testShrinkStrings() {
         assert(generator: String.generator, shrinksTo: "a", predicate: { (string: String) in
             !string.contains(Character("a"))
+        })
+    }
+
+    func testComplexTest() {
+        runTest { (complex: ComplexTest) in
+            !complex.firstName.contains(Character("a"))
+        }
+    }
+
+    func testBool() {
+        assert(generator: Bool.generator, shrinksTo: false, predicate: { (bool: Bool) in
+            bool
+        })
+    }
+
+    func testOptional() {
+        assert(generator: Int?.generator, shrinksTo: 4, predicate: { (int: Int?) -> Bool in
+            int.map { $0 != 4 } ?? true
         })
     }
 
