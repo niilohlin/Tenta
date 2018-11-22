@@ -11,6 +11,7 @@
 		744C2678216D007A00A40EA6 /* Tenta.h in Headers */ = {isa = PBXBuildFile; fileRef = 744C266A216D007900A40EA6 /* Tenta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2681216D008B00A40EA6 /* RoseTree.swift */; };
 		744C2686216D00C000A40EA6 /* RoseTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2683216D00B700A40EA6 /* RoseTreeTests.swift */; };
+		8E890107B6B80B99042FD749 /* String+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */; };
 		8E89012AA18EDB966D3BDB79 /* SeededRandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */; };
 		8E89015C492DB1F2BB94EC0D /* ShrinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE977F432F2F78955F1 /* ShrinkTests.swift */; };
 		8E8901A16D46FA19CAE712B1 /* Shrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890E369D88E63EFFB794CC /* Shrink.swift */; };
@@ -49,6 +50,7 @@
 		8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGeneratorTests.swift; sourceTree = "<group>"; };
 		8E89038F86E00A552B1B8373 /* Double+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Generatable.swift"; sourceTree = "<group>"; };
 		8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Generatable.swift"; sourceTree = "<group>"; };
+		8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Generatable.swift"; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
 		8E890BE14D9CEC77ED2315A7 /* Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generatable.swift; sourceTree = "<group>"; };
 		8E890DE3C0FE20B66A2A2EA6 /* Sequence+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Generatable.swift"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				8E89038F86E00A552B1B8373 /* Double+Generatable.swift */,
 				8E89000AD4BD34271F482422 /* Numbers+Generatable.swift */,
 				8E890DE3C0FE20B66A2A2EA6 /* Sequence+Generatable.swift */,
+				8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				8E8905DFAC6D8436A93F8DC8 /* Double+Generatable.swift in Sources */,
 				8E890925FB1144362E5BE8DC /* Numbers+Generatable.swift in Sources */,
 				8E890AEF0893C5B917F51C50 /* Sequence+Generatable.swift in Sources */,
+				8E890107B6B80B99042FD749 /* String+Generatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

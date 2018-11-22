@@ -101,6 +101,18 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testGenerateStrings() {
+        runTest { (_: String) in
+            true
+        }
+    }
+
+    func testShrinkStrings() {
+        assert(generator: String.generator, shrinksTo: "a", predicate: { (string: String) in
+            !string.contains(Character("a"))
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
