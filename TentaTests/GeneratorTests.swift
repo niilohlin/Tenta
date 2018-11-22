@@ -95,6 +95,12 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testGenerateCharacter() {
+        runTest { (char: Character) in
+            !String(char).isEmpty
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
