@@ -98,4 +98,29 @@ extension RoseTree {
         }
         return failedValue
     }
+
+    func shrink(rng: inout SeededRandomNumberGenerator, predicate: @escaping (Value) -> Bool) -> Value {
+        var currentForest = forest()
+        var cont = true
+        var failedValue = root()
+        while cont {
+            if currentForest.isEmpty {
+                break
+            }
+            cont = false
+
+            let shuffledForest = currentForest.shuffled(using: &rng)
+            for subRose in shuffledForest {
+                if !predicate(subRose.root()) {
+                    cont = true
+                    currentForest = subRose.forest()
+                    failedValue = subRose.root()
+                    break
+                }
+
+            }
+        }
+        return failedValue
+
+    }
 }

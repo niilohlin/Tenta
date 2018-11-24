@@ -56,4 +56,29 @@ class ShrinkTests: XCTestCase {
             XCTAssertEqual(expected, actual, accuracy: 0.001)
         }
     }
+
+    func testShrinkWithRng() {
+
+        let arrayGenWithShrink = Generator<[Int]> { size, rng in
+            if size <= 0 {
+                return RoseTree(root: { [] }, forest: { [] })
+            }
+            var value = [RoseTree<Int>]()
+            for _ in 0 ... Int(size) {
+                value.append(Int.generator.generate(size, &rng))
+            }
+            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
+                RoseTree(seed: array) { (parentArray: [Int]) in
+                    parentArray.shrink()
+                }
+            }
+        }
+        var rng = SeededRandomNumberGenerator(seed: 100)
+
+        let value = arrayGenWithShrink.generate(20, &rng)
+
+        let shrunk = value.shrink(rng: &rng) { ints in
+            ints.count < 10
+        }
+    }
 }
