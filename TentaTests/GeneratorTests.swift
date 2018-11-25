@@ -164,6 +164,31 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testSimpleGenerator() {
+        let generator = Generator.simple { constructor -> ComplexTest in
+            let firstName = String.generator.generate(using: &constructor)
+            let lastName = String.generator.generate(using: &constructor)
+            let age = Int.generator.generate(using: &constructor)
+            let email = String.generator.generate(using: &constructor)
+            let address = String.generator.generate(using: &constructor)
+            let zipCode = String.generator.generate(using: &constructor)
+            let sex = String.generator.generate(using: &constructor)
+            return ComplexTest(
+                    firstName: firstName,
+                    lastName: lastName,
+                    age: age,
+                    email: email,
+                    address: address,
+                    zipCode: zipCode,
+                    sex: sex
+            )
+        }
+
+        runTest(gen: generator) { (_: ComplexTest) in
+            true
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,

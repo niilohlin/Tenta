@@ -7,14 +7,38 @@ import Foundation
 
 public typealias Size = Double
 
+public struct Constructor {
+    public var size: Size
+    public var rng: SeededRandomNumberGenerator
+    init(size: Size, rng: inout SeededRandomNumberGenerator) {
+        self.size = size
+        self.rng = rng
+    }
+}
+
 /**
    Generator is a wrapper for a function that generates a value with accompanying shrink values in a `RoseTree`
 */
 public struct Generator<ValueToTest> {
     private let maxFilterTries = 500
     public let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+
     public init(generate: @escaping (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>) {
         self.generate = generate
+    }
+
+    /// Construct a generator without any shrinking. Very simple to do and good for large structs and classes.
+    public static func simple(generateValue: @escaping (inout Constructor) -> ValueToTest) -> Generator<ValueToTest> {
+        return Generator { size, rng in
+            var constructor = Constructor(size: size, rng: &rng)
+            let value = generateValue(&constructor)
+            return RoseTree<ValueToTest>(root: { value })
+        }
+    }
+
+    /// Generate a value without its shrink tree.
+    public func generate(using constructor: inout Constructor) -> ValueToTest {
+        return self.generate(constructor.size, &constructor.rng).root()
     }
 }
 
@@ -25,6 +49,7 @@ public extension Generator {
         }
     }
 
+    @available(*, deprecated, message: "Does not work right now.")
     func flatMap<Transformed>(
             _ transform: @escaping (ValueToTest) -> Generator<Transformed>
     ) -> Generator<Transformed> {
