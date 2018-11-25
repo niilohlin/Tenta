@@ -48,11 +48,9 @@ extension RoseTree: Sequence {
 }
 
 public struct RoseIterator<Value>: IteratorProtocol {
-    var roseTree: RoseTree<Value>
-    var queue: [RoseTree<Value>] = []
+    var queue = [RoseTree<Value>]()
 
     init(roseTree: RoseTree<Value>) {
-        self.roseTree = roseTree
         queue.append(roseTree)
     }
 
@@ -130,5 +128,44 @@ extension RoseTree: CustomStringConvertible {
         return indentation + String(describing: root()) +
                 "\n" +
                 forest().map { $0.getDescription(depth: depth + 1) }.joined()
+    }
+}
+
+extension RoseTree {
+
+    public var dotGraph: String {
+        func recursiveDotGraph(subTree: RoseTree<Value>) -> String {
+            return subTree
+                    .forest()
+                    .reduce("") { acc, next in
+                        acc + "\(subTree.root()) -> \(next.root());\n"
+                    } + subTree.forest().map(recursiveDotGraph(subTree:)).joined()
+        }
+
+        return """
+               digraph BST {
+               node [fontname=\"Arial\"];
+               \(recursiveDotGraph(subTree: self))
+               }
+
+               """
+    }
+}
+
+extension RoseTree: Equatable where Value: Equatable {
+    public static func == (lhs: RoseTree<Value>, rhs: RoseTree<Value>) -> Bool {
+        guard lhs.root() == rhs.root() else {
+            return false
+        }
+        return lhs.forest() == rhs.forest()
+    }
+}
+
+extension RoseTree: Hashable where Value: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(root())
+        for subTree in forest() {
+            hasher.combine(subTree)
+        }
     }
 }
