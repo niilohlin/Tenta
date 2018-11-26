@@ -80,5 +80,6 @@ class ShrinkTests: XCTestCase {
         let shrunk = value.shrink(rng: &rng) { ints in
             ints.count < 10
         }
+        print("shrunk: \(shrunk)")
     }
 }
