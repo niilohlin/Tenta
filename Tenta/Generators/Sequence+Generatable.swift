@@ -41,6 +41,18 @@ public extension Generator {
         }
     }
 
+    static func sequence<TestValue>(
+            of elementGenerator: Generator<TestValue>) -> Generator<AnySequence<TestValue>> {
+        return Generator<AnySequence<TestValue>> { _, _ in
+            fatalError("Not implemented yet")
+        }
+    }
+
+    static func set<TestValue: Hashable>(
+            of elementGenerator: Generator<TestValue>) -> Generator<Set<TestValue>> {
+        return elementGenerator.generateMany().map(Set.init)
+    }
+
     func generateMany() -> Generator<[ValueToTest]> {
         return Generator<[ValueToTest]>.array(elementGenerator: self)
     }
@@ -51,5 +63,12 @@ extension Array: Generatable where Array.Element: Generatable {
     public static var generator: Generator<[Array.Element]> {
         let generator: Generator<Element> = Element.generator
         return Tenta.Generator<Any>.array(elementGenerator: generator)
+    }
+}
+
+extension Set: Generatable where Set.Element: Generatable {
+    public static var generator: Generator<Set<Set.Element>> {
+        let generator: Generator<Element> = Element.generator
+        return Tenta.Generator<Set.Element>.set(of: generator)
     }
 }

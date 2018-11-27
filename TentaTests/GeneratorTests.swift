@@ -189,6 +189,12 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testGenerateSet() {
+        assert(generator: Set<Int>.generator, shrinksTo: Set([5]), predicate: { set in
+            !set.contains(5)
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
