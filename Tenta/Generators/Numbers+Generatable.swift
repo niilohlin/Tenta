@@ -19,6 +19,20 @@ extension UInt8: Generatable {
     }
 }
 
+public extension Generator where ValueToTest == UInt16 {
+    static var uInt16: Generator<UInt16> {
+        return Generator<UInt16>.withSize { size in
+            Generator.element(from: (0...UInt16(truncatingIfNeeded: Int(size))))
+        }
+    }
+}
+
+extension UInt16: Generatable {
+    public static var generator: Generator<UInt16> {
+        return Generator<UInt16>.uInt16
+    }
+}
+
 public extension Generator where ValueToTest == Int {
     /**
      Generates an `Int`s and shrinks towards 0.
