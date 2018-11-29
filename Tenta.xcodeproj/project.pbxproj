@@ -47,6 +47,7 @@
 		744C2677216D007A00A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744C2681216D008B00A40EA6 /* RoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTree.swift; sourceTree = "<group>"; };
 		744C2683216D00B700A40EA6 /* RoseTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoseTreeTests.swift; sourceTree = "<group>"; };
+		7498C39E21B08ACB005EC5A5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8E89000AD4BD34271F482422 /* Numbers+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Numbers+Generatable.swift"; sourceTree = "<group>"; };
 		8E890084098C32A0D6269434 /* Optional+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Generatable.swift"; sourceTree = "<group>"; };
 		8E8902631B1619B438F3FCFD /* Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 				744C2669216D007900A40EA6 /* Tenta */,
 				744C2674216D007A00A40EA6 /* TentaTests */,
 				744C2668216D007900A40EA6 /* Products */,
+				7498C39D21B08ACB005EC5A5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +131,14 @@
 				8E890DE977F432F2F78955F1 /* ShrinkTests.swift */,
 			);
 			path = TentaTests;
+			sourceTree = "<group>";
+		};
+		7498C39D21B08ACB005EC5A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7498C39E21B08ACB005EC5A5 /* XCTest.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8E890A0AC4A8E52CE096E084 /* Generators */ = {
@@ -426,6 +436,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				INFOPLIST_FILE = Tenta/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -453,6 +464,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				INFOPLIST_FILE = Tenta/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
