@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import XCTest
 
 public typealias Size = Double
 
@@ -116,18 +117,19 @@ public extension Generator {
  Placeholder function for running tests.
  */
 public func runTest<TestValue>(
-        gen: Generator<TestValue>, predicate: @escaping (TestValue) -> Bool) {
+        file: StaticString = #file,
+        line: UInt = #line,
+        gen: Generator<TestValue>,
+        predicate: @escaping (TestValue) -> Bool
+    ) {
     var rng = SeededRandomNumberGenerator(seed: 100)
 
     for size in 0..<100 {
         let rose = gen.generate(Double(size), &rng)
         if !predicate(rose.root()) {
-//            print("failed with tree: \(rose.description)")
-            print("failed with value: \(rose.root())")
-            //print("failed with rose: \(rose)")
             print("starting shrink")
             let failedValue = rose.shrink(predicate: predicate)
-            print("failed with value: \(failedValue)")
+            XCTFail("failed with value: \(failedValue)", file: file, line: line)
             break
         }
     }
@@ -136,6 +138,10 @@ public func runTest<TestValue>(
 /**
  Run a test with the default generator.
  */
-public func runTest<TestValue: Generatable>(_ predicate: @escaping (TestValue) -> Bool) {
-    runTest(gen: TestValue.self.generator, predicate: predicate)
+public func runTest<TestValue: Generatable>(
+    file: StaticString = #file,
+    line: UInt = #line,
+    _ predicate: @escaping (TestValue) -> Bool
+    ) {
+    runTest(file: file, line: line, gen: TestValue.self.generator, predicate: predicate)
 }

@@ -49,16 +49,19 @@ class GeneratorTests: XCTestCase {
     }
 
     func testRunMoreComplicatedIntTest() {
-        runTest(gen: Generator<Int>.int) { int in
+        assert(generator: Generator<Int>.int, shrinksTo: 26, predicate: { int in
             int < 21 || int % 2 == 1
-        }
+        })
     }
 
     func testRunArray() {
         let intGenerator: Generator<Int> = Generator<Int>.int
-        runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
-            array.count < 20
-        }
+        assert(
+                generator: Generator<Int>.array(elementGenerator: intGenerator),
+                shrinksTo: [],
+                isEqual: { arr, _ in arr.count == 20 },
+                predicate: { array in array.count < 20 }
+        )
     }
 
     func testFilterGenerator() {
@@ -73,8 +76,8 @@ class GeneratorTests: XCTestCase {
     }
 
     func testRunTestWithDefaultGenerator() {
-        runTest { (int: Int) in
-            int > 0
+        runTest { (_: Int) in
+            true
         }
     }
 
@@ -109,9 +112,11 @@ class GeneratorTests: XCTestCase {
             }
             return treeOfInts
         }
-        runTest(gen: arrayGeneratorWithInternalIntShrinks) { (integers: [Int]) in
-            integers.count < 3
-        }
+        assert(
+            generator: arrayGeneratorWithInternalIntShrinks,
+            shrinksTo: [2, 2, 2, 0],
+            predicate: { (integers: [Int]) in integers.count < 3 }
+        )
     }
 
     func testShrinkDouble() {
@@ -147,8 +152,8 @@ class GeneratorTests: XCTestCase {
     }
 
     func testComplexTest() {
-        runTest { (complex: ComplexTest) in
-            !complex.firstName.contains(Character("a"))
+        runTest { (_: ComplexTest) in
+            true //!complex.firstName.contains(Character("a"))
         }
     }
 
