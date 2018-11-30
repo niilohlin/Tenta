@@ -29,15 +29,15 @@ public extension Generator {
             for _ in 0 ... Int(size) {
                 value.append(elementGenerator.generate(size, &rng))
             }
-            let resultingArray = value.map { $0.root() }
-            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
-                parentArray.shrink()
-            }
-//            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
-//                RoseTree(seed: array) { (parentArray: [TestValue]) in
-//                    parentArray.shrink()
-//                }
+//            let resultingArray = value.map { $0.root() }
+//            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
+//                parentArray.shrink()
 //            }
+            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
+                RoseTree(seed: array) { (parentArray: [TestValue]) in
+                    parentArray.shrink()
+                }
+            }
         }
     }
 
