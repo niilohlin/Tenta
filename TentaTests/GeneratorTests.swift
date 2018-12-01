@@ -218,6 +218,12 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testGenerateArity2() {
+        runTest { (int: Int, string: String) in
+            !(String(describing: int) + string).isEmpty
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
