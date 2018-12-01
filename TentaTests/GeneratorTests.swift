@@ -211,6 +211,13 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testGenerateNonEmpty() {
+        let nonEmpty = Int.generator.generateMany().nonEmpty()
+        runTest(gen: nonEmpty) { (integers: [Int]) in
+            !integers.isEmpty
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
