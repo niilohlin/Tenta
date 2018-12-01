@@ -120,16 +120,26 @@ public func runTest<TestValue>(
         file: StaticString = #file,
         line: UInt = #line,
         gen: Generator<TestValue>,
-        predicate: @escaping (TestValue) -> Bool
+        seed: UInt64 = 100,
+        numberOfTests: Int = 100,
+        predicate: @escaping (TestValue) throws -> Bool
     ) {
-    var rng = SeededRandomNumberGenerator(seed: 100)
+    var rng = SeededRandomNumberGenerator(seed: seed)
 
-    for size in 0..<100 {
+    func runPredicate(_ value: TestValue) -> Bool {
+        do {
+            return try predicate(value)
+        } catch {
+            return false
+        }
+    }
+
+    for size in 0..<numberOfTests {
         let rose = gen.generate(Double(size), &rng)
-        if !predicate(rose.root()) {
+        if !runPredicate(rose.root()) {
             print("starting shrink")
-            let failedValue = rose.shrink(predicate: predicate)
-            XCTFail("failed with value: \(failedValue)", file: file, line: line)
+            let failedValue = rose.shrink(predicate: runPredicate)
+            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
             break
         }
     }
@@ -141,7 +151,16 @@ public func runTest<TestValue>(
 public func runTest<TestValue: Generatable>(
     file: StaticString = #file,
     line: UInt = #line,
+    seed: UInt64 = 100,
+    numberOfTests: Int = 100,
     _ predicate: @escaping (TestValue) -> Bool
     ) {
-    runTest(file: file, line: line, gen: TestValue.self.generator, predicate: predicate)
+    runTest(
+            file: file,
+            line: line,
+            gen: TestValue.self.generator,
+            seed: seed,
+            numberOfTests: numberOfTests,
+            predicate: predicate
+    )
 }
