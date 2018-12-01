@@ -58,6 +58,19 @@ public extension Generator {
     }
 }
 
+extension Generator where ValueToTest: RangeReplaceableCollection, ValueToTest.Element: Generatable {
+
+    func nonEmpty() -> Generator<ValueToTest> {
+        return Generator<ValueToTest> { size, rng in
+            let head = ValueToTest.Element.generator.generateWithoutShrinking(size, &rng)
+            let tail = self.generate(size, &rng)
+            return tail.map { someSequence in
+                [head] + someSequence
+            }
+        }
+    }
+}
+
 extension Array: Generatable where Array.Element: Generatable {
     /// The default int generator. Generates `Arrays`s according to the `size` parameter.
     public static var generator: Generator<[Array.Element]> {
