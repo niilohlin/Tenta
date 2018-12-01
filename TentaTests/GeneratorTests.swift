@@ -200,10 +200,21 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    struct DummyError: Error {
+    }
+    func testFunctionThatThrows() {
+        assert(generator: Int.generator, shrinksTo: 5, predicate: { (int: Int) in
+            if int == 5 {
+                throw DummyError()
+            }
+            return true
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
-            predicate: @escaping (T) -> Bool,
+            predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
             line: UInt = #line) {
         assert(generator: generator, shrinksTo: minimumFailing, isEqual: (==), predicate: predicate)
@@ -213,7 +224,7 @@ class GeneratorTests: XCTestCase {
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
             isEqual: (T, T) -> Bool,
-            predicate: @escaping (T) -> Bool,
+            predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
             line: UInt = #line) {
         guard let value = generator.runAndReturnShrink(with: predicate) else {
@@ -230,13 +241,21 @@ class GeneratorTests: XCTestCase {
 }
 
 extension Generator {
-    func runAndReturnShrink(with predicate: @escaping (ValueToTest) -> Bool) -> ValueToTest? {
+    func runAndReturnShrink(with predicate: @escaping (ValueToTest) throws -> Bool) -> ValueToTest? {
         var rng = SeededRandomNumberGenerator(seed: 100)
+
+        func runPredicate(_ value: ValueToTest) -> Bool {
+            do {
+                return try predicate(value)
+            } catch {
+                return false
+            }
+        }
 
         for size in 0..<100 {
             let rose = generate(Double(size), &rng)
-            if !predicate(rose.root()) {
-                return rose.shrink(predicate: predicate)
+            if !runPredicate(rose.root()) {
+                return rose.shrink(predicate: runPredicate)
             }
         }
         return nil
