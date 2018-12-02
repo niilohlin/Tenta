@@ -224,6 +224,13 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testGenerateManyNonEmpty() {
+        assert(generator: Int.generator.generateManyNonEmpty(), shrinksTo: [5], predicate: { (integers: [Int]) in
+            XCTAssert(!integers.isEmpty)
+            return !integers.contains(5)
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
@@ -246,7 +253,7 @@ class GeneratorTests: XCTestCase {
         }
         XCTAssert(
                 isEqual(value, minimumFailing),
-                "Generator did not shrink to \(minimumFailing)",
+                "Generator did not shrink to \(minimumFailing), but \(value)",
                 file: file,
                 line: line
         )
