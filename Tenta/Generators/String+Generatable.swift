@@ -11,10 +11,17 @@ public extension Generator where ValueToTest == String {
             String(characters)
         }
     }
+
+    static var alphaNumeric: Generator<String> {
+        let alphabet = "abcdefghijklmnopqrstuvwxyz"
+        return Generator<Character>.element(from: alphabet + alphabet.uppercased() + "1234567890")
+                .reduce("") { $0 + String($1) }
+    }
 }
 
 extension String: Generatable {
     public static var generator: Generator<String> {
         return Tenta.Generator<String>.string
     }
+
 }

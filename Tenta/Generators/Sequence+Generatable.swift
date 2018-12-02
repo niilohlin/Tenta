@@ -53,6 +53,13 @@ public extension Generator {
         return elementGenerator.generateMany().map(Set.init)
     }
 
+    func reduce<Result>(
+            _ initialResult: Result,
+            _ nextPartialResult: @escaping (Result, ValueToTest) -> Result
+    ) -> Generator<Result> {
+        return generateMany().map { $0.reduce(initialResult, nextPartialResult) }
+    }
+
     func generateMany() -> Generator<[ValueToTest]> {
         return Generator<[ValueToTest]>.array(elementGenerator: self)
     }
