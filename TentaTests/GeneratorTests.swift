@@ -237,6 +237,14 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testDefaultGeneratorTransform() {
+        let intAndString = Int.generator.combine(with: String.generator)
+        runTest(gen: intAndString) { int, string in
+            (String(describing: int) + string).count >= string.count
+        }
+
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,

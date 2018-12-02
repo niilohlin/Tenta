@@ -12,6 +12,10 @@ public extension Generator {
         return Generator<Transformed>.combine(self, other, transform: transform)
     }
 
+    func combine<OtherValue>(with other: Generator<OtherValue>) -> Generator<(ValueToTest, OtherValue)> {
+        return Generator<(ValueToTest, OtherValue)>.combine(self, other)
+    }
+
     static func combine<FirstValue, SecondValue, Transformed>(
             _ firstGenerator: Generator<FirstValue>,
             _ secondGenerator: Generator<SecondValue>,
@@ -20,6 +24,17 @@ public extension Generator {
             let firstRose = firstGenerator.generate(size, &rng)
             let secondRose = secondGenerator.generate(size, &rng)
             return firstRose.combine(with: secondRose, transform: transform)
+        }
+    }
+
+    static func combine<FirstValue, SecondValue>(
+            _ firstGenerator: Generator<FirstValue>,
+            _ secondGenerator: Generator<SecondValue>
+            ) -> Generator<(FirstValue, SecondValue)> {
+        return Generator<(FirstValue, SecondValue)> { size, rng in
+            let firstRose = firstGenerator.generate(size, &rng)
+            let secondRose = secondGenerator.generate(size, &rng)
+            return firstRose.combine(with: secondRose, transform: { ($0, $1) })
         }
     }
 
