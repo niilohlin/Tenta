@@ -231,6 +231,12 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testGenerateAlphaNumeric() {
+        runTest(gen: Generator<String>.alphaNumeric) { (string: String) in
+            string.allSatisfy("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".contains)
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
