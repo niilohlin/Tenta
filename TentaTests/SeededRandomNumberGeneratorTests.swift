@@ -25,4 +25,10 @@ class SeededRandomNumberGeneratorTests: XCTestCase {
         }
         XCTAssertEqual(array, [63, 26, 29, 72, 27, 66, 77, 28, 55, 54])
     }
+
+    func testClone() {
+        var rng = SeededRandomNumberGenerator(seed: 100)
+        var clone = rng.clone()
+        XCTAssertNotEqual(rng.next(), clone.next())
+    }
 }

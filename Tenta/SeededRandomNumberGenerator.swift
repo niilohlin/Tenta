@@ -16,4 +16,10 @@ public struct SeededRandomNumberGenerator: RandomNumberGenerator {
         seed = 6364136223846793005 &* seed &+ 1442695040888963407
         return seed
     }
+
+    public mutating func clone() -> SeededRandomNumberGenerator {
+        seed = 6364136223846793005 &* seed &+ 1442695040888963407 + 1
+        let newSeed = 6364136223846793005 &* seed &+ 1442695040888963407 - 1
+        return SeededRandomNumberGenerator(seed: newSeed)
+    }
 }
