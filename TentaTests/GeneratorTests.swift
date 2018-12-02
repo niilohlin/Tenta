@@ -250,6 +250,19 @@ class GeneratorTests: XCTestCase {
 
     }
 
+    func testFlatMap() {
+        let stringGen = Int.generator.flatMap { int -> Generator<String> in
+            String.generator.map { string in
+                String(describing: int) + string
+            }
+        }
+
+        runTest(gen: stringGen) { string in
+            print("got string: \(string)")
+            return !string.contains(Character("a"))
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
