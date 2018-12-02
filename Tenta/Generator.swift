@@ -111,4 +111,11 @@ public extension Generator {
             createGeneratorWithSize(size).generate(size, &rng)
         }
     }
+
+    func overrideRoseTree(_ shrink: @escaping (ValueToTest) -> RoseTree<ValueToTest>) -> Generator<ValueToTest> {
+        return Generator { size, rng in
+            let value = self.generateWithoutShrinking(size, &rng)
+            return shrink(value)
+        }
+    }
 }

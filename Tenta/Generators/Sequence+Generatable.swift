@@ -56,18 +56,23 @@ public extension Generator {
     func generateMany() -> Generator<[ValueToTest]> {
         return Generator<[ValueToTest]>.array(elementGenerator: self)
     }
+
+    func generateManyNonEmpty() -> Generator<[ValueToTest]> {
+        return Generator<[ValueToTest]>
+                .array(elementGenerator: self)
+                .combine(with: self, transform: { [$1] + $0 })
+                .overrideRoseTree { (nonEmptyArray: [ValueToTest]) -> RoseTree<[ValueToTest]> in
+                    RoseTree<[ValueToTest]>(seed: nonEmptyArray) { (parentArray: [ValueToTest]) in
+                        parentArray.shrink().filter { !$0.isEmpty }
+                    }
+                }
+    }
 }
 
-extension Generator where ValueToTest: RangeReplaceableCollection, ValueToTest.Element: Generatable {
+public extension Generator where ValueToTest: RangeReplaceableCollection, ValueToTest.Element: Generatable {
 
     func nonEmpty() -> Generator<ValueToTest> {
-        return Generator<ValueToTest> { size, rng in
-            let head = ValueToTest.Element.generator.generateWithoutShrinking(size, &rng)
-            let tail = self.generate(size, &rng)
-            return tail.map { someSequence in
-                [head] + someSequence
-            }
-        }
+        return filter { !$0.isEmpty }
     }
 }
 
