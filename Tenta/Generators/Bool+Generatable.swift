@@ -9,9 +9,10 @@ public extension Generator where ValueToTest == Bool {
     static var bool: Generator<Bool> {
         return Generator<Bool> { _, rng in
             let value = Bool.random(using: &rng)
-            return RoseTree<Bool>(root: { value }, forest: {
-                [false, true].map { bool in RoseTree(root: { bool }) }
-            })
+            return RoseTree<Bool>(
+                    root: value,
+                    forest: [false, true].map { bool in RoseTree(root: bool) }
+            )
         }
     }
 }
