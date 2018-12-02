@@ -33,7 +33,7 @@ public struct Generator<ValueToTest> {
         return Generator { size, rng in
             var constructor = Constructor(size: size, rng: &rng)
             let value = generateValue(&constructor)
-            return RoseTree<ValueToTest>(root: { value })
+            return RoseTree<ValueToTest>(root: value)
         }
     }
 
@@ -99,9 +99,10 @@ public extension Generator {
             guard let element = array.randomElement(using: &rng) else {
                 fatalError("Could not generate an element from an empty sequence")
             }
-            return RoseTree<SequenceType.Element>(root: { element }, forest: { () -> [RoseTree<SequenceType.Element>] in
-                array.map { elementInGeneratedSequence in RoseTree(root: { elementInGeneratedSequence }) }
-            })
+            return RoseTree<SequenceType.Element>(
+                    root: element,
+                    forest: array.map { RoseTree(root: $0) }
+            )
         }
     }
 

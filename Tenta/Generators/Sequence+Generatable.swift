@@ -23,7 +23,7 @@ public extension Generator {
             elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
         return Generator<[TestValue]> { size, rng in
             if size <= 0 {
-                return RoseTree(root: { [] }, forest: { [] })
+                return RoseTree(root: [], forest: [])
             }
             var value = [RoseTree<TestValue>]()
             for _ in 0 ... Int(size) {

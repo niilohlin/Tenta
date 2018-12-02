@@ -12,27 +12,27 @@ import XCTest
 
 class RoseTreeTests: XCTestCase {
     func testRose() {
-        let rose = RoseTree(root: { 0 }, forest: { [
-            RoseTree(root: { 1 }, forest: { [
-                RoseTree(root: { 3 }, forest: { [] })
-                ] }),
-            RoseTree(root: { 2 }, forest: { [
-                RoseTree(root: { 4 }, forest: { [] })
-                ] })
-            ]})
+        let rose = RoseTree(root: 0, forest: [
+            RoseTree(root: 1, forest: [
+                RoseTree(root: 3)
+                ]),
+            RoseTree(root: 2, forest: [
+                RoseTree(root: 4)
+                ])
+            ])
         let array = Array(rose).map { $0.root() }
         XCTAssertEqual(array, [0, 1, 2, 3, 4])
     }
 
     func testMapRose() {
-        let rose = RoseTree(root: { 0 }, forest: { [
-            RoseTree(root: { 1 }, forest: { [
-                RoseTree(root: { 3 }, forest: { [] })
-            ] }),
-            RoseTree(root: { 2 }, forest: { [
-                RoseTree(root: { 4 }, forest: { [] })
-            ] })
-        ]})
+        let rose = RoseTree(root: 0, forest: [
+            RoseTree(root: 1, forest: [
+                RoseTree(root: 3)
+            ]),
+            RoseTree(root: 2, forest: [
+                RoseTree(root: 4)
+            ])
+        ])
 
         let array = Array(rose.map { $0 * 2 }).map { $0.root() }
         XCTAssertEqual(array, [0, 2, 4, 6, 8])
@@ -61,29 +61,30 @@ class RoseTreeTests: XCTestCase {
             [value * -2, value * 2]
         }
         let flatMapped = rose.flatMap { (int: Int) -> RoseTree<String> in
-            RoseTree<String>(root: { "\(int)" }, forest: {
-                [RoseTree<String>(root: { "\(int) is an int" }, forest: { [RoseTree<String>]() }),
-                 RoseTree<String>(root: { "\(int) is fun" }, forest: { [RoseTree<String>]() })
-                ]
-            })
+            RoseTree<String>(root: "\(int)", forest: [
+                RoseTree<String>(root: "\(int) is an int"),
+                RoseTree<String>(root: "\(int) is fun")
+            ])
         }
         XCTAssertEqual(flatMapped.prefix(5).map { $0.root() }, ["1", "1 is an int", "1 is fun", "-2", "2"])
 
     }
 
     func testSequence() {
-        let forest = (0..<5).map { int in RoseTree(root: { int }) }
+        let forest = (0..<5).map { int in RoseTree(root: int) }
         let array = RoseTree<Int>.combine(forest: forest).root()
         XCTAssertEqual(array, [0, 1, 2, 3, 4])
     }
 
     func testBigSequence() {
-        let firstTree = RoseTree<Int>(root: { 0 }, forest: {
-            [RoseTree<Int>(root: { 1 }), RoseTree<Int>(root: { 2 })]
-        })
-        let secondTree = RoseTree<Int>(root: { 3 }, forest: {
-            [RoseTree<Int>(root: { 4 }), RoseTree<Int>(root: { 5 })]
-        })
+        let firstTree = RoseTree<Int>(root: 0, forest: [
+            RoseTree<Int>(root: 1),
+            RoseTree<Int>(root: 2)
+        ])
+        let secondTree = RoseTree<Int>(root: 3, forest: [
+            RoseTree<Int>(root: 4),
+            RoseTree<Int>(root: 5)
+        ])
         let forest = [firstTree, secondTree]
         let roseTree = RoseTree<Int>.combine(forest: forest)
         let expected = [[0, 3], [0, 4], [0, 5], [1, 3], [2, 3], [1, 4], [1, 5], [2, 4], [2, 5]]
@@ -98,30 +99,31 @@ class RoseTreeTests: XCTestCase {
     }
 
     func testCombine() {
-        let rose = RoseTree(root: { 0 }, forest: { [
-            RoseTree(root: { 1 }, forest: { [ ] }),
-            RoseTree(root: { 2 }, forest: { [ ] })
-        ]})
-        let other = RoseTree(root: { 3 }, forest: { [
-            RoseTree(root: { 4 }, forest: { [ ] }),
-            RoseTree(root: { 5 }, forest: { [ ] }),
-            RoseTree(root: { 6 }, forest: { [
-                RoseTree(root: { 7 }, forest: { [ ] })
-            ] })
-        ]})
+        let rose = RoseTree(root: 0, forest: [
+            RoseTree(root: 1),
+            RoseTree(root: 2)
+        ])
+        let other = RoseTree(root: 3, forest: [
+            RoseTree(root: 4),
+            RoseTree(root: 5),
+            RoseTree(root: 6, forest: [
+                RoseTree(root: 7)
+            ])
+        ])
 
         let combined = rose.combine(with: other, transform: (+))
         XCTAssertEqual(Array(combined).map { $0.root() }, [3, 4, 5, 6, 4, 5, 7, 5, 6, 7, 6, 7, 8, 8, 9])
     }
 
     func testDotGraph() {
-        let rose = RoseTree(root: { 3 }, forest: { [
-            RoseTree(root: { 4 }, forest: { [ ] }),
-            RoseTree(root: { 4 }, forest: { [ ] }),
-            RoseTree(root: { 6 }, forest: { [
-                RoseTree(root: { 7 }, forest: { [ ] })
-                ] })
-            ]})
+        let rose = RoseTree(root: 3, forest: [
+            RoseTree(root: 4),
+            RoseTree(root: 4),
+            RoseTree(root: 6, forest: [
+                RoseTree(root: 7)
+                ]
+            )]
+        )
         print(rose.dotGraph)
     }
 }

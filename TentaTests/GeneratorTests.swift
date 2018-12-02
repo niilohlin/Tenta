@@ -25,7 +25,7 @@ struct ComplexTest: Generatable {
             let address = String.generator.generateWithoutShrinking(size, &rng)
             let zipCode = String.generator.generateWithoutShrinking(size, &rng)
             let sex = String.generator.generateWithoutShrinking(size, &rng)
-            return RoseTree<ComplexTest>(root: {
+            return RoseTree<ComplexTest>(root:
                 ComplexTest(
                         firstName: firstName,
                         lastName: lastName,
@@ -35,7 +35,7 @@ struct ComplexTest: Generatable {
                         zipCode: zipCode,
                         sex: sex
                 )
-            })
+            )
         }
     }
 }
