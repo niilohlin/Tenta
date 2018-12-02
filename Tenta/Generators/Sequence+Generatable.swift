@@ -76,7 +76,7 @@ public extension Generator {
     }
 }
 
-public extension Generator where ValueToTest: RangeReplaceableCollection, ValueToTest.Element: Generatable {
+public extension Generator where ValueToTest: Collection, ValueToTest.Element: Generatable {
 
     func nonEmpty() -> Generator<ValueToTest> {
         return filter { !$0.isEmpty }
