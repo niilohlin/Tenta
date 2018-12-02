@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-public typealias Size = Double
+public typealias Size = UInt
 
 public struct Constructor {
     public var size: Size
@@ -22,9 +22,9 @@ public struct Constructor {
 */
 public struct Generator<ValueToTest> {
     private let maxFilterTries = 500
-    public let generate: (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+    public let generate: (Size, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
 
-    public init(generate: @escaping (Double, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>) {
+    public init(generate: @escaping (Size, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>) {
         self.generate = generate
     }
 
@@ -78,8 +78,8 @@ public extension Generator {
     */
     func filter(_ predicate: @escaping (ValueToTest) -> Bool) -> Generator<ValueToTest> {
         return Generator { size, rng in
-            for retrySize in Int(size)..<(Int(size) + self.maxFilterTries) {
-                let rose = self.generate(Double(retrySize), &rng)
+            for retrySize in size..<(size.advanced(by: self.maxFilterTries)) {
+                let rose = self.generate(retrySize, &rng)
                 if let filteredRose = rose.filter(predicate) {
                     return filteredRose
                 }

@@ -72,7 +72,7 @@ public extension Generator {
     }
 
     /// Should only be used when combining large structs or classes.
-    func generateWithoutShrinking(_ size: Double, _ rng: inout SeededRandomNumberGenerator) -> ValueToTest {
+    func generateWithoutShrinking(_ size: Size, _ rng: inout SeededRandomNumberGenerator) -> ValueToTest {
         return generate(size, &rng).root()
     }
 }

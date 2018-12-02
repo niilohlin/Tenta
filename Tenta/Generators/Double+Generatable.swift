@@ -33,7 +33,7 @@ extension Double {
 public extension Generator where ValueToTest == Double {
     static var double: Generator<Double> {
         return Generator<Double> { size, rng in
-            let value = Double.random(in: -size...size, using: &rng)
+            let value = Double.random(in: -Double(size)...Double(size), using: &rng)
             return RoseTree<Double>(seed: value) { 0.0.towards(source: $0) }
         }
     }
