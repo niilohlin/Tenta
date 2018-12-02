@@ -11,3 +11,17 @@ import Foundation
 public protocol Generatable {
     static var generator: Generator<Self> { get }
 }
+
+extension Generatable {
+
+    /// Generate a value without its shrink tree.
+    public static func generate(using constructor: inout Constructor) -> Self {
+        return generator.generate(constructor.size, &constructor.rng).root()
+    }
+
+    /// Discouraged generator. Has side effects and are not reproducable
+    public static func generate(size: Size = 10) -> Self {
+        var constructor = Constructor(size: size)
+        return generate(using: &constructor)
+    }
+}
