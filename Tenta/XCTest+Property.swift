@@ -16,7 +16,7 @@ public extension XCTestCase {
             line: UInt = #line,
             gen: Generator<TestValue>,
             seed: UInt64 = 100,
-            numberOfTests: Int = 100,
+            numberOfTests: UInt = 100,
             predicate: @escaping (TestValue) throws -> Bool
     ) {
         var rng = SeededRandomNumberGenerator(seed: seed)
@@ -30,7 +30,7 @@ public extension XCTestCase {
         }
 
         for size in 0..<numberOfTests {
-            let rose = gen.generate(Double(size), &rng)
+            let rose = gen.generate(size, &rng)
             if !runPredicate(rose.root()) {
                 print("starting shrink")
                 let failedValue = rose.shrink(predicate: runPredicate)
@@ -47,7 +47,7 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             seed: UInt64 = 100,
-            numberOfTests: Int = 100,
+            numberOfTests: UInt = 100,
             _ predicate: @escaping (TestValue) -> Bool
     ) {
         runTest(
@@ -64,7 +64,7 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             seed: UInt64 = 100,
-            numberOfTests: Int = 100,
+            numberOfTests: UInt = 100,
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
@@ -81,7 +81,7 @@ public extension XCTestCase {
 
         for size in 0..<numberOfTests {
             let rose = firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) })
-                .generate(Double(size), &rng)
+                .generate(size, &rng)
             let (firstValue, secondValue) = rose.root()
 
             if !runPredicate(firstValue, secondValue) {
@@ -97,7 +97,7 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             seed: UInt64 = 100,
-            numberOfTests: Int = 100,
+            numberOfTests: UInt = 100,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
     ) {
         runTest(

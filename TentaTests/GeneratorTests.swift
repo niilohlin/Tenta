@@ -286,8 +286,8 @@ extension Generator {
             }
         }
 
-        for size in 0..<100 {
-            let rose = generate(Double(size), &rng)
+        for size in 0..<UInt(100) {
+            let rose = generate(size, &rng)
             if !runPredicate(rose.root()) {
                 return rose.shrink(predicate: runPredicate)
             }
