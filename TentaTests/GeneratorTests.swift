@@ -171,13 +171,13 @@ class GeneratorTests: XCTestCase {
 
     func testSimpleGenerator() {
         let generator = Generator.simple { constructor -> ComplexTest in
-            let firstName = String.generator.generate(using: &constructor)
-            let lastName = String.generator.generate(using: &constructor)
-            let age = Int.generator.generate(using: &constructor)
-            let email = String.generator.generate(using: &constructor)
-            let address = String.generator.generate(using: &constructor)
-            let zipCode = String.generator.generate(using: &constructor)
-            let sex = String.generator.generate(using: &constructor)
+            let firstName = String.generate(using: &constructor)
+            let lastName = String.generate(using: &constructor)
+            let age = Int.generate(using: &constructor)
+            let email = String.generate(using: &constructor)
+            let address = String.generate(using: &constructor)
+            let zipCode = String.generate(using: &constructor)
+            let sex = String.generate(using: &constructor)
             return ComplexTest(
                     firstName: firstName,
                     lastName: lastName,
@@ -192,6 +192,11 @@ class GeneratorTests: XCTestCase {
         runTest(gen: generator) { (_: ComplexTest) in
             true
         }
+    }
+
+    func testOneOfGenerator() {
+        let int = Int.generate()
+        XCTAssertEqual(int, int)
     }
 
     func testGenerateSet() {

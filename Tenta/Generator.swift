@@ -8,15 +8,6 @@ import XCTest
 
 public typealias Size = UInt
 
-public struct Constructor {
-    public var size: Size
-    public var rng: SeededRandomNumberGenerator
-    init(size: Size, rng: inout SeededRandomNumberGenerator) {
-        self.size = size
-        self.rng = rng
-    }
-}
-
 /**
    Generator is a wrapper for a function that generates a value with accompanying shrink values in a `RoseTree`
 */
@@ -35,11 +26,6 @@ public struct Generator<ValueToTest> {
             let value = generateValue(&constructor)
             return RoseTree<ValueToTest>(root: value)
         }
-    }
-
-    /// Generate a value without its shrink tree.
-    public func generate(using constructor: inout Constructor) -> ValueToTest {
-        return self.generate(constructor.size, &constructor.rng).root()
     }
 }
 
