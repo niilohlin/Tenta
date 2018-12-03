@@ -250,17 +250,16 @@ class GeneratorTests: XCTestCase {
 
     }
 
-    func testFlatMap() {
+    func testFlatMap_shrinks() {
         let stringGen = Int.generator.flatMap { int -> Generator<String> in
             String.generator.map { string in
                 String(describing: int) + string
             }
         }
 
-        runTest(gen: stringGen) { string in
-            print("got string: \(string)")
-            return !string.contains(Character("a"))
-        }
+        assert(generator: stringGen, shrinksTo: "-1", predicate: { (string: String) in
+            !string.starts(with: "-")
+        })
     }
 
     func assert<T: Equatable>(
