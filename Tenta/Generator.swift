@@ -36,14 +36,14 @@ public extension Generator {
         }
     }
 
-    @available(*, deprecated, message: "Does not work right now.")
+    //@available(*, deprecated, message: "Does not work right now.")
     func flatMap<Transformed>(
             _ transform: @escaping (ValueToTest) -> Generator<Transformed>
     ) -> Generator<Transformed> {
         return Generator<Transformed> { size, rng in
             let roseTree = self.generate(size, &rng)
 
-            let newRng = rng
+            let newRng = rng.clone()
 
             return roseTree.flatMap { generatedValue in
                 var newRng = newRng

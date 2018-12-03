@@ -1,3 +1,6 @@
+## 0.4
+- Add flatMap to Generator
+
 ## 0.3
 - Add alphanumeric string
 - Add default transform argument to combine
