@@ -262,13 +262,33 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    // Should work when fixed proper shrinking.
+    func disabled_testFlatMap_otherWay_shrinks() {
+        let stringGen = Int.generator.flatMap { int -> Generator<String> in
+            Generator<String>.alphaNumeric.map { string in
+                String(describing: int) + string
+            }
+        }
+
+        assert(generator: stringGen, shrinksTo: "0a", predicate: { (string: String) in
+            !string.contains(Character("a"))
+        })
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
             predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
             line: UInt = #line) {
-        assert(generator: generator, shrinksTo: minimumFailing, isEqual: (==), predicate: predicate)
+        assert(
+                generator: generator,
+                shrinksTo: minimumFailing,
+                isEqual: (==),
+                predicate: predicate,
+                file: file,
+                line: line
+        )
     }
 
     func assert<T>(
