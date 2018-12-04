@@ -11,6 +11,15 @@ public extension Generator where ValueToTest == Character {
             Character(UnicodeScalar(uInt8))
         }
     }
+
+    static var alphaNumeric: Generator<Character> {
+        let alphabet = "abcdefghijklmnopqrstuvwxyz"
+        return Generator<Character>.element(from: alphabet + alphabet.uppercased() + "1234567890")
+    }
+
+    public func generateString() -> Generator<String> {
+        return reduce("") { $0 + String($1) }
+    }
 }
 
 extension Character: Generatable {

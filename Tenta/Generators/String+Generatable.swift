@@ -13,9 +13,7 @@ public extension Generator where ValueToTest == String {
     }
 
     static var alphaNumeric: Generator<String> {
-        let alphabet = "abcdefghijklmnopqrstuvwxyz"
-        return Generator<Character>.element(from: alphabet + alphabet.uppercased() + "1234567890")
-                .reduce("") { $0 + String($1) }
+        return Generator<Character>.alphaNumeric.generateString()
     }
 }
 
