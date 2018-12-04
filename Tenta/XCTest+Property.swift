@@ -6,6 +6,27 @@
 import Foundation
 import XCTest
 
+private var seedKey = false
+private var numberOfTestsKey = false
+private extension XCTestCase {
+    var seed: UInt64 {
+        get {
+            return associatedValue(forKey: &seedKey) ?? 100
+        }
+        set {
+            setAssociatedValue(newValue, forKey: &seedKey)
+        }
+    }
+    var numberOfTests: UInt {
+        get {
+            return associatedValue(forKey: &numberOfTestsKey) ?? 100
+        }
+        set {
+            setAssociatedValue(newValue, forKey: &numberOfTestsKey)
+        }
+    }
+}
+
 public extension XCTestCase {
 
     /**
@@ -15,8 +36,6 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             gen: Generator<TestValue>,
-            seed: UInt64 = 100,
-            numberOfTests: UInt = 100,
             predicate: @escaping (TestValue) throws -> Bool
     ) {
         var rng = SeededRandomNumberGenerator(seed: seed)
@@ -46,16 +65,12 @@ public extension XCTestCase {
     func runTest<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
-            seed: UInt64 = 100,
-            numberOfTests: UInt = 100,
             _ predicate: @escaping (TestValue) -> Bool
     ) {
         runTest(
                 file: file,
                 line: line,
                 gen: TestValue.self.generator,
-                seed: seed,
-                numberOfTests: numberOfTests,
                 predicate: predicate
         )
     }
@@ -63,8 +78,6 @@ public extension XCTestCase {
     func runTest<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            seed: UInt64 = 100,
-            numberOfTests: UInt = 100,
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
@@ -96,15 +109,11 @@ public extension XCTestCase {
     func runTest<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
-            seed: UInt64 = 100,
-            numberOfTests: UInt = 100,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
     ) {
         runTest(
                 file: file,
                 line: line,
-                seed: seed,
-                numberOfTests: numberOfTests,
                 TestValue.self.generator,
                 OtherTestValue.self.generator,
                 predicate: predicate

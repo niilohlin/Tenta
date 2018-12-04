@@ -27,6 +27,7 @@
 		8E89099B693169DC7D3584FD /* Character+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */; };
 		8E890AEF0893C5B917F51C50 /* Sequence+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE3C0FE20B66A2A2EA6 /* Sequence+Generatable.swift */; };
 		8E890B76E16051572948B7C6 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902631B1619B438F3FCFD /* Combine.swift */; };
+		8E890BFD94FB0483E3B0D291 /* NSObject+AssociatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */; };
 		8E890D49B3993428C1825D12 /* XCTest+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BDC993B78EC28625829 /* XCTest+Property.swift */; };
 		8E890DC19AF7722C992966C6 /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890A83B74300654007736F /* GeneratorTests.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGeneratorTests.swift; sourceTree = "<group>"; };
 		8E89038F86E00A552B1B8373 /* Double+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Generatable.swift"; sourceTree = "<group>"; };
 		8E8905DF2ED554C905DD8B6A /* Constructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constructor.swift; sourceTree = "<group>"; };
+		8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+AssociatedValue.swift"; sourceTree = "<group>"; };
 		8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Generatable.swift"; sourceTree = "<group>"; };
 		8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Generatable.swift"; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				8E890A0AC4A8E52CE096E084 /* Generators */,
 				8E890BDC993B78EC28625829 /* XCTest+Property.swift */,
 				8E8905DF2ED554C905DD8B6A /* Constructor.swift */,
+				8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */,
 			);
 			path = Tenta;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				8E890091C35AF754B7E1E33E /* Bool+Generatable.swift in Sources */,
 				8E890D49B3993428C1825D12 /* XCTest+Property.swift in Sources */,
 				8E89053F2C5959343E8BAE39 /* Constructor.swift in Sources */,
+				8E890BFD94FB0483E3B0D291 /* NSObject+AssociatedValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
