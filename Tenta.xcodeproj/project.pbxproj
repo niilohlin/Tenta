@@ -19,6 +19,7 @@
 		8E89023F542BF0B8F434F853 /* Optional+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890084098C32A0D6269434 /* Optional+Generatable.swift */; };
 		8E89048932464D7A5538C79C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
 		8E89053F2C5959343E8BAE39 /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8905DF2ED554C905DD8B6A /* Constructor.swift */; };
+		8E89054B29B39CE331C28F4A /* Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89090BF2D51B8F4614C2C7 /* Testable.swift */; };
 		8E8905DFAC6D8436A93F8DC8 /* Double+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89038F86E00A552B1B8373 /* Double+Generatable.swift */; };
 		8E8906B90C67FCA8540DD929 /* Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BE14D9CEC77ED2315A7 /* Generatable.swift */; };
 		8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
@@ -63,6 +64,7 @@
 		8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+AssociatedValue.swift"; sourceTree = "<group>"; };
 		8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Generatable.swift"; sourceTree = "<group>"; };
 		8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Generatable.swift"; sourceTree = "<group>"; };
+		8E89090BF2D51B8F4614C2C7 /* Testable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testable.swift; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
 		8E890BDC993B78EC28625829 /* XCTest+Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+Property.swift"; sourceTree = "<group>"; };
 		8E890BE14D9CEC77ED2315A7 /* Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generatable.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				8E890BDC993B78EC28625829 /* XCTest+Property.swift */,
 				8E8905DF2ED554C905DD8B6A /* Constructor.swift */,
 				8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */,
+				8E89090BF2D51B8F4614C2C7 /* Testable.swift */,
 			);
 			path = Tenta;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				8E89053F2C5959343E8BAE39 /* Constructor.swift in Sources */,
 				8E890BFD94FB0483E3B0D291 /* NSObject+AssociatedValue.swift in Sources */,
 				8E890BF871114F7678D6FEDB /* TestObservation.swift in Sources */,
+				8E89054B29B39CE331C28F4A /* Testable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

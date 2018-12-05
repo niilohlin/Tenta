@@ -298,7 +298,8 @@ class GeneratorTests: XCTestCase {
             predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
             line: UInt = #line) {
-        guard let value = generator.runAndReturnShrink(with: predicate) else {
+        let property = Property(generator: generator, seed: seed, numberOfTests: numberOfTests, predicate: predicate)
+        guard let value = property.checkProperty() else {
             XCTFail("Generator did not fail", file: file, line: line)
             return
         }
@@ -308,27 +309,5 @@ class GeneratorTests: XCTestCase {
                 file: file,
                 line: line
         )
-    }
-}
-
-extension Generator {
-    func runAndReturnShrink(with predicate: @escaping (ValueToTest) throws -> Bool) -> ValueToTest? {
-        var rng = SeededRandomNumberGenerator(seed: 100)
-
-        func runPredicate(_ value: ValueToTest) -> Bool {
-            do {
-                return try predicate(value)
-            } catch {
-                return false
-            }
-        }
-
-        for size in 0..<UInt(100) {
-            let rose = generate(size, &rng)
-            if !runPredicate(rose.root()) {
-                return rose.shrink(predicate: runPredicate)
-            }
-        }
-        return nil
     }
 }
