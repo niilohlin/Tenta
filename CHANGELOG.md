@@ -1,6 +1,7 @@
 ## 0.4
 - Add flatMap to Generator
 - Move seed and numberOfTests to XCTestCase
+- Add `runWithXCTest` method
 
 ## 0.3
 - Add alphanumeric string
