@@ -12,7 +12,7 @@ public extension Generator {
      - Usage:
      ```
      let intGenerator: Generator<Int> = Generator<Int>.int
-     runTest(gen: Generator<Int>.array(elementGenerator: intGenerator)) { array in
+     runTest(generator: Generator<Int>.array(elementGenerator: intGenerator)) { array in
          array.count >= 0
      }
      ```

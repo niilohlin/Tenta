@@ -9,7 +9,7 @@ import XCTest
 
 class XCTestCaseExtensionTests: XCTestCase {
     func testRunWithXCTest() {
-        runWithXCTest(gen: [Int].generator) { (ints: [Int]) in
+        runWithXCTest(generator: [Int].generator) { (ints: [Int]) in
             XCTAssertEqual(ints.sorted(), ints.sorted().sorted())
         }
     }

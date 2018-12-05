@@ -35,13 +35,13 @@ public extension XCTestCase {
     func runTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            gen: Generator<TestValue>,
+            generator: Generator<TestValue>,
             predicate: @escaping (TestValue) throws -> Bool
     ) {
 
         let property = Property(
                 description: "testDesc",
-                generator: gen,
+                generator: generator,
                 seed: seed,
                 numberOfTests: numberOfTests,
                 predicate: predicate
@@ -63,7 +63,7 @@ public extension XCTestCase {
         runTest(
                 file: file,
                 line: line,
-                gen: TestValue.self.generator,
+                generator: TestValue.self.generator,
                 predicate: predicate
         )
     }
@@ -115,19 +115,19 @@ public extension XCTestCase {
             line: UInt = #line,
             predicate: @escaping (TestValue) throws -> Void
     ) {
-        runWithXCTest(file: file, line: line, gen: TestValue.generator, predicate: predicate)
+        runWithXCTest(file: file, line: line, generator: TestValue.generator, predicate: predicate)
     }
 
     func runWithXCTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            gen: Generator<TestValue>,
+            generator: Generator<TestValue>,
             predicate: @escaping (TestValue) throws -> Void
     ) {
 
         let property = Property(
                 description: "",
-                generator: gen,
+                generator: generator,
                 seed: seed,
                 numberOfTests: numberOfTests
         ) {
