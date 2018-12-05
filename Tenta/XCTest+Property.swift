@@ -29,6 +29,14 @@ public extension XCTestCase {
 
 public extension XCTestCase {
 
+    func runWithXCTest<TestValue: Generatable>(
+            file: StaticString = #file,
+            line: UInt = #line,
+            predicate: @escaping (TestValue) -> Void
+    ) {
+        runWithXCTest(file: file, line: line, gen: TestValue.generator, predicate: predicate)
+    }
+
     func runWithXCTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
@@ -52,8 +60,8 @@ public extension XCTestCase {
         if let failedValue = property.checkProperty() {
             XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
         }
-
     }
+
     /**
      Placeholder function for running tests.
      */
