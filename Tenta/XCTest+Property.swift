@@ -8,7 +8,7 @@ import XCTest
 
 private var seedKey = false
 private var numberOfTestsKey = false
-private extension XCTestCase {
+public extension XCTestCase {
     var seed: UInt64 {
         get {
             return associatedValue(forKey: &seedKey) ?? 100
