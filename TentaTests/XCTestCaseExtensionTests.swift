@@ -9,7 +9,7 @@ import XCTest
 
 class XCTestCaseExtensionTests: XCTestCase {
     func testRunWithXCTest() {
-        runWithXCTest(gen: [Int].generator) { (ints: [Int]) in
+        runWithXCTest(generator: [Int].generator) { (ints: [Int]) in
             XCTAssertEqual(ints.sorted(), ints.sorted().sorted())
         }
     }
@@ -18,5 +18,16 @@ class XCTestCaseExtensionTests: XCTestCase {
         runWithXCTest { (int: Int, char: Character) in
             XCTAssertNotEqual(String(describing: int) + String(char), "")
         }
+    }
+
+    func testRunTestWithDifferentTestSize() {
+        seed = 0
+        numberOfTests = 1
+        let expect = expectation(description: "should only be called once")
+        runWithXCTest { (int: Int) in
+            XCTAssertNotEqual(int, 100, "should not generate and int of size 100 on the first try")
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 0.1)
     }
 }

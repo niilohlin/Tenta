@@ -51,4 +51,21 @@ internal class TestCasePropertyConverter {
     func rerun(for testCase: XCTestCase) -> RerunProperty? {
         return reruns[testCase]?.rerun
     }
+
+    func convert<TestValue>(
+            predicate: @escaping (TestValue) throws -> Void,
+            toBoolPredicate: Void,
+            from testCase: XCTestCase
+    ) -> ((TestValue) -> Bool) {
+
+        return { (testValue: TestValue) -> Bool in
+            self.set(true, for: testCase)
+            do {
+                try predicate(testValue)
+            } catch {
+                self.set(false, for: testCase)
+            }
+            return self.passStatus(for: testCase)
+        }
+    }
 }

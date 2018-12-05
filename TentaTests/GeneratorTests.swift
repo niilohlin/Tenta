@@ -68,7 +68,7 @@ class GeneratorTests: XCTestCase {
         let positiveEvenGenerator = Generator<Int>.int.filter { int in
             (int > 0 && int % 2 == 0)
         }
-        runTest(gen: positiveEvenGenerator) { positiveEven in
+        runTest(generator: positiveEvenGenerator) { positiveEven in
             XCTAssert(positiveEven > 0)
             XCTAssert(positiveEven % 2 == 0)
             return positiveEven > 0 && positiveEven % 2 == 0
@@ -189,7 +189,7 @@ class GeneratorTests: XCTestCase {
             )
         }
 
-        runTest(gen: generator) { (_: ComplexTest) in
+        runTest(generator: generator) { (_: ComplexTest) in
             true
         }
     }
@@ -218,7 +218,7 @@ class GeneratorTests: XCTestCase {
 
     func testGenerateNonEmpty() {
         let nonEmpty = Int.generator.generateMany().nonEmpty()
-        runTest(gen: nonEmpty) { (integers: [Int]) in
+        runTest(generator: nonEmpty) { (integers: [Int]) in
             !integers.isEmpty
         }
     }
@@ -237,14 +237,14 @@ class GeneratorTests: XCTestCase {
     }
 
     func testGenerateAlphaNumeric() {
-        runTest(gen: Generator<String>.alphaNumeric) { (string: String) in
+        runTest(generator: Generator<String>.alphaNumeric) { (string: String) in
             string.allSatisfy("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".contains)
         }
     }
 
     func testDefaultGeneratorTransform() {
         let intAndString = Int.generator.combine(with: String.generator)
-        runTest(gen: intAndString) { int, string in
+        runTest(generator: intAndString) { int, string in
             (String(describing: int) + string).count >= string.count
         }
 
