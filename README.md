@@ -2,7 +2,7 @@
 
 # Tenta
 Tenta is a property based testing framework for Swift, in development.
-Tenta is Swedish slang for "Test" typically in a University setting.
+Tenta is Swedish slang for "Test", typically used in a University setting.
 
 ## Examples
 
@@ -14,7 +14,7 @@ Tenta is Swedish slang for "Test" typically in a University setting.
 
 ```
 
-or if you want to add `Tenta.TestObservation` as your `NSPrincipalClass`
+or if you want to, add `Tenta.TestObservation` as your `NSPrincipalClass`
 and you should be able to write your tests like this:
 
 ```swift
@@ -24,6 +24,11 @@ and you should be able to write your tests like this:
     }
 
 ```
+
+When a test fails it will try to find the smallest example of a failing
+value and present you with an example of how to reproduce the error.
+
+![](assets/example-fail.png)
 
 ## Design goals/philosophy
 
