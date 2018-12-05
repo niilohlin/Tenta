@@ -29,41 +29,8 @@ public extension XCTestCase {
 
 public extension XCTestCase {
 
-    func runWithXCTest<TestValue: Generatable>(
-            file: StaticString = #file,
-            line: UInt = #line,
-            predicate: @escaping (TestValue) -> Void
-    ) {
-        runWithXCTest(file: file, line: line, gen: TestValue.generator, predicate: predicate)
-    }
-
-    func runWithXCTest<TestValue>(
-            file: StaticString = #file,
-            line: UInt = #line,
-            gen: Generator<TestValue>,
-            predicate: @escaping (TestValue) -> Void
-    ) {
-
-        let property = Property(
-                description: "",
-                generator: gen,
-                seed: seed,
-                numberOfTests: numberOfTests
-        ) {
-            TestCasePropertyConverter.shared.set(true, for: self)
-            predicate($0)
-            return TestCasePropertyConverter.shared.passStatus(for: self)
-        }
-
-        TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
-
-        if let failedValue = property.checkProperty() {
-            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
-        }
-    }
-
     /**
-     Placeholder function for running tests.
+     Run test with specified generator.
      */
     func runTest<TestValue>(
             file: StaticString = #file,
@@ -138,5 +105,83 @@ public extension XCTestCase {
                 OtherTestValue.self.generator,
                 predicate: predicate
         )
+    }
+}
+
+public extension XCTestCase {
+
+    func runWithXCTest<TestValue: Generatable>(
+            file: StaticString = #file,
+            line: UInt = #line,
+            predicate: @escaping (TestValue) throws -> Void
+    ) {
+        runWithXCTest(file: file, line: line, gen: TestValue.generator, predicate: predicate)
+    }
+
+    func runWithXCTest<TestValue>(
+            file: StaticString = #file,
+            line: UInt = #line,
+            gen: Generator<TestValue>,
+            predicate: @escaping (TestValue) throws -> Void
+    ) {
+
+        let property = Property(
+                description: "",
+                generator: gen,
+                seed: seed,
+                numberOfTests: numberOfTests
+        ) {
+            TestCasePropertyConverter.shared.set(true, for: self)
+            do {
+                try predicate($0)
+            } catch {
+                TestCasePropertyConverter.shared.set(false, for: self)
+            }
+            return TestCasePropertyConverter.shared.passStatus(for: self)
+        }
+
+        TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
+
+        if let failedValue = property.checkProperty() {
+            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
+        }
+    }
+
+    func runWithXCTest<TestValue: Generatable, OtherTestValue: Generatable>(
+            file: StaticString = #file,
+            line: UInt = #line,
+            predicate: @escaping (TestValue, OtherTestValue) throws -> Void
+
+    ) {
+        runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, predicate: predicate)
+    }
+
+    func runWithXCTest<TestValue, OtherTestValue>(
+            file: StaticString = #file,
+            line: UInt = #line,
+            _ firstGenerator: Generator<TestValue>,
+            _ secondGenerator: Generator<OtherTestValue>,
+            predicate: @escaping (TestValue, OtherTestValue) throws -> Void
+    ) {
+        let property = Property(
+                description: "",
+                generator: firstGenerator.combine(with: secondGenerator),
+                seed: seed,
+                numberOfTests: numberOfTests
+        ) {
+            TestCasePropertyConverter.shared.set(true, for: self)
+            do {
+                try predicate($0.0, $0.1)
+            } catch {
+                TestCasePropertyConverter.shared.set(false, for: self)
+            }
+            return TestCasePropertyConverter.shared.passStatus(for: self)
+        }
+
+        TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
+
+        if let failedValue = property.checkProperty() {
+            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
+        }
     }
 }
