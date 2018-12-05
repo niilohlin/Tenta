@@ -137,6 +137,7 @@ class GeneratorTests: XCTestCase {
         runTest { (char: Character) in
             !String(char).isEmpty
         }
+        XCTFail("test fail")
     }
 
     func testGenerateStrings() {

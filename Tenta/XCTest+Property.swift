@@ -29,6 +29,31 @@ public extension XCTestCase {
 
 public extension XCTestCase {
 
+    func runWithXCTest<TestValue>(
+            file: StaticString = #file,
+            line: UInt = #line,
+            gen: Generator<TestValue>,
+            predicate: @escaping (TestValue) -> Void
+    ) {
+
+        let property = Property(
+                description: "",
+                generator: gen,
+                seed: seed,
+                numberOfTests: numberOfTests
+        ) {
+            TestCasePropertyConverter.shared.set(true, for: self)
+            predicate($0)
+            return TestCasePropertyConverter.shared.passStatus(for: self)
+        }
+
+        TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
+
+        if let failedValue = property.checkProperty() {
+            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
+        }
+
+    }
     /**
      Placeholder function for running tests.
      */
@@ -40,7 +65,7 @@ public extension XCTestCase {
     ) {
 
         let property = Property(
-                description: "",
+                description: "testDesc",
                 generator: gen,
                 seed: seed,
                 numberOfTests: numberOfTests,
