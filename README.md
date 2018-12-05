@@ -14,6 +14,17 @@ Tenta is Swedish slang for "Test" typically in a University setting.
 
 ```
 
+or if you want to add `Tenta.TestObservation` as your `NSPrincipalClass`
+and you should be able to write your tests like this:
+
+```swift
+    // Assert that the reverse of any array keeps its length.
+    runWithXCTest { (array: [Int]) in
+        XCTAssertEqual(array.count, array.reversed().count)
+    }
+
+```
+
 ## Design goals/philosophy
 
 Tenta should be:
