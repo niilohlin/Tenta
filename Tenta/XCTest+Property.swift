@@ -38,24 +38,17 @@ public extension XCTestCase {
             gen: Generator<TestValue>,
             predicate: @escaping (TestValue) throws -> Bool
     ) {
-        var rng = SeededRandomNumberGenerator(seed: seed)
 
-        func runPredicate(_ value: TestValue) -> Bool {
-            do {
-                return try predicate(value)
-            } catch {
-                return false
-            }
-        }
+        let property = Property(
+                description: "",
+                generator: gen,
+                seed: seed,
+                numberOfTests: numberOfTests,
+                predicate: predicate
+        )
 
-        for size in 0..<numberOfTests {
-            let rose = gen.generate(size, &rng)
-            if !runPredicate(rose.root()) {
-                print("starting shrink")
-                let failedValue = rose.shrink(predicate: runPredicate)
-                XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
-                break
-            }
+        if let failedValue = property.checkProperty() {
+            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
         }
     }
 
@@ -82,27 +75,21 @@ public extension XCTestCase {
             _ secondGenerator: Generator<OtherTestValue>,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
     ) {
-        var rng = SeededRandomNumberGenerator(seed: seed)
 
-        func runPredicate(_ value: TestValue, _ other: OtherTestValue) -> Bool {
-            do {
-                return try predicate(value, other)
-            } catch {
-                return false
-            }
-        }
+//        func unaryPredicate(tuple: (TestValue, OtherTestValue)) throws -> Bool {
+//            return try predicate(tuple.0, tuple.1)
+//        }
 
-        for size in 0..<numberOfTests {
-            let rose = firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) })
-                .generate(size, &rng)
-            let (firstValue, secondValue) = rose.root()
+        let property = Property(
+                description: "",
+                generator: firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) }),
+                seed: seed,
+                numberOfTests: numberOfTests,
+                predicate: predicate
+        )
 
-            if !runPredicate(firstValue, secondValue) {
-                print("starting shrink")
-                let failedValue = rose.shrink(predicate: runPredicate)
-                XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
-                break
-            }
+        if let failedValue = property.checkProperty() {
+            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
         }
     }
 
