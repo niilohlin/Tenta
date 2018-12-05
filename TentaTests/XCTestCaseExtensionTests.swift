@@ -13,4 +13,10 @@ class XCTestCaseExtensionTests: XCTestCase {
             XCTAssertEqual(ints.sorted(), ints.sorted().sorted())
         }
     }
+
+    func testRunWithXCTest_defaultGenerator() {
+        runWithXCTest { (int: Int, char: Character) in
+            XCTAssertNotEqual(String(describing: int) + String(char), "")
+        }
+    }
 }
