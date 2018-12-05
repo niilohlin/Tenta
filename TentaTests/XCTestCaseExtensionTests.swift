@@ -19,4 +19,15 @@ class XCTestCaseExtensionTests: XCTestCase {
             XCTAssertNotEqual(String(describing: int) + String(char), "")
         }
     }
+
+    func testRunTestWithDifferentTestSize() {
+        seed = 0
+        numberOfTests = 1
+        let expect = expectation(description: "should only be called once")
+        runWithXCTest { (int: Int) in
+            XCTAssertNotEqual(int, 100, "should not generate and int of size 100 on the first try")
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 0.1)
+    }
 }
