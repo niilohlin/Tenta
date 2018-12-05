@@ -30,4 +30,18 @@ class XCTestCaseExtensionTests: XCTestCase {
         }
         wait(for: [expect], timeout: 0.1)
     }
+
+    func disabled_testUpperCasedLowerCased() {
+        numberOfTests = 10000
+
+        runWithXCTest { (int: UInt32) in
+            guard let scalar = Unicode.Scalar(int) else {
+                return
+            }
+            let char = Character(scalar)
+            let string = String(char)
+
+            XCTAssertEqual(string.uppercased(), string.lowercased().uppercased())
+        }
+    }
 }

@@ -78,9 +78,13 @@ public extension Generator {
     static func element<SequenceType: Sequence>(from sequence: SequenceType) -> Generator<SequenceType.Element> {
         var array = [SequenceType.Element]()
         var iterator = sequence.makeIterator()
-        return Generator<SequenceType.Element> { _, rng in
-            if let nextElement = iterator.next() {
-                array.append(nextElement)
+        return Generator<SequenceType.Element> { size, rng in
+            for _ in 0..<(size + 1) {
+                if let nextElement = iterator.next() {
+                    array.append(nextElement)
+                } else {
+                    break
+                }
             }
             guard let element = array.randomElement(using: &rng) else {
                 fatalError("Could not generate an element from an empty sequence")

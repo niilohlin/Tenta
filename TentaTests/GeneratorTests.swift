@@ -133,6 +133,13 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testGenerateElement_withSize() {
+        let generator = Generator<Character>.element(from: 0..<100)
+        var rng = SeededRandomNumberGenerator(seed: 100)
+        let value = generator.generate(100, &rng).root()
+        XCTAssertNotEqual(value, 0, "Element should respect size")
+    }
+
     func testGenerateCharacter() {
         runTest { (char: Character) in
             !String(char).isEmpty
