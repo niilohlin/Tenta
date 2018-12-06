@@ -74,6 +74,20 @@ public extension Generator {
                     }
                 }
     }
+
+    func generateMany(length: Int) -> Generator<[ValueToTest]> {
+        precondition(length >= 0)
+        return Generator<[ValueToTest]> { size, rng in
+            if length <= 0 {
+                return RoseTree(root: [], forest: [])
+            }
+            var value = [RoseTree<ValueToTest>]()
+            for _ in 0 ..< length {
+                value.append(self.generate(size, &rng))
+            }
+            return RoseTree<[Int]>.combine(forest: value)
+        }
+    }
 }
 
 public extension Generator where ValueToTest: Collection, ValueToTest.Element: Generatable {

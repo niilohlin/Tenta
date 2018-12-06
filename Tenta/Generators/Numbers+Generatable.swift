@@ -76,3 +76,19 @@ extension Int: Generatable {
         return Generator<Int>.int
     }
 }
+
+public extension Generator where ValueToTest == Decimal {
+    static var decimal: Generator<Decimal> {
+        return Generator<Generator<Decimal>>.element(from: [
+            Int.generator.map { Decimal($0) },
+            Double.generator.map { Decimal($0) }
+            ]
+        ).flatMap { $0 }
+    }
+}
+
+extension Decimal: Generatable {
+    public static var generator: Generator<Decimal> {
+        return Generator<Decimal>.decimal
+    }
+}

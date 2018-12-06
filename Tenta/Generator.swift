@@ -27,6 +27,11 @@ public struct Generator<ValueToTest> {
             return RoseTree<ValueToTest>(root: value)
         }
     }
+
+    /// Generate a value without its shrink tree.
+    public func generateUsing(_ constructor: inout Constructor) -> ValueToTest {
+        return generate(constructor.size, &constructor.rng).root()
+    }
 }
 
 public extension Generator {

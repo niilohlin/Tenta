@@ -282,6 +282,13 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testGenerateManyFixedLength() {
+        let intGenerator = Int.generator.generateMany(length: 10)
+        runWithXCTest(generator: intGenerator) { (integers: [Int]) in
+            XCTAssertEqual(integers.count, 10)
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
