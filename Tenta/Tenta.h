@@ -6,7 +6,7 @@
 //  Copyright © 2018 Niil Öhlin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Tenta.
 FOUNDATION_EXPORT double TentaVersionNumber;
