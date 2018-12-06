@@ -7,6 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7426FBED21B9493B009E67CA /* Tenta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7426FBE421B9493B009E67CA /* Tenta.framework */; };
+		7426FBF421B9493B009E67CA /* Tenta_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7426FBE621B9493B009E67CA /* Tenta_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7426FBFB21B94966009E67CA /* RoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2681216D008B00A40EA6 /* RoseTree.swift */; };
+		7426FBFC21B9496A009E67CA /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890F17CFDEDA3A1F1C4266 /* Generator.swift */; };
+		7426FBFD21B9496C009E67CA /* SeededRandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */; };
+		7426FBFE21B9496F009E67CA /* Shrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890E369D88E63EFFB794CC /* Shrink.swift */; };
+		7426FBFF21B94972009E67CA /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
+		7426FC0021B94974009E67CA /* Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BE14D9CEC77ED2315A7 /* Generatable.swift */; };
+		7426FC0121B94976009E67CA /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902631B1619B438F3FCFD /* Combine.swift */; };
+		7426FC0221B9497B009E67CA /* Character+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */; };
+		7426FC0321B9497E009E67CA /* Double+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89038F86E00A552B1B8373 /* Double+Generatable.swift */; };
+		7426FC0421B94980009E67CA /* Numbers+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89000AD4BD34271F482422 /* Numbers+Generatable.swift */; };
+		7426FC0521B94983009E67CA /* Sequence+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE3C0FE20B66A2A2EA6 /* Sequence+Generatable.swift */; };
+		7426FC0621B94985009E67CA /* String+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */; };
+		7426FC0721B94988009E67CA /* Optional+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890084098C32A0D6269434 /* Optional+Generatable.swift */; };
+		7426FC0821B9498B009E67CA /* Bool+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89031F831C25B5D6457A77 /* Bool+Generatable.swift */; };
+		7426FC0921B9498D009E67CA /* Foundation+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902E7FE2569C37E8D2AB1 /* Foundation+Generatable.swift */; };
+		7426FC0A21B94990009E67CA /* XCTest+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BDC993B78EC28625829 /* XCTest+Property.swift */; };
+		7426FC0B21B94993009E67CA /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8905DF2ED554C905DD8B6A /* Constructor.swift */; };
+		7426FC0C21B94996009E67CA /* NSObject+AssociatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */; };
+		7426FC0D21B94999009E67CA /* Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89090BF2D51B8F4614C2C7 /* Testable.swift */; };
+		7426FC0E21B9499C009E67CA /* TestObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890C47CDD0BDCF7FCC64C9 /* TestObservation.swift */; };
+		7426FC1021B949B8009E67CA /* RoseTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2683216D00B700A40EA6 /* RoseTreeTests.swift */; };
+		7426FC1121B949BB009E67CA /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890A83B74300654007736F /* GeneratorTests.swift */; };
+		7426FC1221B949BE009E67CA /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
+		7426FC1321B949C0009E67CA /* ShrinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE977F432F2F78955F1 /* ShrinkTests.swift */; };
+		7426FC1421B949C3009E67CA /* XCTestCaseExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DA1F1C83F46E0731E1A /* XCTestCaseExtensionTests.swift */; };
+		7426FC1521B949C5009E67CA /* FoundationGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89051916C22054F44682D6 /* FoundationGeneratorTests.swift */; };
 		744C2671216D007A00A40EA6 /* Tenta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C2667216D007900A40EA6 /* Tenta.framework */; };
 		744C2678216D007A00A40EA6 /* Tenta.h in Headers */ = {isa = PBXBuildFile; fileRef = 744C266A216D007900A40EA6 /* Tenta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		744C2682216D008B00A40EA6 /* RoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C2681216D008B00A40EA6 /* RoseTree.swift */; };
@@ -38,6 +66,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7426FBEE21B9493B009E67CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 744C265E216D007900A40EA6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7426FBE321B9493B009E67CA;
+			remoteInfo = "Tenta-iOS";
+		};
 		744C2672216D007A00A40EA6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 744C265E216D007900A40EA6 /* Project object */;
@@ -48,6 +83,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7426FBE421B9493B009E67CA /* Tenta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tenta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7426FBE621B9493B009E67CA /* Tenta_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tenta_iOS.h; sourceTree = "<group>"; };
+		7426FBE721B9493B009E67CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7426FBEC21B9493B009E67CA /* Tenta-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tenta-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7426FBF321B9493B009E67CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744C2667216D007900A40EA6 /* Tenta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tenta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		744C266A216D007900A40EA6 /* Tenta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tenta.h; sourceTree = "<group>"; };
 		744C266B216D007900A40EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +123,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7426FBE121B9493B009E67CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7426FBE921B9493B009E67CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7426FBED21B9493B009E67CA /* Tenta.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744C2664216D007900A40EA6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -101,11 +156,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7426FBE521B9493B009E67CA /* Tenta-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7426FBE621B9493B009E67CA /* Tenta_iOS.h */,
+				7426FBE721B9493B009E67CA /* Info.plist */,
+			);
+			path = "Tenta-iOS";
+			sourceTree = "<group>";
+		};
+		7426FBF021B9493B009E67CA /* Tenta-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				7426FBF321B9493B009E67CA /* Info.plist */,
+			);
+			path = "Tenta-iOSTests";
+			sourceTree = "<group>";
+		};
 		744C265D216D007900A40EA6 = {
 			isa = PBXGroup;
 			children = (
 				744C2669216D007900A40EA6 /* Tenta */,
 				744C2674216D007A00A40EA6 /* TentaTests */,
+				7426FBE521B9493B009E67CA /* Tenta-iOS */,
+				7426FBF021B9493B009E67CA /* Tenta-iOSTests */,
 				744C2668216D007900A40EA6 /* Products */,
 				7498C39D21B08ACB005EC5A5 /* Frameworks */,
 			);
@@ -116,6 +190,8 @@
 			children = (
 				744C2667216D007900A40EA6 /* Tenta.framework */,
 				744C2670216D007A00A40EA6 /* TentaTests.xctest */,
+				7426FBE421B9493B009E67CA /* Tenta.framework */,
+				7426FBEC21B9493B009E67CA /* Tenta-iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +258,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		7426FBDF21B9493B009E67CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7426FBF421B9493B009E67CA /* Tenta_iOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744C2662216D007900A40EA6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,6 +277,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		7426FBE321B9493B009E67CA /* Tenta-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7426FBF921B9493B009E67CA /* Build configuration list for PBXNativeTarget "Tenta-iOS" */;
+			buildPhases = (
+				7426FBDF21B9493B009E67CA /* Headers */,
+				7426FBE021B9493B009E67CA /* Sources */,
+				7426FBE121B9493B009E67CA /* Frameworks */,
+				7426FBE221B9493B009E67CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Tenta-iOS";
+			productName = "Tenta-iOS";
+			productReference = 7426FBE421B9493B009E67CA /* Tenta.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7426FBEB21B9493B009E67CA /* Tenta-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7426FBFA21B9493B009E67CA /* Build configuration list for PBXNativeTarget "Tenta-iOSTests" */;
+			buildPhases = (
+				7426FBE821B9493B009E67CA /* Sources */,
+				7426FBE921B9493B009E67CA /* Frameworks */,
+				7426FBEA21B9493B009E67CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7426FBEF21B9493B009E67CA /* PBXTargetDependency */,
+			);
+			name = "Tenta-iOSTests";
+			productName = "Tenta-iOSTests";
+			productReference = 7426FBEC21B9493B009E67CA /* Tenta-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		744C2666216D007900A40EA6 /* Tenta */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 744C267B216D007A00A40EA6 /* Build configuration list for PBXNativeTarget "Tenta" */;
@@ -235,10 +355,16 @@
 		744C265E216D007900A40EA6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Niil Öhlin";
 				TargetAttributes = {
+					7426FBE321B9493B009E67CA = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					7426FBEB21B9493B009E67CA = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					744C2666216D007900A40EA6 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
@@ -262,11 +388,27 @@
 			targets = (
 				744C2666216D007900A40EA6 /* Tenta */,
 				744C266F216D007A00A40EA6 /* TentaTests */,
+				7426FBE321B9493B009E67CA /* Tenta-iOS */,
+				7426FBEB21B9493B009E67CA /* Tenta-iOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7426FBE221B9493B009E67CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7426FBEA21B9493B009E67CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744C2665216D007900A40EA6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +426,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7426FBE021B9493B009E67CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7426FC0221B9497B009E67CA /* Character+Generatable.swift in Sources */,
+				7426FC0421B94980009E67CA /* Numbers+Generatable.swift in Sources */,
+				7426FC0321B9497E009E67CA /* Double+Generatable.swift in Sources */,
+				7426FC0721B94988009E67CA /* Optional+Generatable.swift in Sources */,
+				7426FC0821B9498B009E67CA /* Bool+Generatable.swift in Sources */,
+				7426FBFF21B94972009E67CA /* Property.swift in Sources */,
+				7426FBFB21B94966009E67CA /* RoseTree.swift in Sources */,
+				7426FC0021B94974009E67CA /* Generatable.swift in Sources */,
+				7426FC0E21B9499C009E67CA /* TestObservation.swift in Sources */,
+				7426FC0521B94983009E67CA /* Sequence+Generatable.swift in Sources */,
+				7426FBFC21B9496A009E67CA /* Generator.swift in Sources */,
+				7426FC0921B9498D009E67CA /* Foundation+Generatable.swift in Sources */,
+				7426FC0B21B94993009E67CA /* Constructor.swift in Sources */,
+				7426FC0D21B94999009E67CA /* Testable.swift in Sources */,
+				7426FC0A21B94990009E67CA /* XCTest+Property.swift in Sources */,
+				7426FBFE21B9496F009E67CA /* Shrink.swift in Sources */,
+				7426FBFD21B9496C009E67CA /* SeededRandomNumberGenerator.swift in Sources */,
+				7426FC0121B94976009E67CA /* Combine.swift in Sources */,
+				7426FC0621B94985009E67CA /* String+Generatable.swift in Sources */,
+				7426FC0C21B94996009E67CA /* NSObject+AssociatedValue.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7426FBE821B9493B009E67CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7426FC1421B949C3009E67CA /* XCTestCaseExtensionTests.swift in Sources */,
+				7426FC1221B949BE009E67CA /* SeededRandomNumberGeneratorTests.swift in Sources */,
+				7426FC1521B949C5009E67CA /* FoundationGeneratorTests.swift in Sources */,
+				7426FC1021B949B8009E67CA /* RoseTreeTests.swift in Sources */,
+				7426FC1321B949C0009E67CA /* ShrinkTests.swift in Sources */,
+				7426FC1121B949BB009E67CA /* GeneratorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		744C2663216D007900A40EA6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,6 +509,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7426FBEF21B9493B009E67CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7426FBE321B9493B009E67CA /* Tenta-iOS */;
+			targetProxy = 7426FBEE21B9493B009E67CA /* PBXContainerItemProxy */;
+		};
 		744C2673216D007A00A40EA6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 744C2666216D007900A40EA6 /* Tenta */;
@@ -335,6 +522,100 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		7426FBF521B9493B009E67CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = U23BF8AN44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				INFOPLIST_FILE = "Tenta-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ohlin.niil.Tenta;
+				PRODUCT_NAME = Tenta;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7426FBF621B9493B009E67CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = U23BF8AN44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				INFOPLIST_FILE = "Tenta-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ohlin.niil.Tenta;
+				PRODUCT_NAME = Tenta;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7426FBF721B9493B009E67CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U23BF8AN44;
+				INFOPLIST_FILE = "Tenta-iOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ohlin.niil.Tenta-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7426FBF821B9493B009E67CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U23BF8AN44;
+				INFOPLIST_FILE = "Tenta-iOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ohlin.niil.Tenta-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		744C2679216D007A00A40EA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -563,6 +844,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7426FBF921B9493B009E67CA /* Build configuration list for PBXNativeTarget "Tenta-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7426FBF521B9493B009E67CA /* Debug */,
+				7426FBF621B9493B009E67CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7426FBFA21B9493B009E67CA /* Build configuration list for PBXNativeTarget "Tenta-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7426FBF721B9493B009E67CA /* Debug */,
+				7426FBF821B9493B009E67CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		744C2661216D007900A40EA6 /* Build configuration list for PBXProject "Tenta" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
