@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7426FBE321B9493B009E67CA"
-               BuildableName = "Tenta_iOS.framework"
+               BuildableName = "Tenta.framework"
                BlueprintName = "Tenta-iOS"
                ReferencedContainer = "container:Tenta.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7426FBE321B9493B009E67CA"
-            BuildableName = "Tenta_iOS.framework"
+            BuildableName = "Tenta.framework"
             BlueprintName = "Tenta-iOS"
             ReferencedContainer = "container:Tenta.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7426FBE321B9493B009E67CA"
-            BuildableName = "Tenta_iOS.framework"
+            BuildableName = "Tenta.framework"
             BlueprintName = "Tenta-iOS"
             ReferencedContainer = "container:Tenta.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7426FBE321B9493B009E67CA"
-            BuildableName = "Tenta_iOS.framework"
+            BuildableName = "Tenta.framework"
             BlueprintName = "Tenta-iOS"
             ReferencedContainer = "container:Tenta.xcodeproj">
          </BuildableReference>
