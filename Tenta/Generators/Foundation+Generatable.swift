@@ -16,3 +16,40 @@ extension Data: Generatable {
         return Tenta.Generator<Data>.data
     }
 }
+
+public extension Generator where ValueToTest == URLQueryItem {
+    static var urlQueryItem: Generator<URLQueryItem> {
+        return String.generator.combine(with: (String?).generator).map {
+            URLQueryItem(name: $0, value: $1)
+        }
+    }
+}
+
+extension URLQueryItem: Generatable {
+    public static var generator: Generator<URLQueryItem> {
+        return Tenta.Generator<URLQueryItem>.urlQueryItem
+    }
+}
+
+//public extension Generator where ValueToTest == URLComponents {
+//    static var urlComponents: Generator<URLComponents> {
+//        return Generator.simple { (constructor: inout Constructor) -> URLComponents in
+//            var components = URLComponents()
+//            components.fragment = Generator<String>.alphaNumeric.optional().generateUsing(&constructor)
+//            components.host = Generator<String>.alphaNumeric.optional().generateUsing(&constructor)
+//            components.password = Generator<String>.alphaNumeric.optional().generateUsing(&constructor)
+//            components.path = Generator<String>.alphaNumeric.generateUsing(&constructor)
+//            components.port = Int.generator.map(abs).generateUsing(&constructor)
+//            components.queryItems = [URLQueryItem].generator.optional().generateUsing(&constructor)
+//            components.scheme = Generator<String>.alphaNumeric.optional().generateUsing(&constructor)
+//            components.user = Generator<String>.alphaNumeric.optional().generateUsing(&constructor)
+//            return components
+//        }
+//    }
+//}
+//
+//extension URLComponents: Generatable {
+//    public static var generator: Generator<URLComponents> {
+//        return Tenta.Generator<URLComponents>.urlComponents
+//    }
+//}
