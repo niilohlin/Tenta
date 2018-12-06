@@ -13,4 +13,10 @@ class FoundationGeneratorTests: XCTestCase {
             XCTAssertEqual(urlQueryItem, urlQueryItem)
         }
     }
+
+    func testData() {
+        runWithXCTest { (data: Data) in
+            XCTAssertEqual(data, data)
+        }
+    }
 }

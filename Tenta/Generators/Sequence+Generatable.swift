@@ -76,20 +76,16 @@ public extension Generator {
     }
 
     func generateMany(length: Int) -> Generator<[ValueToTest]> {
-        precondition(lenth >= 0)
+        precondition(length >= 0)
         return Generator<[ValueToTest]> { size, rng in
             if length <= 0 {
                 return RoseTree(root: [], forest: [])
             }
-            var value = [RoseTree<TestValue>]()
-            for _ in 0 ... length {
-                value.append(elementGenerator.generate(size, &rng))
+            var value = [RoseTree<ValueToTest>]()
+            for _ in 0 ..< length {
+                value.append(self.generate(size, &rng))
             }
-            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
-                RoseTree(seed: array) { (parentArray: [TestValue]) in
-                    parentArray.shrink()
-                }
-            }
+            return RoseTree<[Int]>.combine(forest: value)
         }
     }
 }
