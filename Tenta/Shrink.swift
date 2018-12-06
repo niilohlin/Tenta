@@ -76,11 +76,12 @@ extension Array {
 }
 
 extension RoseTree {
-    func shrink(predicate: @escaping (Value) -> Bool) -> Value {
+    func shrink(maxShrinks: Int = .max, predicate: @escaping (Value) -> Bool) -> Value {
         var currentForest = forest()
         var cont = true
         var failedValue = root()
-        while cont {
+        var maxShrinks = maxShrinks
+        while cont && maxShrinks >= 0 {
             if currentForest.isEmpty {
                 break
             }
@@ -93,8 +94,8 @@ extension RoseTree {
                     failedValue = subRose.root()
                     break
                 }
-
             }
+            maxShrinks -= 1
         }
         return failedValue
     }
