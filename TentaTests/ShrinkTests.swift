@@ -78,7 +78,7 @@ class ShrinkTests: XCTestCase {
         let value = arrayGenWithShrink.generate(20, &rng)
 
         let shrunk = value.shrink(rng: &rng) { ints in
-            ints.count < 10
+            ints.count < 5
         }
         print("shrunk: \(shrunk)")
     }
