@@ -36,10 +36,11 @@ struct CircularBuffer<Value> {
     }
 }
 
-enum BufferTransitions {
-    case get
+enum Transition {
     case put(Int)
+    case get
 }
+
 class CircularBufferTests: XCTestCase {
     func testCircularBuffer() {
         var buffer = CircularBuffer<Int>(size: 5)
@@ -48,31 +49,25 @@ class CircularBufferTests: XCTestCase {
         XCTAssertEqual(buffer.numberOfValues, 2)
     }
 
-    func testCircularBuffer_prop() {
-        func put(into buffer: CircularBuffer<Int>) -> Generator<CircularBuffer<Int>> {
-            return Int.generator.map { value in
-                var buffer = buffer
-                buffer.put(value: value)
-                return buffer
+    func example_testCircularBuffer_prop() {
+        let transitionGenerator = Int?.generator.map { maybeValue -> Transition in
+            if let value = maybeValue {
+                return Transition.put(value)
             }
+            return Transition.get
         }
+        let sizeGenerator = Int.generator.map { abs($0) + 1 }
 
-        func get(from buffer: CircularBuffer<Int>) -> Generator<CircularBuffer<Int>> {
-            return Generator<CircularBuffer<Int>> { _, _ in
-                var buffer = buffer
-                _ = buffer.get()
-                return RoseTree(root: buffer)
+        runWithXCTest(sizeGenerator, transitionGenerator.generateMany()) { (size: Int, transitions: [Transition]) in
+            var buffer = CircularBuffer<Int>(size: abs(size))
+            for transition in transitions {
+                if case .put(let value) = transition {
+                    buffer.put(value: value)
+                } else if buffer.numberOfValues != 0 {
+                    _ = buffer.get()
+                }
+                XCTAssertGreaterThanOrEqual(buffer.numberOfValues, 0)
             }
-        }
-//
-//        let bufferGenerator = Generator<CircularBuffer<Int>> { size, rng in
-//            let puttedGenerator = Int.generator.flatMap { bufferSize in
-//                let buffer = CircularBuffer<Int>(size: abs(bufferSize) + 1)
-//                return put(into: buffer)
-//            }
-//        }
-
-        runWithXCTest { (_: Int) in
         }
     }
 }
