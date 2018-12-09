@@ -49,56 +49,30 @@ class CircularBufferTests: XCTestCase {
     }
 
     func testCircularBuffer_prop() {
-        let initializeBuffer = { () -> CircularBuffer<Int> in
-             CircularBuffer<Int>(size: 5)
-        }
-        let transitionGenerator = Int?.generator.map { (maybeInt: Int?) -> BufferTransitions in
-            if let int = maybeInt {
-                return BufferTransitions.put(int)
+        func put(into buffer: CircularBuffer<Int>) -> Generator<CircularBuffer<Int>> {
+            return Int.generator.map { value in
+                var buffer = buffer
+                buffer.put(value: value)
+                return buffer
             }
-            return BufferTransitions.get
         }
 
-        let bufferSFM = FiniteStateMachine<CircularBuffer<Int>, BufferTransitions>(
-                initializeModel: initializeBuffer,
-                transitions: transitionGenerator,
-                precondition: { model, transition in
-                    switch transition {
-                    case .get:
-                        return model.numberOfValues > 0
-                    case .put:
-                        return true
-                    }
-                },
-                postcondition: { model, transition in
-                    switch transition {
-                    case .get:
-                        return model.numberOfValues >= 0
-                    case .put:
-                        return model.numberOfValues > 0
-                    }
-                },
-                runTransition: { model, transition in
-                    var model = model
-                    switch transition {
-                    case .get:
-                        model.get()
-                        return model
-                    case .put(let value):
-                        model.put(value: value)
-                        return model
-                    }
-                }
-        )
-
-//        let bufferGenerator = Generator<CircularBuffer> { size, rng in
-//            let buffer = CircularBuffer(size: size + 1)
+        func get(from buffer: CircularBuffer<Int>) -> Generator<CircularBuffer<Int>> {
+            return Generator<CircularBuffer<Int>> { _, _ in
+                var buffer = buffer
+                _ = buffer.get()
+                return RoseTree(root: buffer)
+            }
+        }
 //
-//
+//        let bufferGenerator = Generator<CircularBuffer<Int>> { size, rng in
+//            let puttedGenerator = Int.generator.flatMap { bufferSize in
+//                let buffer = CircularBuffer<Int>(size: abs(bufferSize) + 1)
+//                return put(into: buffer)
+//            }
 //        }
 
         runWithXCTest { (_: Int) in
         }
     }
-
 }
