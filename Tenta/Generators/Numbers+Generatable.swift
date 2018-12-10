@@ -68,6 +68,18 @@ public extension Generator where ValueToTest == Int {
 
         }
     }
+
+    func nonZero() -> Generator<Int> {
+        return filter { $0 != 0 }
+    }
+
+    func nonNegative() -> Generator<Int> {
+        return map(abs)
+    }
+
+    func positive() -> Generator<Int> {
+        return nonNegative().map { $0 + 1 }
+    }
 }
 
 extension Int: Generatable {
