@@ -70,4 +70,31 @@ class CircularBufferTests: XCTestCase {
             }
         }
     }
+
+    func testModifyingGenerator() {
+        func putGenerator() -> Generator<(inout CircularBuffer<Int>) -> Void> {
+            return Int.generator.map { (int) in { buffer in buffer.put(value: int) } }
+        }
+
+        func getGenerator() -> Generator<(inout CircularBuffer<Int>) -> Void> {
+            return Generator.simple { _ in { (buffer: inout CircularBuffer<Int>) in
+                    _ = buffer.get()
+                }
+            }
+        }
+
+        func generateAnyModel() -> Generator<CircularBuffer<Int>> {
+            return Generator<(inout CircularBuffer<Int>) -> Void>.element(from: [getGenerator(), putGenerator()]).generateMany().flatMap { transitions in
+                transitions
+            }.map { (tn: Transformed) -> Transformed in  }
+
+            var buffer = CircularBuffer<Int>(size: 5)
+            for transition in transitions {
+                transition(&buffer)
+            }
+            return buffer
+
+            
+        }
+    }
 }

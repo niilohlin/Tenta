@@ -8,3 +8,4 @@ import Foundation
 public struct ModifyingGenerator<ValueToTest> {
     public let modify: (inout ValueToTest, Size, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
 }
+
