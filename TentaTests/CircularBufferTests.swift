@@ -41,6 +41,49 @@ enum Transition {
     case get
 }
 
+struct BufferState: StateMachine {
+    static var initialState: [Int] {
+        return []
+    }
+
+    static var command: Generator<Transition> {
+        return Int?.generator.map {
+            if let value = $0 {
+                return Transition.put(value)
+            }
+            return Transition.get
+        }
+    }
+
+    static func precondition(_ state: [Int], _ transition: Transition) -> Bool {
+        switch transition {
+        case .put:
+            return true
+        case .get:
+            return !state.isEmpty
+        }
+    }
+
+    static func postcondition(_ state: [Int], _ transition: Transition) -> Bool {
+        switch transition {
+        case .put:
+            return !state.isEmpty
+        case .get:
+            return true
+        }
+    }
+
+    static func nextState(_ state: [Int], _ command: Transition) -> [Int] {
+        switch command {
+        case .put(let value):
+            return state + [value]
+        case .get:
+            return Array(state.dropFirst())
+        }
+
+    }
+}
+
 class CircularBufferTests: XCTestCase {
     func testCircularBuffer() {
         var buffer = CircularBuffer<Int>(size: 5)
@@ -69,5 +112,8 @@ class CircularBufferTests: XCTestCase {
                 XCTAssertGreaterThanOrEqual(buffer.numberOfValues, 0)
             }
         }
+    }
+
+    func testStateMachine() {
     }
 }
