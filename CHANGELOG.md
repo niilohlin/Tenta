@@ -3,6 +3,10 @@
 - Move seed and numberOfTests to XCTestCase
 - Add `runWithXCTest` method
 - Change `gen` label to `Generator`
+- Add StateMachine
+- Create macos target.
+- Add `Data`, `decimal` `float` generators
+- Add int generator helpers
 
 ## 0.3
 - Add alphanumeric string

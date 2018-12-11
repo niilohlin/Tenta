@@ -174,3 +174,22 @@ public extension XCTestCase {
         runProperty(property, file: file, line: line)
     }
 }
+
+public extension XCTestCase {
+    func runStateMachine<StateMachineType: StateMachine>(
+            of type: StateMachineType.Type,
+            file: StaticString = #file,
+            line: UInt = #line
+    ) {
+        runTest(file: file, line: line, generator: type.commands()) { (commands: [StateMachineType.Command]) in
+            var state = StateMachineType.initialState
+            for command in commands {
+                state = type.nextState(state, command)
+                if !type.postcondition(state, command) {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+}

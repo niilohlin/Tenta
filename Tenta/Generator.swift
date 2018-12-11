@@ -19,6 +19,12 @@ public struct Generator<ValueToTest> {
         self.generate = generate
     }
 
+    public init(value: ValueToTest) {
+        generate = { _, _ in
+            RoseTree<ValueToTest>(root: value)
+        }
+    }
+
     /// Construct a generator without any shrinking. Very simple to do and good for large structs and classes.
     public static func simple(generateValue: @escaping (inout Constructor) -> ValueToTest) -> Generator<ValueToTest> {
         return Generator { size, rng in
@@ -98,6 +104,18 @@ public extension Generator {
                     root: element,
                     forest: array.map { RoseTree(root: $0) }
             )
+        }
+    }
+
+    public static func chooseGeneratorFrom<S: Sequence>(_ generators: S)
+                    -> Generator<ValueToTest> where S.Iterator.Element == (Int, Generator<ValueToTest>) {
+        let generators: [(Int, Generator<ValueToTest>)] = Array(generators)
+        assert(!generators.isEmpty, "Cannot chose from an empty sequence")
+        let generatorList = generators.flatMap { tuple in
+            [Generator<ValueToTest>](repeating: tuple.1, count: tuple.0)
+        }
+        return Int.generator.nonNegative().flatMap { index in
+            generatorList[index % generatorList.count]
         }
     }
 

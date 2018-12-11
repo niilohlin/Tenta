@@ -16,8 +16,8 @@ struct CircularBuffer<Value> {
     init(size: Int) {
         input = 0
         output = 0
-        self.size = size
-        buffer = [Value?](repeating: nil, count: size)
+        self.size = size + 1
+        buffer = [Value?](repeating: nil, count: size + 1)
     }
 
     mutating func put(value: Value) {
@@ -32,13 +32,62 @@ struct CircularBuffer<Value> {
     }
 
     var numberOfValues: Int {
-        return (input - output) % size
+        return (input - output + size) % size
     }
 }
 
 enum Transition {
     case put(Int)
     case get
+}
+
+struct BufferState: StateMachine {
+    static var initialState: (CircularBuffer<Int>, [Int]) {
+        return (CircularBuffer<Int>(size: 5), [])
+    }
+
+    static var command: Generator<Transition> {
+        return Int?.generator.map {
+            if let value = $0 {
+                return Transition.put(value)
+            }
+            return Transition.get
+        }
+    }
+
+    static func precondition(_ state: (CircularBuffer<Int>, [Int]), _ transition: Transition) -> Bool {
+        switch transition {
+        case .put:
+            return state.1.count < 5
+        case .get:
+            return !state.1.isEmpty
+        }
+    }
+
+    static func postcondition(_ state: (CircularBuffer<Int>, [Int]), _ transition: Transition) -> Bool {
+        switch transition {
+        case .put:
+            return state.0.numberOfValues == state.1.count
+        case .get:
+            return state.0.numberOfValues == state.1.count
+        }
+    }
+
+    static func nextState(
+            _ state: (CircularBuffer<Int>, [Int]),
+            _ command: Transition
+    ) -> (CircularBuffer<Int>, [Int] ) {
+        var (buffer, model) = state
+        switch command {
+        case .put(let value):
+            buffer.put(value: value)
+            return (buffer, model + [value])
+        case .get:
+            _ = buffer.get()
+            return (buffer, Array(model.dropFirst()))
+        }
+
+    }
 }
 
 class CircularBufferTests: XCTestCase {
@@ -69,5 +118,9 @@ class CircularBufferTests: XCTestCase {
                 XCTAssertGreaterThanOrEqual(buffer.numberOfValues, 0)
             }
         }
+    }
+
+    func testStateMachine() {
+        runStateMachine(of: BufferState.self)
     }
 }
