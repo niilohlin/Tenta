@@ -42,8 +42,8 @@ enum Transition {
 }
 
 struct BufferState: StateMachine {
-    static var initialState: [Int] {
-        return []
+    static var initialState: (CircularBuffer<Int>, [Int]) {
+        return (CircularBuffer<Int>(size: 5), [])
     }
 
     static var command: Generator<Transition> {
@@ -55,30 +55,36 @@ struct BufferState: StateMachine {
         }
     }
 
-    static func precondition(_ state: [Int], _ transition: Transition) -> Bool {
+    static func precondition(_ state: (CircularBuffer<Int>, [Int]), _ transition: Transition) -> Bool {
         switch transition {
         case .put:
             return true
         case .get:
-            return !state.isEmpty
+            return !state.1.isEmpty
         }
     }
 
-    static func postcondition(_ state: [Int], _ transition: Transition) -> Bool {
+    static func postcondition(_ state: (CircularBuffer<Int>, [Int]), _ transition: Transition) -> Bool {
         switch transition {
         case .put:
-            return !state.isEmpty
+            return state.0.numberOfValues == state.1.count
         case .get:
-            return true
+            return state.0.numberOfValues == state.1.count
         }
     }
 
-    static func nextState(_ state: [Int], _ command: Transition) -> [Int] {
+    static func nextState(
+            _ state: (CircularBuffer<Int>, [Int]),
+            _ command: Transition
+    ) -> (CircularBuffer<Int>, [Int] ) {
+        var (buffer, model) = state
         switch command {
         case .put(let value):
-            return state + [value]
+            buffer.put(value: value)
+            return (buffer, model + [value])
         case .get:
-            return Array(state.dropFirst())
+            _ = buffer.get()
+            return (buffer, Array(model.dropFirst()))
         }
 
     }
@@ -115,5 +121,6 @@ class CircularBufferTests: XCTestCase {
     }
 
     func testStateMachine() {
+        runStateMachine(of: BufferState.self)
     }
 }

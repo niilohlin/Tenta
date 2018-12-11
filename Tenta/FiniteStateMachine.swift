@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import XCTest
 
 public protocol StateMachine {
     associatedtype State
@@ -44,5 +45,20 @@ extension StateMachine {
                 }
             })
         ])
+    }
+}
+
+public extension XCTestCase {
+    func runStateMachine<StateMachineType: StateMachine>(of type: StateMachineType.Type) {
+        runTest(generator: type.commands()) { (commands: [StateMachineType.Command]) in
+            var state = StateMachineType.initialState
+            for command in commands {
+                state = type.nextState(state, command)
+                if !type.postcondition(state, command) {
+                    return false
+                }
+            }
+            return true
+        }
     }
 }
