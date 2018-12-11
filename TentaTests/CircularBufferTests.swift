@@ -16,8 +16,8 @@ struct CircularBuffer<Value> {
     init(size: Int) {
         input = 0
         output = 0
-        self.size = size
-        buffer = [Value?](repeating: nil, count: size)
+        self.size = size + 1
+        buffer = [Value?](repeating: nil, count: size + 1)
     }
 
     mutating func put(value: Value) {
@@ -32,7 +32,7 @@ struct CircularBuffer<Value> {
     }
 
     var numberOfValues: Int {
-        return (input - output) % size
+        return (input - output + size) % size
     }
 }
 
@@ -58,7 +58,7 @@ struct BufferState: StateMachine {
     static func precondition(_ state: (CircularBuffer<Int>, [Int]), _ transition: Transition) -> Bool {
         switch transition {
         case .put:
-            return true
+            return state.1.count < 5
         case .get:
             return !state.1.isEmpty
         }
