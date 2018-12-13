@@ -98,24 +98,26 @@ class CircularBufferTests: XCTestCase {
         XCTAssertEqual(buffer.numberOfValues, 2)
     }
 
-    func example_testCircularBuffer_prop() {
-        let transitionGenerator = Int?.generator.map { maybeValue -> Transition in
-            if let value = maybeValue {
-                return Transition.put(value)
-            }
-            return Transition.get
-        }
+    func testCircularBuffer_prop() {
+        let transitionGenerator = Int?.generator.map { $0.map(Transition.put) ?? Transition.get }
         let sizeGenerator = Int.generator.map { abs($0) + 1 }
 
         runWithXCTest(sizeGenerator, transitionGenerator.generateMany()) { (size: Int, transitions: [Transition]) in
             var buffer = CircularBuffer<Int>(size: abs(size))
+            var model = [Int]()
             for transition in transitions {
                 if case .put(let value) = transition {
-                    buffer.put(value: value)
+                    if buffer.numberOfValues < buffer.size - 1 {
+                        buffer.put(value: value)
+                        model.append(value)
+                    }
                 } else if buffer.numberOfValues != 0 {
-                    _ = buffer.get()
+                    let result = buffer.get()
+                    XCTAssertEqual(result, model.first)
+                    model = Array(model.dropFirst())
                 }
                 XCTAssertGreaterThanOrEqual(buffer.numberOfValues, 0)
+                XCTAssertEqual(buffer.numberOfValues, model.count)
             }
         }
     }
