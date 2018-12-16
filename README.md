@@ -30,6 +30,18 @@ value and present you with an example of how to reproduce the error.
 
 ![](assets/example-fail.png)
 
+## Difference from SwiftCheck
+Tenta has some minor and some fundamental differences to SwiftCheck.
+The minor differences are a difference of philosophy regarding functional
+programming.
+
+One major difference is the unification of generating values and shrinking
+in Tenta. When shrinking Tenta will use shrunken values conforming to
+the generator used. Whereby SwiftCheck will need a custom Shrinker to be
+explicitly added.
+
+However Tenta draws inspiration heavily from SwiftCheck.
+
 ## Design goals/philosophy
 
 Tenta should be:
