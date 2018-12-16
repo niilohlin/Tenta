@@ -49,8 +49,10 @@
 		8E8901A16D46FA19CAE712B1 /* Shrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890E369D88E63EFFB794CC /* Shrink.swift */; };
 		8E89023F542BF0B8F434F853 /* Optional+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890084098C32A0D6269434 /* Optional+Generatable.swift */; };
 		8E89031CAB1D5DBB7DB96F5D /* TestObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890C47CDD0BDCF7FCC64C9 /* TestObservation.swift */; };
+		8E8903358C93EA8B472455E2 /* CGTypes+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890360CBD3709541980FF6 /* CGTypes+Generatable.swift */; };
 		8E8903B2DF14346C56C8CD34 /* CircularBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89014FC3E3BE10228A043D /* CircularBufferTests.swift */; };
 		8E8903BDDD184DA66552D66B /* FoundationGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89051916C22054F44682D6 /* FoundationGeneratorTests.swift */; };
+		8E89041024968D59C213765E /* CGTypes+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890360CBD3709541980FF6 /* CGTypes+Generatable.swift */; };
 		8E89048932464D7A5538C79C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
 		8E89053F2C5959343E8BAE39 /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8905DF2ED554C905DD8B6A /* Constructor.swift */; };
 		8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */; };
@@ -107,6 +109,7 @@
 		8E8902631B1619B438F3FCFD /* Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
 		8E8902E7FE2569C37E8D2AB1 /* Foundation+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Foundation+Generatable.swift"; sourceTree = "<group>"; };
 		8E89031F831C25B5D6457A77 /* Bool+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Generatable.swift"; sourceTree = "<group>"; };
+		8E890360CBD3709541980FF6 /* CGTypes+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGTypes+Generatable.swift"; sourceTree = "<group>"; };
 		8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGeneratorTests.swift; sourceTree = "<group>"; };
 		8E89038F86E00A552B1B8373 /* Double+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Generatable.swift"; sourceTree = "<group>"; };
 		8E89051916C22054F44682D6 /* FoundationGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationGeneratorTests.swift; sourceTree = "<group>"; };
@@ -250,6 +253,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8E89086C6129B45F48BD8101 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				8E890360CBD3709541980FF6 /* CGTypes+Generatable.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		8E890A0AC4A8E52CE096E084 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +272,7 @@
 				8E890084098C32A0D6269434 /* Optional+Generatable.swift */,
 				8E89031F831C25B5D6457A77 /* Bool+Generatable.swift */,
 				8E8902E7FE2569C37E8D2AB1 /* Foundation+Generatable.swift */,
+				8E89086C6129B45F48BD8101 /* UIKit */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -461,6 +473,7 @@
 				7426FC0621B94985009E67CA /* String+Generatable.swift in Sources */,
 				7426FC0C21B94996009E67CA /* NSObject+AssociatedValue.swift in Sources */,
 				8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */,
+				8E8903358C93EA8B472455E2 /* CGTypes+Generatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +516,7 @@
 				8E89031CAB1D5DBB7DB96F5D /* TestObservation.swift in Sources */,
 				8E8908D97BEF134D3D8B005D /* Foundation+Generatable.swift in Sources */,
 				8E89084C41667E68D4A52EA4 /* FiniteStateMachine.swift in Sources */,
+				8E89041024968D59C213765E /* CGTypes+Generatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
