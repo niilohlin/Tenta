@@ -289,6 +289,12 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    func testEvilStrings_doesNotCrash() {
+        runTest(generator: Generator<String>.evil()) { _ in
+            true
+        }
+    }
+
     func assert<T: Equatable>(
             generator: Generator<T>,
             shrinksTo minimumFailing: T,
