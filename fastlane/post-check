@@ -1,0 +1,29 @@
+
+COMMAND="$1"
+
+GIT_COMMIT=$(git rev-parse HEAD)
+
+case "$COMMAND" in
+    "start")
+        curl "https://api.github.com/repos/niilohlin/Tenta/statuses/$GIT_COMMIT?access_token=$BOT_TOKEN" \
+          -H "Content-Type: application/json" \
+          -X POST \
+        -d "\\{\"state\": \"pending\", \"description\": \"Waiting for test result\", \"target_url\": \"\", \"context: continuous-integration/travis\"\\}"
+        exit 0;
+    ;;
+
+    "failure")
+        curl "https://api.github.com/repos/niilohlin/Tenta/statuses/$GIT_COMMIT?access_token=$BOT_TOKEN" \
+          -H "Content-Type: application/json" \
+          -X POST \
+        -d "\\{\"state\": \"failure\", \"description\": \"Testing failed\", \"target_url\": \"\", \"context: continuous-integration/travis\"\\}"
+    ;;
+
+    "success")
+        curl "https://api.github.com/repos/niilohlin/Tenta/statuses/$GIT_COMMIT?access_token=$BOT_TOKEN" \
+          -H "Content-Type: application/json" \
+          -X POST \
+        -d "\\{\"state\": \"success\", \"description\": \"Testing succeded\", \"target_url\": \"\", \"context: continuous-integration/travis\"\\}"
+    ;;
+
+esac
