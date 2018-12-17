@@ -14,7 +14,9 @@ platform :ios do
     xcov(
       project: 'Tenta.xcodeproj',
       scheme: 'Tenta-iOS',
-      output_directory: 'xcov_output'
+      output_directory: 'xcov_output',
+      html_report: false,
+      json_report: true
     )
   end
 end
