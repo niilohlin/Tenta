@@ -11,5 +11,10 @@ platform :ios do
       devices: ['iPhone 7'],
       output_types: 'junit',
     )
+    xcov(
+      project: 'Tenta.xcodeproj',
+      scheme: 'Tenta-iOS',
+      output_directory: 'xcov_output'
+    )
   end
 end
