@@ -1,0 +1,34 @@
+#!/bin/sh
+set -o errexit
+set -o errtrace
+set -o pipefail
+
+COMMAND="$1"
+
+GIT_COMMIT=$TRAVIS_PULL_REQUEST_SHA #$(git rev-parse HEAD)
+
+case "$COMMAND" in
+    "start")
+        curl "https://api.github.com/repos/niilohlin/Tenta/statuses/$GIT_COMMIT?access_token=$BOT_TOKEN" \
+          -H "Content-Type: application/json" \
+          -X POST \
+        -d "{\"state\": \"pending\", \"description\": \"Waiting for test result\", \"target_url\": \"http://example.com/\", \"context\": \"continuous-integration/travis\"}"
+        exit 0;
+    ;;
+
+    "failure")
+        curl "https://api.github.com/repos/niilohlin/Tenta/statuses/$GIT_COMMIT?access_token=$BOT_TOKEN" \
+          -H "Content-Type: application/json" \
+          -X POST \
+        -d "{\"state\": \"failure\", \"description\": \"Test failed\", \"target_url\": \"http://example.com/\", \"context\": \"continuous-integration/travis\"}"
+    ;;
+
+    "success")
+        PERCENTAGE=$(jq ".coverage" < ./test_output/xcov_output/report.json | xargs printf "%s * 100\n" | bc | xargs printf "%.0f%%\n")
+        curl "https://api.github.com/repos/niilohlin/Tenta/statuses/$GIT_COMMIT?access_token=$BOT_TOKEN" \
+          -H "Content-Type: application/json" \
+          -X POST \
+        -d "{\"state\": \"success\", \"description\": \"$PERCENTAGE coverage\", \"target_url\": \"http://example.com/\", \"context\": \"continuous-integration/travis\"}"
+    ;;
+
+esac

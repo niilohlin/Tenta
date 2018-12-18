@@ -1,5 +1,10 @@
 language: objective-c
 osx_image: xcode10.1
+
+addons:
+  homebrew:
+    packages:
+    - jq
 env:
   global:
   - LC_CTYPE=en_US.UTF-8
