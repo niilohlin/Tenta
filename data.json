@@ -1,6 +1,0 @@
-{
-  "state": "pending",
-  "target_url": "https://example.com/build/status",
-  "description": "teststatus 69%",
-  "context": "continuous-integration/travis"
-}
