@@ -29,22 +29,29 @@ public extension XCTestCase {
 
 public extension XCTestCase {
 
-    func runProperty<TestValue>(_ property: Property<TestValue>, file: StaticString = #file, line: UInt = #line) {
-        if let failedValue = property.checkProperty() {
-            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
+    @discardableResult
+    func runProperty<TestValue>(
+            _ property: Property<TestValue>,
+            file: StaticString = #file,
+            line: UInt = #line
+    ) -> TestResult<TestValue> {
+        let testResult = property.checkProperty()
+        if case let .failed(_, shrunk, _) = testResult {
+            XCTFail("failed with value: \(shrunk), rerun with seed: \(seed)", file: file, line: line)
         }
+        return testResult
     }
 
     /**
      Run test with specified generator.
      */
+    @discardableResult
     func runTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             generator: Generator<TestValue>,
             predicate: @escaping (TestValue) throws -> Bool
-    ) {
-
+    ) -> TestResult<TestValue> {
         let property = Property(
                 description: "testDesc",
                 generator: generator,
@@ -53,18 +60,19 @@ public extension XCTestCase {
                 predicate: predicate
         )
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 
     /**
      Run a test with the default generator.
      */
+    @discardableResult
     func runTest<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             _ predicate: @escaping (TestValue) -> Bool
-    ) {
-        runTest(
+    ) -> TestResult<TestValue> {
+        return runTest(
                 file: file,
                 line: line,
                 generator: TestValue.self.generator,
@@ -72,13 +80,14 @@ public extension XCTestCase {
         )
     }
 
+    @discardableResult
     func runTest<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
-    ) {
+    ) -> TestResult<(TestValue, OtherTestValue)> {
         let property = Property(
                 description: "",
                 generator: firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) }),
@@ -87,15 +96,16 @@ public extension XCTestCase {
                 predicate: predicate
         )
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 
+    @discardableResult
     func runTest<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
-    ) {
-        runTest(
+    ) -> TestResult<(TestValue, OtherTestValue)> {
+        return runTest(
                 file: file,
                 line: line,
                 TestValue.self.generator,
@@ -111,8 +121,8 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             test: @escaping (TestValue) throws -> Void
-    ) {
-        runWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
+    ) -> TestResult<TestValue> {
+        return runWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
     }
 
     func runWithXCTest<TestValue>(
@@ -120,7 +130,7 @@ public extension XCTestCase {
             line: UInt = #line,
             generator: Generator<TestValue>,
             test: @escaping (TestValue) throws -> Void
-    ) {
+    ) -> TestResult<TestValue> {
         let predicate = TestCasePropertyConverter.shared.convert(
                 predicate: test,
                 toBoolPredicate: (),
@@ -137,7 +147,7 @@ public extension XCTestCase {
 
         TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 
     func runWithXCTest<TestValue: Generatable, OtherTestValue: Generatable>(
@@ -145,8 +155,8 @@ public extension XCTestCase {
             line: UInt = #line,
             test: @escaping (TestValue, OtherTestValue) throws -> Void
 
-    ) {
-        runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
+    ) -> TestResult<(TestValue, OtherTestValue)> {
+        return runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
     }
 
     func runWithXCTest<TestValue, OtherTestValue>(
@@ -155,7 +165,7 @@ public extension XCTestCase {
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
             test: @escaping (TestValue, OtherTestValue) throws -> Void
-    ) {
+    ) -> TestResult<(TestValue, OtherTestValue)> {
         let predicate = TestCasePropertyConverter.shared.convert(
                 predicate: test,
                 toBoolPredicate: (),
@@ -171,7 +181,7 @@ public extension XCTestCase {
 
         TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 }
 
@@ -180,8 +190,8 @@ public extension XCTestCase {
             of type: StateMachineType.Type,
             file: StaticString = #file,
             line: UInt = #line
-    ) {
-        runTest(file: file, line: line, generator: type.commands()) { (commands: [StateMachineType.Command]) in
+    ) -> TestResult<[StateMachineType.Command]> {
+        return runTest(file: file, line: line, generator: type.commands()) { (commands: [StateMachineType.Command]) in
             var state = StateMachineType.initialState
             for command in commands {
                 state = type.nextState(state, command)

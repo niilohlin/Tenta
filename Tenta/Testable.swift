@@ -14,3 +14,14 @@ extension Bool: Testable {
         return self
     }
 }
+
+extension TestResult: Testable {
+    var isSuccessful: Bool {
+        switch self {
+        case .succeeded:
+            return true
+        case .failed:
+            return false
+        }
+    }
+}

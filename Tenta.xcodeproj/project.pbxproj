@@ -52,6 +52,7 @@
 		8E8903358C93EA8B472455E2 /* CGTypes+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890360CBD3709541980FF6 /* CGTypes+Generatable.swift */; };
 		8E8903B2DF14346C56C8CD34 /* CircularBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89014FC3E3BE10228A043D /* CircularBufferTests.swift */; };
 		8E8903BDDD184DA66552D66B /* FoundationGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89051916C22054F44682D6 /* FoundationGeneratorTests.swift */; };
+		8E8903DBF76DACCFE2DF4020 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF83249CB80070A243C /* TestResult.swift */; };
 		8E89048932464D7A5538C79C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
 		8E89053F2C5959343E8BAE39 /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8905DF2ED554C905DD8B6A /* Constructor.swift */; };
 		8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */; };
@@ -65,6 +66,7 @@
 		8E8908D97BEF134D3D8B005D /* Foundation+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902E7FE2569C37E8D2AB1 /* Foundation+Generatable.swift */; };
 		8E890925FB1144362E5BE8DC /* Numbers+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89000AD4BD34271F482422 /* Numbers+Generatable.swift */; };
 		8E89099B693169DC7D3584FD /* Character+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */; };
+		8E890A940419672020899DCA /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF83249CB80070A243C /* TestResult.swift */; };
 		8E890AEF0893C5B917F51C50 /* Sequence+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890DE3C0FE20B66A2A2EA6 /* Sequence+Generatable.swift */; };
 		8E890B76E16051572948B7C6 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902631B1619B438F3FCFD /* Combine.swift */; };
 		8E890BFD94FB0483E3B0D291 /* NSObject+AssociatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */; };
@@ -133,6 +135,7 @@
 		8E890DE977F432F2F78955F1 /* ShrinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShrinkTests.swift; sourceTree = "<group>"; };
 		8E890E369D88E63EFFB794CC /* Shrink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shrink.swift; sourceTree = "<group>"; };
 		8E890EF7AE76B901FA571DED /* SeededRandomNumberGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGenerator.swift; sourceTree = "<group>"; };
+		8E890EF83249CB80070A243C /* TestResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResult.swift; sourceTree = "<group>"; };
 		8E890F17CFDEDA3A1F1C4266 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		8E890FF115A2715C7DDE9499 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +235,7 @@
 				8E890C47CDD0BDCF7FCC64C9 /* TestObservation.swift */,
 				8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */,
 				8E890C2BAD6FF2E57604074B /* evil-strings.txt */,
+				8E890EF83249CB80070A243C /* TestResult.swift */,
 			);
 			path = Tenta;
 			sourceTree = "<group>";
@@ -484,6 +488,7 @@
 				8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */,
 				8E8903358C93EA8B472455E2 /* CGTypes+Generatable.swift in Sources */,
 				8E890CE95DFCAC3B44AF6DCB /* String+Evil.swift in Sources */,
+				8E890A940419672020899DCA /* TestResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +532,7 @@
 				8E8908D97BEF134D3D8B005D /* Foundation+Generatable.swift in Sources */,
 				8E89084C41667E68D4A52EA4 /* FiniteStateMachine.swift in Sources */,
 				8E890FB058E6FACEA1E3C6C5 /* String+Evil.swift in Sources */,
+				8E8903DBF76DACCFE2DF4020 /* TestResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
