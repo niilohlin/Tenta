@@ -121,8 +121,8 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             test: @escaping (TestValue) throws -> Void
-    ) {
-        runWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
+    ) -> TestResult<TestValue> {
+        return runWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
     }
 
     func runWithXCTest<TestValue>(
@@ -130,7 +130,7 @@ public extension XCTestCase {
             line: UInt = #line,
             generator: Generator<TestValue>,
             test: @escaping (TestValue) throws -> Void
-    ) {
+    ) -> TestResult<TestValue> {
         let predicate = TestCasePropertyConverter.shared.convert(
                 predicate: test,
                 toBoolPredicate: (),
@@ -147,7 +147,7 @@ public extension XCTestCase {
 
         TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 
     func runWithXCTest<TestValue: Generatable, OtherTestValue: Generatable>(
@@ -155,8 +155,8 @@ public extension XCTestCase {
             line: UInt = #line,
             test: @escaping (TestValue, OtherTestValue) throws -> Void
 
-    ) {
-        runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
+    ) -> TestResult<(TestValue, OtherTestValue)> {
+        return runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
     }
 
     func runWithXCTest<TestValue, OtherTestValue>(
@@ -165,7 +165,7 @@ public extension XCTestCase {
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
             test: @escaping (TestValue, OtherTestValue) throws -> Void
-    ) {
+    ) -> TestResult<(TestValue, OtherTestValue)> {
         let predicate = TestCasePropertyConverter.shared.convert(
                 predicate: test,
                 toBoolPredicate: (),
@@ -181,7 +181,7 @@ public extension XCTestCase {
 
         TestCasePropertyConverter.shared.set({ _ = property.checkProperty() }, for: self)
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 }
 
@@ -190,8 +190,8 @@ public extension XCTestCase {
             of type: StateMachineType.Type,
             file: StaticString = #file,
             line: UInt = #line
-    ) {
-        runTest(file: file, line: line, generator: type.commands()) { (commands: [StateMachineType.Command]) in
+    ) -> TestResult<[StateMachineType.Command]> {
+        return runTest(file: file, line: line, generator: type.commands()) { (commands: [StateMachineType.Command]) in
             var state = StateMachineType.initialState
             for command in commands {
                 state = type.nextState(state, command)
