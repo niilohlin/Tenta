@@ -31,7 +31,7 @@ public struct Property<Value> {
 }
 
 extension Property {
-    func checkProperty() -> Value? {
+    func checkProperty() -> TestResult<Value> {
         var rng = SeededRandomNumberGenerator(seed: seed)
 
         func runPredicate(_ value: Value) -> Bool {
@@ -45,9 +45,9 @@ extension Property {
             let rose = generator.generate(size, &rng)
             if !runPredicate(rose.root()) {
                 let failedValue = rose.shrink(predicate: runPredicate)
-                return failedValue
+                return .failed(value: rose.root(), shrunkValue: failedValue, shrinks: 0)
             }
         }
-        return nil
+        return .succeeded
     }
 }

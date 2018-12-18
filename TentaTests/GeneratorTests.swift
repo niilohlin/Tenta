@@ -319,7 +319,7 @@ class GeneratorTests: XCTestCase {
             file: StaticString = #file,
             line: UInt = #line) {
         let property = Property(generator: generator, seed: seed, numberOfTests: numberOfTests, predicate: predicate)
-        guard let value = property.checkProperty() else {
+        guard case let .failed(_, value, _) = property.checkProperty() else {
             XCTFail("Generator did not fail", file: file, line: line)
             return
         }

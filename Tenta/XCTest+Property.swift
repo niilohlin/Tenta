@@ -29,22 +29,29 @@ public extension XCTestCase {
 
 public extension XCTestCase {
 
-    func runProperty<TestValue>(_ property: Property<TestValue>, file: StaticString = #file, line: UInt = #line) {
-        if let failedValue = property.checkProperty() {
-            XCTFail("failed with value: \(failedValue), rerun with seed: \(seed)", file: file, line: line)
+    @discardableResult
+    func runProperty<TestValue>(
+            _ property: Property<TestValue>,
+            file: StaticString = #file,
+            line: UInt = #line
+    ) -> TestResult<TestValue> {
+        let testResult = property.checkProperty()
+        if case let .failed(_, shrunk, _) = testResult {
+            XCTFail("failed with value: \(shrunk), rerun with seed: \(seed)", file: file, line: line)
         }
+        return testResult
     }
 
     /**
      Run test with specified generator.
      */
+    @discardableResult
     func runTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             generator: Generator<TestValue>,
             predicate: @escaping (TestValue) throws -> Bool
-    ) {
-
+    ) -> TestResult<TestValue> {
         let property = Property(
                 description: "testDesc",
                 generator: generator,
@@ -53,18 +60,19 @@ public extension XCTestCase {
                 predicate: predicate
         )
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 
     /**
      Run a test with the default generator.
      */
+    @discardableResult
     func runTest<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             _ predicate: @escaping (TestValue) -> Bool
-    ) {
-        runTest(
+    ) -> TestResult<TestValue> {
+        return runTest(
                 file: file,
                 line: line,
                 generator: TestValue.self.generator,
@@ -72,13 +80,14 @@ public extension XCTestCase {
         )
     }
 
+    @discardableResult
     func runTest<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
-    ) {
+    ) -> TestResult<(TestValue, OtherTestValue)> {
         let property = Property(
                 description: "",
                 generator: firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) }),
@@ -87,15 +96,16 @@ public extension XCTestCase {
                 predicate: predicate
         )
 
-        runProperty(property, file: file, line: line)
+        return runProperty(property, file: file, line: line)
     }
 
+    @discardableResult
     func runTest<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
-    ) {
-        runTest(
+    ) -> TestResult<(TestValue, OtherTestValue)> {
+        return runTest(
                 file: file,
                 line: line,
                 TestValue.self.generator,
