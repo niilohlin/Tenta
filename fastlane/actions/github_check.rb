@@ -12,18 +12,27 @@ module Fastlane
         target_url = options[:target_url]
         context = options[:context]
         commit_hash = ENV["TRAVIS_PULL_REQUEST_SHA"]
+        if commit_hash == nil || commit_hash == ""
+          return
+        end
+
         token = ENV["BOT_TOKEN"]
+        if token == nil || token == ""
+          return
+        end
 
         uri = URI.parse("https://api.github.com/repos/#{slab}/statuses/#{commit_hash}?access_token=#{token}")
+        p uri
 
         header = {'Content-Type': 'text/json'}
         user = {state: status, description: description, target_url: target_url, context: context}
 
         http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
         request = Net::HTTP::Post.new(uri.request_uri, header)
         request.body = user.to_json
 
-        # Send the request
+        ## Send the request
         http.request(request)
       end
 
