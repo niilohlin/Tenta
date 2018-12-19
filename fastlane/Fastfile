@@ -4,27 +4,6 @@ default_platform(:ios)
 platform :ios do
   desc "Build and run unit tests"
   lane :unit_tests  do
-#    begin
-#      sh("./post-check start")
-#      swiftlint(strict: true)
-#      scan(
-#        scheme: 'Tenta-iOS',
-#        clean: true,
-#        devices: ['iPhone 7'],
-#        output_types: 'junit',
-#      )
-#      xcov(
-#        project: 'Tenta.xcodeproj',
-#        scheme: 'Tenta-iOS',
-#        output_directory: 'fastlane/test_output/xcov_output',
-#        html_report: false,
-#        json_report: true
-#      )
-#      sh("./post-check success")
-#    rescue
-#      sh("./post-check failure")
-#    end
-
     begin
       github_check(
         status: :pending,
