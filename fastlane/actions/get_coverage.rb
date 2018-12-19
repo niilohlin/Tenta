@@ -6,20 +6,10 @@ module Fastlane
   module Actions
     class GetCoverageAction < Action
       def self.run(options)
-        begin
-          p "starting run"
-          Fastlane::Actions::XcovAction.run(options)
-          p "run done"
-          p "GetCoverageAction"
-          sh("ls #{options[:output_directory]}")
+        Fastlane::Actions::XcovAction.run(options)
 
-          data = File.read(options[:output_directory] + "/report.json")
-          return JSON.parse(data)
-        rescue => err
-          p err
-          p err.backtrace
-          throw err
-        end
+        data = File.read(options[:output_directory] + "/report.json")
+        return JSON.parse(data)
       end
 
       def self.description
