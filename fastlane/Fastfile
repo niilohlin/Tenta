@@ -20,13 +20,14 @@ platform :ios do
         devices: ['iPhone 7'],
         output_types: 'junit',
       )
-      xcov(
+      json = get_coverage(
         project: 'Tenta.xcodeproj',
         scheme: 'Tenta-iOS',
         output_directory: 'fastlane/test_output/xcov_output',
         html_report: false,
         json_report: true
       )
+      p json
       github_check(
         status: :success,
         slab: "niilohlin/Tenta",
