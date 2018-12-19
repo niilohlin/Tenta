@@ -117,6 +117,7 @@ public extension XCTestCase {
 
 public extension XCTestCase {
 
+    @discardableResult
     func runWithXCTest<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
@@ -125,6 +126,7 @@ public extension XCTestCase {
         return runWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
     }
 
+    @discardableResult
     func runWithXCTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
@@ -150,6 +152,7 @@ public extension XCTestCase {
         return runProperty(property, file: file, line: line)
     }
 
+    @discardableResult
     func runWithXCTest<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
@@ -159,6 +162,7 @@ public extension XCTestCase {
         return runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
     }
 
+    @discardableResult
     func runWithXCTest<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
@@ -186,6 +190,8 @@ public extension XCTestCase {
 }
 
 public extension XCTestCase {
+
+    @discardableResult
     func runStateMachine<StateMachineType: StateMachine>(
             of type: StateMachineType.Type,
             file: StaticString = #file,
