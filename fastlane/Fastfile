@@ -5,13 +5,6 @@ platform :ios do
   desc "Build and run unit tests"
   lane :unit_tests  do
     begin
-      github_check(
-        status: :pending,
-        slab: "niilohlin/Tenta",
-        description: "Waiting for test result",
-        target_url: "http://example.com/",
-        context: "context"
-      )
 
       swiftlint(strict: true)
       scan(
@@ -19,6 +12,13 @@ platform :ios do
         clean: true,
         devices: ['iPhone 7'],
         output_types: 'junit',
+      )
+
+      github_check(
+        status: :pending,
+        slab: "niilohlin/Tenta",
+        description: "Waiting for test result",
+        context: "xcov"
       )
       json = get_coverage(
         project: 'Tenta.xcodeproj',
@@ -31,16 +31,14 @@ platform :ios do
         status: :success,
         slab: "niilohlin/Tenta",
         description: "Success #{(100 * json["coverage"]).round(2)}% coverage",
-        target_url: "http://example.com/",
-        context: "context"
+        context: "xcov"
       )
     rescue
       github_check(
         status: :failure,
         slab: "niilohlin/Tenta",
         description: "Failure",
-        target_url: "http://example.com/",
-        context: "context"
+        context: "xcov"
       )
     end
   end

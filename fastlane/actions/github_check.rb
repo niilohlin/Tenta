@@ -64,7 +64,7 @@ module Fastlane
             key: :target_url,
             env_name: "GITHUB_STATUS_TARGET_URL",
             description: "github status target url",
-            default_value: ""
+            optional: true
           ),
           FastlaneCore::ConfigItem.new(
             key: :context,
