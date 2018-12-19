@@ -6,6 +6,10 @@ identifier_name:
 disabled_rules:
   - todo
 
+included:
+  - Tenta/
+  - TentaTests/
+
 opt_in_rules:
   - closure_end_indentation
   - closure_spacing
