@@ -22,7 +22,6 @@ module Fastlane
         end
 
         uri = URI.parse("https://api.github.com/repos/#{slab}/statuses/#{commit_hash}?access_token=#{token}")
-        p uri
 
         header = {'Content-Type': 'text/json'}
         user = {state: status, description: description, target_url: target_url, context: context}
