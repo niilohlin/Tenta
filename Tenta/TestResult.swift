@@ -5,7 +5,18 @@
 
 import Foundation
 
-public enum TestResult<TestedType> {
-    case succeeded
-    case failed(value: TestedType, shrunkValue: TestedType, shrinks: Int)
+public struct TestResult<TestedType> {
+    public enum ResultType<TestedType> {
+        case succeeded
+        case failed(
+                value: TestedType,
+                shrunkValue: TestedType,
+                shrinks: Int,
+                file: StaticString,
+                line: UInt
+        )
+    }
+    let type: ResultType<TestedType>
+    let seed: UInt64
+    let numberOfTests: UInt
 }
