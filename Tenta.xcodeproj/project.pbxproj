@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74082F4221DCDF7B002F5749 /* UIColor+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74082F4121DCDF7B002F5749 /* UIColor+Generatable.swift */; };
 		74154F1521C00D03007E8DC6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7498C39E21B08ACB005EC5A5 /* XCTest.framework */; };
 		7426FBED21B9493B009E67CA /* Tenta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7426FBE421B9493B009E67CA /* Tenta.framework */; };
 		7426FBF421B9493B009E67CA /* Tenta_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7426FBE621B9493B009E67CA /* Tenta_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -95,6 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		74082F4121DCDF7B002F5749 /* UIColor+Generatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Generatable.swift"; sourceTree = "<group>"; };
 		7426FBE421B9493B009E67CA /* Tenta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tenta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7426FBE621B9493B009E67CA /* Tenta_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tenta_iOS.h; sourceTree = "<group>"; };
 		7426FBE721B9493B009E67CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				8E890360CBD3709541980FF6 /* CGTypes+Generatable.swift */,
+				74082F4121DCDF7B002F5749 /* UIColor+Generatable.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */,
 				8E8903358C93EA8B472455E2 /* CGTypes+Generatable.swift in Sources */,
 				8E890CE95DFCAC3B44AF6DCB /* String+Evil.swift in Sources */,
+				74082F4221DCDF7B002F5749 /* UIColor+Generatable.swift in Sources */,
 				8E890A940419672020899DCA /* TestResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
