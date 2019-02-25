@@ -8,8 +8,8 @@ import Foundation
 class DummyClass {
 }
 
-extension Generator where ValueToTest == String {
-    static func evil() -> Generator<String> {
+public extension Generator where ValueToTest == String {
+    public static func evil() -> Generator<String> {
         guard let path = Bundle(for: DummyClass.self).path(forResource: "evil-strings", ofType: "txt") else {
             fatalError("could not find evil strings file")
         }
