@@ -10,13 +10,13 @@ public struct Constructor {
     public var rng: SeededRandomNumberGenerator
 
     /// Recommended initializer.
-    init(size: Size, rng: inout SeededRandomNumberGenerator) {
+    public init(size: Size, rng: inout SeededRandomNumberGenerator) {
         self.size = size
         self.rng = rng
     }
 
     /// Only use this if you know what you are doing.
-    init(size: Size) {
+    public init(size: Size) {
         self.size = size
         self.rng = SeededRandomNumberGenerator(seed: UInt64.random(in: 0...UInt64.max))
     }
