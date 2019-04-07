@@ -107,7 +107,7 @@ public extension Generator {
         }
     }
 
-    public static func chooseGeneratorFrom<S: Sequence>(_ generators: S)
+    static func chooseGeneratorFrom<S: Sequence>(_ generators: S)
                     -> Generator<ValueToTest> where S.Iterator.Element == (Int, Generator<ValueToTest>) {
         let generators: [(Int, Generator<ValueToTest>)] = Array(generators)
         assert(!generators.isEmpty, "Cannot chose from an empty sequence")
