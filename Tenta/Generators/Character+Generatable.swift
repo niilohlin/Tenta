@@ -17,7 +17,7 @@ public extension Generator where ValueToTest == Character {
         return Generator<Character>.element(from: alphabet + alphabet.uppercased() + "1234567890")
     }
 
-    public func generateString() -> Generator<String> {
+    func generateString() -> Generator<String> {
         return reduce("") { $0 + String($1) }
     }
 }

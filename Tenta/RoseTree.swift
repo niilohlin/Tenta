@@ -23,7 +23,7 @@ public struct RoseTree<Value> {
     init(seed: @autoclosure @escaping () -> Value, _ unfoldFunction: @escaping (Value) -> [Value]) {
         root = seed
         forest = {
-            RoseTree.generateForest(seed: seed, unfoldFunction)
+            RoseTree.generateForest(seed: seed(), unfoldFunction)
         }
     }
 
