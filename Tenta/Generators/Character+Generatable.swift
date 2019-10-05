@@ -12,6 +12,12 @@ public extension Generator where ValueToTest == Character {
         }
     }
 
+    static var utf8: Generator<Character> {
+        return Generator<UInt32>.uInt32.compactMap { int in
+            Unicode.Scalar(int).map { Character($0) }
+        }
+    }
+
     static var alphaNumeric: Generator<Character> {
         let alphabet = "abcdefghijklmnopqrstuvwxyz"
         return Generator<Character>.element(from: alphabet + alphabet.uppercased() + "1234567890")

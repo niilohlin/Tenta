@@ -56,13 +56,11 @@
 		8E8903DBF76DACCFE2DF4020 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890EF83249CB80070A243C /* TestResult.swift */; };
 		8E89048932464D7A5538C79C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890FF115A2715C7DDE9499 /* Property.swift */; };
 		8E89053F2C5959343E8BAE39 /* Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8905DF2ED554C905DD8B6A /* Constructor.swift */; };
-		8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */; };
 		8E89054B29B39CE331C28F4A /* Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89090BF2D51B8F4614C2C7 /* Testable.swift */; };
 		8E8905DFAC6D8436A93F8DC8 /* Double+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89038F86E00A552B1B8373 /* Double+Generatable.swift */; };
 		8E8906B90C67FCA8540DD929 /* Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890BE14D9CEC77ED2315A7 /* Generatable.swift */; };
 		8E8907E3EB2B315C63D98D23 /* SeededRandomNumberGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89037A71F17CA04A21C5E7 /* SeededRandomNumberGeneratorTests.swift */; };
 		8E8907FC12761000679288B8 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E890F17CFDEDA3A1F1C4266 /* Generator.swift */; };
-		8E89084C41667E68D4A52EA4 /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */; };
 		8E8908CDF873E0791E3A2CF6 /* evil-strings.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E890C2BAD6FF2E57604074B /* evil-strings.txt */; };
 		8E8908D97BEF134D3D8B005D /* Foundation+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8902E7FE2569C37E8D2AB1 /* Foundation+Generatable.swift */; };
 		8E890925FB1144362E5BE8DC /* Numbers+Generatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E89000AD4BD34271F482422 /* Numbers+Generatable.swift */; };
@@ -125,7 +123,6 @@
 		8E8907BD0DC238A3B3872B0A /* Character+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Generatable.swift"; sourceTree = "<group>"; };
 		8E8907EA7C17DE23D1AF85AC /* String+Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Generatable.swift"; sourceTree = "<group>"; };
 		8E89090BF2D51B8F4614C2C7 /* Testable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testable.swift; sourceTree = "<group>"; };
-		8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiniteStateMachine.swift; sourceTree = "<group>"; };
 		8E890A83B74300654007736F /* GeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
 		8E890BDC993B78EC28625829 /* XCTest+Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+Property.swift"; sourceTree = "<group>"; };
 		8E890BE14D9CEC77ED2315A7 /* Generatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generatable.swift; sourceTree = "<group>"; };
@@ -235,7 +232,6 @@
 				8E8907825F93EBDD1C30A371 /* NSObject+AssociatedValue.swift */,
 				8E89090BF2D51B8F4614C2C7 /* Testable.swift */,
 				8E890C47CDD0BDCF7FCC64C9 /* TestObservation.swift */,
-				8E8909FF491E3D8C5BF4497A /* FiniteStateMachine.swift */,
 				8E890C2BAD6FF2E57604074B /* evil-strings.txt */,
 				8E890EF83249CB80070A243C /* TestResult.swift */,
 			);
@@ -397,9 +393,11 @@
 				TargetAttributes = {
 					7426FBE321B9493B009E67CA = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1100;
 					};
 					7426FBEB21B9493B009E67CA = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1100;
 					};
 					744C2666216D007900A40EA6 = {
 						CreatedOnToolsVersion = 10.0;
@@ -490,7 +488,6 @@
 				7426FC0121B94976009E67CA /* Combine.swift in Sources */,
 				7426FC0621B94985009E67CA /* String+Generatable.swift in Sources */,
 				7426FC0C21B94996009E67CA /* NSObject+AssociatedValue.swift in Sources */,
-				8E89054AA51FF1BE64B2207C /* FiniteStateMachine.swift in Sources */,
 				8E8903358C93EA8B472455E2 /* CGTypes+Generatable.swift in Sources */,
 				8E890CE95DFCAC3B44AF6DCB /* String+Evil.swift in Sources */,
 				74082F4221DCDF7B002F5749 /* UIColor+Generatable.swift in Sources */,
@@ -536,7 +533,6 @@
 				8E89054B29B39CE331C28F4A /* Testable.swift in Sources */,
 				8E89031CAB1D5DBB7DB96F5D /* TestObservation.swift in Sources */,
 				8E8908D97BEF134D3D8B005D /* Foundation+Generatable.swift in Sources */,
-				8E89084C41667E68D4A52EA4 /* FiniteStateMachine.swift in Sources */,
 				8E890FB058E6FACEA1E3C6C5 /* String+Evil.swift in Sources */,
 				8E8903DBF76DACCFE2DF4020 /* TestResult.swift in Sources */,
 			);
@@ -595,7 +591,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ohlin.niil.Tenta;
 				PRODUCT_NAME = Tenta;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 			};
@@ -624,7 +620,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ohlin.niil.Tenta;
 				PRODUCT_NAME = Tenta;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 			};
@@ -645,7 +641,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ohlin.niil.Tenta-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -665,7 +661,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ohlin.niil.Tenta-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
