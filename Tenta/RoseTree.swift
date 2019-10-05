@@ -96,7 +96,9 @@ public extension RoseTree {
         guard let rootValue = transform(root()) else {
             return nil
         }
-        return RoseTree<ElementOfResult>(root: rootValue, forest: self.forest().compactMap { subtree in subtree.compactMap(transform) })
+        return RoseTree<ElementOfResult>(root: rootValue, forest: self.forest().compactMap { subtree in
+            subtree.compactMap(transform)
+        })
     }
 
     static func combine<TestValue>(forest: [RoseTree<TestValue>]) -> RoseTree<[TestValue]> {

@@ -173,9 +173,12 @@ class GeneratorTests: XCTestCase {
 
     func testUtf8Character() {
         numberOfTests = 1000
+        guard let unicodeScalar = UnicodeScalar(128) else {
+            fatalError("Failed to produce unicode scalar")
+        }
         assert(
             generator: Generator<Character>.utf8,
-            shrinksTo: Character(UnicodeScalar(128)!),
+            shrinksTo: Character(unicodeScalar),
             predicate: { (character: Character) in character.isASCII }
         )
     }
