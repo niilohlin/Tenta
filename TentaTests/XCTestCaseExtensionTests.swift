@@ -31,6 +31,7 @@ class XCTestCaseExtensionTests: XCTestCase {
         wait(for: [expect], timeout: 0.1)
     }
 
+    // Example of failing test.
     func disabled_testUpperCasedLowerCased() {
         numberOfTests = 10000
 

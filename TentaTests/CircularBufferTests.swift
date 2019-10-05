@@ -41,7 +41,7 @@ enum Transition {
     case get
 }
 
-struct BufferState: StateMachine {
+struct BufferState {
     static var initialState: (CircularBuffer<Int>, [Int]) {
         return (CircularBuffer<Int>(size: 5), [])
     }
@@ -120,9 +120,5 @@ class CircularBufferTests: XCTestCase {
                 XCTAssertEqual(buffer.numberOfValues, model.count)
             }
         }
-    }
-
-    func testStateMachine() {
-        runStateMachine(of: BufferState.self)
     }
 }

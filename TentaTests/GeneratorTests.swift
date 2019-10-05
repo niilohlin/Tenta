@@ -104,9 +104,10 @@ class GeneratorTests: XCTestCase {
 
         let arrayGeneratorWithInternalIntShrinks = Generator<[Int]> { size, rng in
             let treeOfGenerators = arrayOfGeneratorsGenerator.generate(size, &rng)
+            var internalRng = rng.clone()
             let treeOfInts = treeOfGenerators.flatMap { (generators: [Generator<Int>]) -> RoseTree<[Int]> in
                 let forest: [RoseTree<Int>] = generators.map { (generator: Generator<Int>) in
-                    generator.generate(size, &rng)
+                    generator.generate(size, &internalRng)
                 }
                 return RoseTree<[Int]>.combine(forest: forest)
             }
@@ -114,7 +115,7 @@ class GeneratorTests: XCTestCase {
         }
         assert(
             generator: arrayGeneratorWithInternalIntShrinks,
-            shrinksTo: [2, 2, 2, 0],
+            shrinksTo: [-3, 1, 0],
             predicate: { (integers: [Int]) in integers.count < 3 }
         )
     }
