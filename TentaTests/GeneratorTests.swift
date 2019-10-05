@@ -171,7 +171,7 @@ class GeneratorTests: XCTestCase {
         })
     }
 
-    func testCharacter() {
+    func testUtf8Character() {
         numberOfTests = 1000
         assert(
             generator: Generator<Character>.utf8,
