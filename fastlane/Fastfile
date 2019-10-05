@@ -1,24 +1,24 @@
+# frozen_string_literal: true
 
 default_platform(:ios)
 
 platform :ios do
-  desc "Build and run unit tests"
+  desc 'Build and run unit tests'
   lane :unit_tests  do
+    swiftlint(strict: true)
     begin
-
-      swiftlint(strict: true)
       scan(
         scheme: 'Tenta-iOS',
         clean: true,
         devices: ['iPhone 7'],
-        output_types: 'junit',
+        output_types: 'junit'
       )
 
       github_check(
         status: :pending,
-        slab: "niilohlin/Tenta",
-        description: "Waiting for test result",
-        context: "xcov"
+        slab: 'niilohlin/Tenta',
+        description: 'Waiting for test result',
+        context: 'xcov'
       )
       json = get_coverage(
         project: 'Tenta.xcodeproj',
@@ -29,16 +29,16 @@ platform :ios do
       )
       github_check(
         status: :success,
-        slab: "niilohlin/Tenta",
-        description: "Success #{(100 * json["coverage"]).round(2)}% coverage",
-        context: "xcov"
+        slab: 'niilohlin/Tenta',
+        description: "Success #{(100 * json['coverage']).round(2)}% coverage",
+        context: 'xcov'
       )
     rescue
       github_check(
         status: :failure,
-        slab: "niilohlin/Tenta",
-        description: "Failure",
-        context: "xcov"
+        slab: 'niilohlin/Tenta',
+        description: 'Failure',
+        context: 'xcov'
       )
     end
   end
