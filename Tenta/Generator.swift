@@ -47,7 +47,6 @@ public extension Generator {
         }
     }
 
-    //@available(*, deprecated, message: "Does not work right now.")
     func flatMap<Transformed>(
             _ transform: @escaping (ValueToTest) -> Generator<Transformed>
     ) -> Generator<Transformed> {
@@ -79,6 +78,28 @@ public extension Generator {
                 let rose = self.generate(retrySize, &rng)
                 if let filteredRose = rose.filter(predicate) {
                     return filteredRose
+                }
+            }
+            fatalError("Max filter retries. Try easing filter requirement or use a constructive approach")
+        }
+    }
+
+    /**
+     Transforms and filters a value if the transform returns `nil`
+
+     Usage:
+     ```
+     let urlGenerator = Generator<String>.compactMap(URL.init(string:))
+     ```
+     - Parameter transform: The transform to be applied.
+     - Returns: A new generator that returns the transformed values, except for `nil`
+     */
+    func compactMap<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed?) -> Generator<Transformed> {
+        return Generator<Transformed> { size, rng in
+            for retrySize in size..<(size.advanced(by: self.maxFilterTries)) {
+                let rose = self.generate(retrySize, &rng)
+                if let transformedRose = rose.compactMap(transform) {
+                    return transformedRose
                 }
             }
             fatalError("Max filter retries. Try easing filter requirement or use a constructive approach")

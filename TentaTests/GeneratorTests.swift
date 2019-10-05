@@ -171,6 +171,15 @@ class GeneratorTests: XCTestCase {
         })
     }
 
+    func testCharacter() {
+        numberOfTests = 1000
+        assert(
+            generator: Generator<Character>.utf8,
+            shrinksTo: Character(UnicodeScalar(128)!),
+            predicate: { (character: Character) in character.isASCII }
+        )
+    }
+
     func testOptional() {
         assert(generator: Int?.generator, shrinksTo: 4, predicate: { (int: Int?) -> Bool in
             int.map { $0 != 4 } ?? true
@@ -326,7 +335,7 @@ class GeneratorTests: XCTestCase {
         }
         XCTAssert(
                 isEqual(value, minimumFailing),
-                "Generator did not shrink to \(minimumFailing), but \(value)",
+                "Generator did not shrink to \"\(minimumFailing)\", but to \"\(value)\"",
                 file: file,
                 line: line
         )
