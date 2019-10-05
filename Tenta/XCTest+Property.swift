@@ -32,13 +32,12 @@ public extension XCTestCase {
     @discardableResult
     func runProperty<TestValue>(
             _ property: Property<TestValue>,
+            _ reporter: Reporter<TestValue> = .xcTestReporter,
             file: StaticString = #file,
             line: UInt = #line
     ) -> TestResult<TestValue> {
         let testResult = property.checkProperty()
-        if case let .failed(_, shrunk, _) = testResult {
-            XCTFail("failed with value: \(shrunk), rerun with seed: \(seed)", file: file, line: line)
-        }
+        reporter.report(testResult)
         return testResult
     }
 
