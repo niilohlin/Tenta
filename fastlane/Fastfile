@@ -6,14 +6,13 @@ platform :ios do
   desc 'Build and run unit tests'
   lane :unit_tests  do
     swiftlint(strict: true)
+    scan(
+      scheme: 'Tenta-iOS',
+      clean: true,
+      devices: ['iPhone 7'],
+      output_types: 'junit'
+    )
     begin
-      scan(
-        scheme: 'Tenta-iOS',
-        clean: true,
-        devices: ['iPhone 7'],
-        output_types: 'junit'
-      )
-
       github_check(
         status: :pending,
         slab: 'niilohlin/Tenta',
