@@ -11,7 +11,7 @@ private var numberOfTestsKey = false
 public extension XCTestCase {
     var seed: UInt64 {
         get {
-            return associatedValue(forKey: &seedKey) ?? 100
+            return associatedValue(forKey: &seedKey) ?? UInt64.random(in: (UInt64.min...UInt64.max))
         }
         set {
             setAssociatedValue(newValue, forKey: &seedKey)
@@ -37,7 +37,7 @@ public extension XCTestCase {
     ) -> TestResult<TestValue> {
         let testResult = property.checkProperty()
         if case let .failed(_, shrunk, _) = testResult {
-            XCTFail("failed with value: \(shrunk), rerun with seed: \(seed)", file: file, line: line)
+            XCTFail("failed with value: \(shrunk), reproduce run with seed: \(seed)", file: file, line: line)
         }
         return testResult
     }

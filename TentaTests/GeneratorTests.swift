@@ -42,6 +42,11 @@ struct ComplexTest: Generatable {
 
 class GeneratorTests: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        self.seed = 100
+    }
+
     func testRunTest() {
         assert(generator: Generator<Int>.int, shrinksTo: 10, predicate: { (int: Int) in
             int < 10
