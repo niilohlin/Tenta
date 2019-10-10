@@ -46,7 +46,7 @@ public extension XCTestCase {
      Run test with specified generator.
      */
     @discardableResult
-    func runTest<TestValue>(
+    func testProperty<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             generator: Generator<TestValue>,
@@ -67,12 +67,12 @@ public extension XCTestCase {
      Run a test with the default generator.
      */
     @discardableResult
-    func runTest<TestValue: Generatable>(
+    func testProperty<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             _ predicate: @escaping (TestValue) -> Bool
     ) -> TestResult<TestValue> {
-        return runTest(
+        return testProperty(
                 file: file,
                 line: line,
                 generator: TestValue.self.generator,
@@ -81,7 +81,7 @@ public extension XCTestCase {
     }
 
     @discardableResult
-    func runTest<TestValue, OtherTestValue>(
+    func testProperty<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             _ firstGenerator: Generator<TestValue>,
@@ -100,12 +100,12 @@ public extension XCTestCase {
     }
 
     @discardableResult
-    func runTest<TestValue: Generatable, OtherTestValue: Generatable>(
+    func testProperty<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
     ) -> TestResult<(TestValue, OtherTestValue)> {
-        return runTest(
+        return testProperty(
                 file: file,
                 line: line,
                 TestValue.self.generator,
@@ -118,16 +118,16 @@ public extension XCTestCase {
 public extension XCTestCase {
 
     @discardableResult
-    func runWithXCTest<TestValue: Generatable>(
+    func testPropertyWithXCTest<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             test: @escaping (TestValue) throws -> Void
     ) -> TestResult<TestValue> {
-        return runWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
+        return testPropertyWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
     }
 
     @discardableResult
-    func runWithXCTest<TestValue>(
+    func testPropertyWithXCTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             generator: Generator<TestValue>,
@@ -153,17 +153,17 @@ public extension XCTestCase {
     }
 
     @discardableResult
-    func runWithXCTest<TestValue: Generatable, OtherTestValue: Generatable>(
+    func testPropertyWithXCTest<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
             test: @escaping (TestValue, OtherTestValue) throws -> Void
 
     ) -> TestResult<(TestValue, OtherTestValue)> {
-        return runWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
+        return testPropertyWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
     }
 
     @discardableResult
-    func runWithXCTest<TestValue, OtherTestValue>(
+    func testPropertyWithXCTest<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
             _ firstGenerator: Generator<TestValue>,

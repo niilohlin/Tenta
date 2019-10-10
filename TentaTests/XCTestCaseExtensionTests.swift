@@ -9,22 +9,22 @@ import XCTest
 
 class XCTestCaseExtensionTests: XCTestCase {
     func testRunWithXCTest() {
-        runWithXCTest(generator: [Int].generator) { (ints: [Int]) in
+        testPropertyWithXCTest(generator: [Int].generator) { (ints: [Int]) in
             XCTAssertEqual(ints.sorted(), ints.sorted().sorted())
         }
     }
 
     func testRunWithXCTest_defaultGenerator() {
-        runWithXCTest { (int: Int, char: Character) in
+        testPropertyWithXCTest { (int: Int, char: Character) in
             XCTAssertNotEqual(String(describing: int) + String(char), "")
         }
     }
 
-    func testRunTestWithDifferentTestSize() {
+    func testPropertyWithDifferentTestSize() {
         seed = 0
         numberOfTests = 1
         let expect = expectation(description: "should only be called once")
-        runWithXCTest { (int: Int) in
+        testPropertyWithXCTest { (int: Int) in
             XCTAssertNotEqual(int, 100, "should not generate and int of size 100 on the first try")
             expect.fulfill()
         }
@@ -35,7 +35,7 @@ class XCTestCaseExtensionTests: XCTestCase {
     func disabled_testUpperCasedLowerCased() {
         numberOfTests = 10000
 
-        runWithXCTest { (int: UInt32) in
+        testPropertyWithXCTest { (int: UInt32) in
             guard let scalar = Unicode.Scalar(int) else {
                 return
             }

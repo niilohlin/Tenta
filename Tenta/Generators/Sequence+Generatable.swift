@@ -12,7 +12,7 @@ public extension Generator {
      - Usage:
      ```
      let intGenerator: Generator<Int> = Generator<Int>.int
-     runTest(generator: Generator<Int>.array(elementGenerator: intGenerator)) { array in
+     testProperty(generator: Generator<Int>.array(elementGenerator: intGenerator)) { array in
          array.count >= 0
      }
      ```
@@ -25,15 +25,13 @@ public extension Generator {
             if size <= 0 {
                 return RoseTree(root: [], forest: [])
             }
-            var value = [RoseTree<TestValue>]()
-            for _ in 0 ... Int(size) {
-                value.append(elementGenerator.generate(size, &rng))
-            }
+            let value = (0 ... Int(size)).map { _ in elementGenerator.generate(size, &rng) }
+
 //            let resultingArray = value.map { $0.root() }
 //            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
 //                parentArray.shrink()
 //            }
-            return RoseTree<[Int]>.combine(forest: value).flatMap { array in
+            return RoseTree<[TestValue]>.combine(forest: value).flatMap { array in
                 RoseTree(seed: array) { (parentArray: [TestValue]) in
                     parentArray.shrink()
                 }

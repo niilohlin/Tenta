@@ -9,13 +9,13 @@ import XCTest
 
 class FoundationGeneratorTests: XCTestCase {
     func testURLQueryItems() {
-        runWithXCTest { (urlQueryItem: URLQueryItem) in
+        testPropertyWithXCTest { (urlQueryItem: URLQueryItem) in
             XCTAssertEqual(urlQueryItem, urlQueryItem)
         }
     }
 
     func testData() {
-        runWithXCTest { (data: Data) in
+        testPropertyWithXCTest { (data: Data) in
             XCTAssertEqual(data, data)
         }
     }

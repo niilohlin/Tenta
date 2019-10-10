@@ -53,7 +53,7 @@ public extension Generator where ValueToTest == Int {
 
      Usage:
      ```
-     runTest(Generator<Int>.int) { int in int % 1 == 0 }
+     testProperty(generator: Generator<Int>.int) { int in int % 1 == 0 }
      ```
      - Returns: A generator that generates `Int`s.
      */
