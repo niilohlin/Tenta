@@ -102,7 +102,10 @@ class CircularBufferTests: XCTestCase {
         let transitionGenerator = Int?.generator.map { $0.map(Transition.put) ?? Transition.get }
         let sizeGenerator = Int.generator.map { abs($0) + 1 }
 
-        runWithXCTest(sizeGenerator, transitionGenerator.generateMany()) { (size: Int, transitions: [Transition]) in
+        testPropertyWithXCTest(
+            sizeGenerator,
+            transitionGenerator.generateMany()
+        ) { (size: Int, transitions: [Transition]) in
             var buffer = CircularBuffer<Int>(size: abs(size))
             var model = [Int]()
             for transition in transitions {

@@ -47,7 +47,7 @@ class GeneratorTests: XCTestCase {
         self.seed = 100
     }
 
-    func testRunTest() {
+    func testTestProperty() {
         assert(generator: Generator<Int>.int, shrinksTo: 10, predicate: { (int: Int) in
             int < 10
         })
@@ -73,15 +73,15 @@ class GeneratorTests: XCTestCase {
         let positiveEvenGenerator = Generator<Int>.int.filter { int in
             (int > 0 && int % 2 == 0)
         }
-        runTest(generator: positiveEvenGenerator) { positiveEven in
+        testProperty(generator: positiveEvenGenerator) { positiveEven in
             XCTAssert(positiveEven > 0)
             XCTAssert(positiveEven % 2 == 0)
             return positiveEven > 0 && positiveEven % 2 == 0
         }
     }
 
-    func testRunTestWithDefaultGenerator() {
-        runTest { (_: Int) in
+    func testPropertyWithDefaultGenerator() {
+        testProperty { (_: Int) in
             true
         }
     }
@@ -147,13 +147,13 @@ class GeneratorTests: XCTestCase {
     }
 
     func testGenerateCharacter() {
-        runTest { (char: Character) in
+        testProperty { (char: Character) in
             !String(char).isEmpty
         }
     }
 
     func testGenerateStrings() {
-        runTest { (_: String) in
+        testProperty { (_: String) in
             true
         }
     }
@@ -165,7 +165,7 @@ class GeneratorTests: XCTestCase {
     }
 
     func testComplexTest() {
-        runTest { (_: ComplexTest) in
+        testProperty { (_: ComplexTest) in
             true //!complex.firstName.contains(Character("a"))
         }
     }
@@ -214,7 +214,7 @@ class GeneratorTests: XCTestCase {
             )
         }
 
-        runTest(generator: generator) { (_: ComplexTest) in
+        testProperty(generator: generator) { (_: ComplexTest) in
             true
         }
     }
@@ -243,13 +243,13 @@ class GeneratorTests: XCTestCase {
 
     func testGenerateNonEmpty() {
         let nonEmpty = Int.generator.generateMany().nonEmpty()
-        runTest(generator: nonEmpty) { (integers: [Int]) in
+        testProperty(generator: nonEmpty) { (integers: [Int]) in
             !integers.isEmpty
         }
     }
 
     func testGenerateArity2() {
-        runTest { (int: Int, string: String) in
+        testProperty { (int: Int, string: String) in
             !(String(describing: int) + string).isEmpty
         }
     }
@@ -262,14 +262,14 @@ class GeneratorTests: XCTestCase {
     }
 
     func testGenerateAlphaNumeric() {
-        runTest(generator: Generator<String>.alphaNumeric) { (string: String) in
+        testProperty(generator: Generator<String>.alphaNumeric) { (string: String) in
             string.allSatisfy("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".contains)
         }
     }
 
     func testDefaultGeneratorTransform() {
         let intAndString = Int.generator.combine(with: String.generator)
-        runTest(generator: intAndString) { int, string in
+        testProperty(generator: intAndString) { int, string in
             (String(describing: int) + string).count >= string.count
         }
 
@@ -302,13 +302,13 @@ class GeneratorTests: XCTestCase {
 
     func testGenerateManyFixedLength() {
         let intGenerator = Int.generator.generateMany(length: 10)
-        runWithXCTest(generator: intGenerator) { (integers: [Int]) in
+        testPropertyWithXCTest(generator: intGenerator) { (integers: [Int]) in
             XCTAssertEqual(integers.count, 10)
         }
     }
 
     func testEvilStrings_doesNotCrash() {
-        runTest(generator: Generator<String>.evil()) { _ in
+        testProperty(generator: Generator<String>.evil()) { _ in
             true
         }
     }

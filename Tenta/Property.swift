@@ -6,7 +6,7 @@
 import Foundation
 
 /**
- Contains everything needed to run and rerun a `runTest` without needing to invoke the XCTestCase
+ Contains everything needed to run and rerun a `testProperty` without needing to invoke the XCTestCase
  */
 public struct Property<Value> {
     let description: String
