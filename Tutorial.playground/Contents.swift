@@ -90,7 +90,7 @@ class GeneratedEmailTests: XCTestCase {
     }
 
     func testValidEmail() {
-        runTest(generator: validEmailGenerator) { email in
+        testProperty(generator: validEmailGenerator) { email in
             print("email: \(email) is \(email.isValidEmail ? "valid" : "invalid")")
             return email.isValidEmail
         }
@@ -98,7 +98,7 @@ class GeneratedEmailTests: XCTestCase {
 
     // Ok That seems to work fine. Let's test som invalid emails.
     func testInvalidEmail() {
-        runTest { (email: String) in
+        testProperty { (email: String) in
             print("email: \(email) is \(email.isValidEmail ? "valid" : "invalid")")
             return !email.isValidEmail
         }
