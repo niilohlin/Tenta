@@ -307,11 +307,15 @@ class GeneratorTests: XCTestCase {
         }
     }
 
+    #if !SWIFT_PACKAGE
+
     func testEvilStrings_doesNotCrash() {
         testProperty(generator: Generator<String>.evil()) { _ in
             true
         }
     }
+
+    #endif
 
     func assert<T: Equatable>(
             generator: Generator<T>,

@@ -177,6 +177,7 @@
 		7426FBE521B9493B009E67CA /* Tenta-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				8E89086C6129B45F48BD8101 /* UIKit */,
 				7426FBE621B9493B009E67CA /* Tenta_iOS.h */,
 				7426FBE721B9493B009E67CA /* Info.plist */,
 			);
@@ -281,7 +282,6 @@
 				8E890084098C32A0D6269434 /* Optional+Generatable.swift */,
 				8E89031F831C25B5D6457A77 /* Bool+Generatable.swift */,
 				8E8902E7FE2569C37E8D2AB1 /* Foundation+Generatable.swift */,
-				8E89086C6129B45F48BD8101 /* UIKit */,
 				8E890CBD00E8053F2CD47BF7 /* String+Evil.swift */,
 			);
 			path = Generators;
