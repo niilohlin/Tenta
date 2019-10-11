@@ -115,19 +115,19 @@ public extension RoseTree {
 
     func combine<OtherValue, Transformed>(
             with other: RoseTree<OtherValue>,
+            recurse: Bool = true,
             transform: @escaping (Value, OtherValue) -> Transformed) -> RoseTree<Transformed> {
-        let firstRoot = root()
-        let secondRoot = other.root()
-        return RoseTree<Transformed>(root: transform(firstRoot, secondRoot), forest: {
-            let firstForest = self.forest()
-            let secondForest = other.forest()
-            let mapTransformWithFirstRoot = { (rose: RoseTree<OtherValue>) -> RoseTree<Transformed> in
-                rose.map { transform(firstRoot, $0) }
-            }
-            return secondForest.map(mapTransformWithFirstRoot) + firstForest.map { firstSubForest in
-                firstSubForest.combine(with: other, transform: transform)
-            }
-        }())
+
+        return self.flatMap { value in
+            other.map { transform(value, $0) }
+        }
+    }
+
+    func appendTree(toBottom other: RoseTree<Value>) -> RoseTree<Value> {
+        if self.forest().isEmpty {
+            return RoseTree(root: self.root(), forest: [other])
+        }
+        return RoseTree(root: self.root(), forest: self.forest().map { $0.appendTree(toBottom: other) })
     }
 }
 

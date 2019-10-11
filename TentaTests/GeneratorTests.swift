@@ -289,10 +289,9 @@ class GeneratorTests: XCTestCase {
 
     // Should work when fixed proper shrinking.
     func disabled_testFlatMap_otherWay_shrinks() {
-        let stringGen = Int.generator.flatMap { int -> Generator<String> in
-            Generator<String>.alphaNumeric.map { string in
-                String(describing: int) + string
-            }
+        let stringGen = Int.generator.combine(
+            with: Generator<String>.alphaNumeric) { int, string -> String in
+            String(describing: int) + string
         }
 
         assert(generator: stringGen, shrinksTo: "0a", predicate: { (string: String) in
