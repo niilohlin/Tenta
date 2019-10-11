@@ -165,8 +165,8 @@ class GeneratorTests: XCTestCase {
     }
 
     func testComplexTest() {
-        testProperty { (_: ComplexTest) in
-            true //!complex.firstName.contains(Character("a"))
+        testProperty(expectFailure: true) { (complex: ComplexTest) in
+            !complex.firstName.contains(Character("a"))
         }
     }
 
@@ -336,7 +336,13 @@ class GeneratorTests: XCTestCase {
             predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
             line: UInt = #line) {
-        let property = Property(generator: generator, seed: seed, numberOfTests: numberOfTests, predicate: predicate)
+        let property = Property(
+                generator: generator,
+                seed: seed,
+                numberOfTests: numberOfTests,
+                expectFailure: true,
+                predicate: predicate
+        )
         guard case let .failed(_, value, _) = property.checkProperty() else {
             XCTFail("Generator did not fail", file: file, line: line)
             return

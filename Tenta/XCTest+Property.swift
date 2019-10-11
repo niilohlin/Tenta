@@ -36,8 +36,10 @@ public extension XCTestCase {
             line: UInt = #line
     ) -> TestResult<TestValue> {
         let testResult = property.checkProperty()
-        if case let .failed(_, shrunk, _) = testResult {
+        if case let .failed(_, shrunk, _) = testResult, !property.expectFailure {
             XCTFail("failed with value: \(shrunk), reproduce run with seed: \(seed)", file: file, line: line)
+        } else if case TestResult.succeeded = testResult, property.expectFailure {
+            XCTFail("expected property to fail, but succeeded, reproduce run with seed \(seed)", file: file, line: line)
         }
         return testResult
     }
@@ -50,6 +52,7 @@ public extension XCTestCase {
             file: StaticString = #file,
             line: UInt = #line,
             generator: Generator<TestValue>,
+            expectFailure: Bool = false,
             predicate: @escaping (TestValue) throws -> Bool
     ) -> TestResult<TestValue> {
         let property = Property(
@@ -57,6 +60,7 @@ public extension XCTestCase {
                 generator: generator,
                 seed: seed,
                 numberOfTests: numberOfTests,
+                expectFailure: expectFailure,
                 predicate: predicate
         )
 
@@ -70,12 +74,14 @@ public extension XCTestCase {
     func testProperty<TestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
+            expectFailure: Bool = false,
             _ predicate: @escaping (TestValue) -> Bool
     ) -> TestResult<TestValue> {
         return testProperty(
                 file: file,
                 line: line,
                 generator: TestValue.self.generator,
+                expectFailure: expectFailure,
                 predicate: predicate
         )
     }
@@ -86,6 +92,7 @@ public extension XCTestCase {
             line: UInt = #line,
             _ firstGenerator: Generator<TestValue>,
             _ secondGenerator: Generator<OtherTestValue>,
+            expectFailure: Bool = false,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
     ) -> TestResult<(TestValue, OtherTestValue)> {
         let property = Property(
@@ -93,6 +100,7 @@ public extension XCTestCase {
                 generator: firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) }),
                 seed: seed,
                 numberOfTests: numberOfTests,
+                expectFailure: expectFailure,
                 predicate: predicate
         )
 
@@ -103,6 +111,7 @@ public extension XCTestCase {
     func testProperty<TestValue: Generatable, OtherTestValue: Generatable>(
             file: StaticString = #file,
             line: UInt = #line,
+            expectFailure: Bool = false,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
     ) -> TestResult<(TestValue, OtherTestValue)> {
         return testProperty(
@@ -110,6 +119,7 @@ public extension XCTestCase {
                 line: line,
                 TestValue.self.generator,
                 OtherTestValue.self.generator,
+                expectFailure: expectFailure,
                 predicate: predicate
         )
     }
@@ -144,6 +154,7 @@ public extension XCTestCase {
                 generator: generator,
                 seed: seed,
                 numberOfTests: numberOfTests,
+                expectFailure: false,
                 predicate: predicate
         )
 
@@ -180,6 +191,7 @@ public extension XCTestCase {
                 generator: firstGenerator.combine(with: secondGenerator),
                 seed: seed,
                 numberOfTests: numberOfTests,
+                expectFailure: false,
                 predicate: predicate
         )
 
