@@ -3,6 +3,7 @@
 // Copyright (c) 2018 Niil Öhlin. All rights reserved.
 //
 
+#if !SWIFT_PACKAGE
 import Foundation
 
 class DummyClass {
@@ -27,3 +28,5 @@ public extension Generator where ValueToTest == String {
         return Generator.element(from: evilStrings)
     }
 }
+
+#endif
