@@ -8,7 +8,7 @@ Tenta is Swedish slang for "Test", typically used in a University setting.
 
 ```swift
     // Assert that the reverse of any array keeps its length.
-    runTest { (array: [Int]) in
+    testProperty { (array: [Int]) in
         array.count == array.reversed().count
     }
 
@@ -19,7 +19,7 @@ and you should be able to write your tests like this:
 
 ```swift
     // Assert that the reverse of any array keeps its length.
-    runWithXCTest { (array: [Int]) in
+    testPropertyWithXCTest { (array: [Int]) in
         XCTAssertEqual(array.count, array.reversed().count)
     }
 
