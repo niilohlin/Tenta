@@ -32,13 +32,13 @@ extension Double {
 
 extension Float {
     func towards(source: Float, minimumDelta: Float = 0.01) -> [Float] {
-        return Double(self).towards(source: Double(source), minimumDelta: Double(minimumDelta)).map { Float($0) }
+        Double(self).towards(source: Double(source), minimumDelta: Double(minimumDelta)).map { Float($0) }
     }
 }
 
 public extension Generator where ValueToTest == Double {
     static var double: Generator<Double> {
-        return Generator<Double> { size, rng in
+        Generator<Double> { size, rng in
             let value = Double.random(in: -Double(size)...Double(size), using: &rng)
             return RoseTree<Double>(seed: value) { 0.0.towards(source: $0) }
         }
@@ -47,13 +47,13 @@ public extension Generator where ValueToTest == Double {
 
 extension Double: Generatable {
     public static var generator: Generator<Double> {
-        return Generator<Double>.double
+        Generator<Double>.double
     }
 }
 
 public extension Generator where ValueToTest == Float {
     static var float: Generator<Float> {
-        return Generator<Float> { size, rng in
+        Generator<Float> { size, rng in
             let value = Float.random(in: -Float(size)...Float(size), using: &rng)
             return RoseTree<Float>(seed: value) { Float(0.0).towards(source: $0) }
         }
@@ -62,6 +62,6 @@ public extension Generator where ValueToTest == Float {
 
 extension Float: Generatable {
     public static var generator: Generator<Float> {
-        return Generator<Float>.float
+        Generator<Float>.float
     }
 }

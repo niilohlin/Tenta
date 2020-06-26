@@ -7,19 +7,19 @@ import Foundation
 
 public extension Generator where ValueToTest == Data {
     static var data: Generator<Data> {
-        return [UInt8].generator.map { Data($0) }
+        [UInt8].generator.map { Data($0) }
     }
 }
 
 extension Data: Generatable {
     public static var generator: Generator<Data> {
-        return Tenta.Generator<Data>.data
+        Tenta.Generator<Data>.data
     }
 }
 
 public extension Generator where ValueToTest == URLQueryItem {
     static var urlQueryItem: Generator<URLQueryItem> {
-        return String.generator.combine(with: (String?).generator).map {
+        String.generator.combine(with: (String?).generator).map {
             URLQueryItem(name: $0, value: $1)
         }
     }
@@ -27,7 +27,7 @@ public extension Generator where ValueToTest == URLQueryItem {
 
 extension URLQueryItem: Generatable {
     public static var generator: Generator<URLQueryItem> {
-        return Tenta.Generator<URLQueryItem>.urlQueryItem
+        Tenta.Generator<URLQueryItem>.urlQueryItem
     }
 }
 

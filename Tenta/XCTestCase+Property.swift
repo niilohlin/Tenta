@@ -11,7 +11,7 @@ private var numberOfTestsKey = false
 public extension XCTestCase {
     var seed: UInt64 {
         get {
-            return associatedValue(forKey: &seedKey) ?? UInt64.random(in: (UInt64.min...UInt64.max))
+            associatedValue(forKey: &seedKey) ?? UInt64.random(in: (UInt64.min...UInt64.max))
         }
         set {
             setAssociatedValue(newValue, forKey: &seedKey)
@@ -19,7 +19,7 @@ public extension XCTestCase {
     }
     var numberOfTests: UInt {
         get {
-            return associatedValue(forKey: &numberOfTestsKey) ?? 100
+            associatedValue(forKey: &numberOfTestsKey) ?? 100
         }
         set {
             setAssociatedValue(newValue, forKey: &numberOfTestsKey)
@@ -77,7 +77,7 @@ public extension XCTestCase {
             expectFailure: Bool = false,
             _ predicate: @escaping (TestValue) -> Bool
     ) -> TestResult<TestValue> {
-        return testProperty(
+        testProperty(
                 file: file,
                 line: line,
                 generator: TestValue.self.generator,
@@ -114,7 +114,7 @@ public extension XCTestCase {
             expectFailure: Bool = false,
             _ predicate: @escaping (TestValue, OtherTestValue) -> Bool
     ) -> TestResult<(TestValue, OtherTestValue)> {
-        return testProperty(
+        testProperty(
                 file: file,
                 line: line,
                 TestValue.self.generator,
@@ -133,7 +133,7 @@ public extension XCTestCase {
             line: UInt = #line,
             test: @escaping (TestValue) throws -> Void
     ) -> TestResult<TestValue> {
-        return testPropertyWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
+        testPropertyWithXCTest(file: file, line: line, generator: TestValue.generator, test: test)
     }
 
     @discardableResult
@@ -170,7 +170,7 @@ public extension XCTestCase {
             test: @escaping (TestValue, OtherTestValue) throws -> Void
 
     ) -> TestResult<(TestValue, OtherTestValue)> {
-        return testPropertyWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
+        testPropertyWithXCTest(file: file, line: line, TestValue.generator, OtherTestValue.generator, test: test)
     }
 
     @discardableResult

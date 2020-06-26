@@ -7,7 +7,7 @@ import Foundation
 
 public extension Generator {
     func optional() -> Generator<ValueToTest?> {
-        return combine(with: Bool.generator) { value, bool in
+        combine(with: Bool.generator) { value, bool in
             bool ? value : nil
         }
     }
@@ -15,6 +15,6 @@ public extension Generator {
 
 extension Optional: Generatable where Wrapped: Generatable {
     public static var generator: Generator<Wrapped?> {
-        return Wrapped.generator.optional()
+        Wrapped.generator.optional()
     }
 }

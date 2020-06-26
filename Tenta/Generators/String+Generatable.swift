@@ -7,21 +7,21 @@ import Foundation
 
 public extension Generator where ValueToTest == String {
     static var string: Generator<String> {
-        return Generator<Character>.char.generateString()
+        Generator<Character>.char.generateString()
 
     }
 
     static var alphaNumeric: Generator<String> {
-        return Generator<Character>.alphaNumeric.generateString()
+        Generator<Character>.alphaNumeric.generateString()
     }
 
     static var utf8: Generator<String> {
-        return Generator<Character>.utf8.generateString()
+        Generator<Character>.utf8.generateString()
     }
 }
 
 extension String: Generatable {
     public static var generator: Generator<String> {
-        return Tenta.Generator<String>.string
+        Tenta.Generator<String>.string
     }
 }

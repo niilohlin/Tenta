@@ -7,7 +7,7 @@ import Foundation
 
 public extension Generator where ValueToTest == UInt8 {
     static var uInt8: Generator<UInt8> {
-        return Generator<UInt8>.withSize { size in
+        Generator<UInt8>.withSize { size in
             Generator.element(from: (0...UInt8(truncatingIfNeeded: Int(size))))
         }
     }
@@ -15,13 +15,13 @@ public extension Generator where ValueToTest == UInt8 {
 
 extension UInt8: Generatable {
     public static var generator: Generator<UInt8> {
-        return Generator<UInt8>.uInt8
+        Generator<UInt8>.uInt8
     }
 }
 
 public extension Generator where ValueToTest == UInt16 {
     static var uInt16: Generator<UInt16> {
-        return Generator<UInt16>.withSize { size in
+        Generator<UInt16>.withSize { size in
             Generator.element(from: (0...UInt16(truncatingIfNeeded: Int(size))))
         }
     }
@@ -29,13 +29,13 @@ public extension Generator where ValueToTest == UInt16 {
 
 extension UInt16: Generatable {
     public static var generator: Generator<UInt16> {
-        return Generator<UInt16>.uInt16
+        Generator<UInt16>.uInt16
     }
 }
 
 public extension Generator where ValueToTest == UInt32 {
     static var uInt32: Generator<UInt32> {
-        return Generator<UInt32>.withSize { size in
+        Generator<UInt32>.withSize { size in
             Generator.element(from: (0...UInt32(truncatingIfNeeded: Int(size))))
         }
     }
@@ -43,7 +43,7 @@ public extension Generator where ValueToTest == UInt32 {
 
 extension UInt32: Generatable {
     public static var generator: Generator<UInt32> {
-        return Generator<UInt32>.uInt32
+        Generator<UInt32>.uInt32
     }
 }
 
@@ -58,7 +58,7 @@ public extension Generator where ValueToTest == Int {
      - Returns: A generator that generates `Int`s.
      */
     static var int: Generator<Int> {
-        return Generator<Int> { size, rng in
+        Generator<Int> { size, rng in
             if size <= 0 {
                 return RoseTree(root: 0, forest: [])
             }
@@ -70,28 +70,28 @@ public extension Generator where ValueToTest == Int {
     }
 
     func nonZero() -> Generator<Int> {
-        return filter { $0 != 0 }
+        filter { $0 != 0 }
     }
 
     func nonNegative() -> Generator<Int> {
-        return map(abs)
+        map(abs)
     }
 
     func positive() -> Generator<Int> {
-        return nonNegative().map { $0 + 1 }
+        nonNegative().map { $0 + 1 }
     }
 }
 
 extension Int: Generatable {
     /// The default int generator. Generates `Int`s according to the `size` parameter.
     public static var generator: Generator<Int> {
-        return Generator<Int>.int
+        Generator<Int>.int
     }
 }
 
 public extension Generator where ValueToTest == Decimal {
     static var decimal: Generator<Decimal> {
-        return Generator<Generator<Decimal>>.element(from: [
+        Generator<Generator<Decimal>>.element(from: [
             Int.generator.map { Decimal($0) },
             Double.generator.map { Decimal($0) }
             ]
@@ -101,6 +101,6 @@ public extension Generator where ValueToTest == Decimal {
 
 extension Decimal: Generatable {
     public static var generator: Generator<Decimal> {
-        return Generator<Decimal>.decimal
+        Generator<Decimal>.decimal
     }
 }

@@ -32,7 +32,7 @@ struct CircularBuffer<Value> {
     }
 
     var numberOfValues: Int {
-        return (input - output + size) % size
+        (input - output + size) % size
     }
 }
 

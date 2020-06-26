@@ -17,7 +17,7 @@ struct ComplexTest: Generatable {
     var sex: String
 
     static var generator: Generator<ComplexTest> {
-        return Generator<ComplexTest> { size, rng in
+        Generator<ComplexTest> { size, rng in
             let firstName = String.generator.generateWithoutShrinking(size, &rng)
             let lastName = String.generator.generateWithoutShrinking(size, &rng)
             let age = Int.generator.generateWithoutShrinking(size, &rng)
