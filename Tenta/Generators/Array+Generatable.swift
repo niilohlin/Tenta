@@ -21,7 +21,7 @@ public extension Generator {
      */
     static func array<TestValue>(
             elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
-        return Generator<[TestValue]> { size, rng in
+        Generator<[TestValue]> { size, rng in
             if size <= 0 {
                 return RoseTree(root: [], forest: [])
             }
@@ -41,29 +41,29 @@ public extension Generator {
 
     static func sequence<TestValue>(
             of elementGenerator: Generator<TestValue>) -> Generator<AnySequence<TestValue>> {
-        return Generator<AnySequence<TestValue>> { _, _ in
+        Generator<AnySequence<TestValue>> { _, _ in
             fatalError("Not implemented yet")
         }
     }
 
     static func set<TestValue: Hashable>(
             of elementGenerator: Generator<TestValue>) -> Generator<Set<TestValue>> {
-        return elementGenerator.generateMany().map(Set.init)
+        elementGenerator.generateMany().map(Set.init)
     }
 
     func reduce<Result>(
             _ initialResult: Result,
             _ nextPartialResult: @escaping (Result, ValueToTest) -> Result
     ) -> Generator<Result> {
-        return generateMany().map { $0.reduce(initialResult, nextPartialResult) }
+        generateMany().map { $0.reduce(initialResult, nextPartialResult) }
     }
 
     func generateMany() -> Generator<[ValueToTest]> {
-        return Generator<[ValueToTest]>.array(elementGenerator: self)
+        Generator<[ValueToTest]>.array(elementGenerator: self)
     }
 
     func generateManyNonEmpty() -> Generator<[ValueToTest]> {
-        return Generator<[ValueToTest]>
+        Generator<[ValueToTest]>
                 .array(elementGenerator: self)
                 .combine(with: self, transform: { [$1] + $0 })
                 .overrideRoseTree { (nonEmptyArray: [ValueToTest]) -> RoseTree<[ValueToTest]> in
@@ -91,7 +91,7 @@ public extension Generator {
 public extension Generator where ValueToTest: Collection, ValueToTest.Element: Generatable {
 
     func nonEmpty() -> Generator<ValueToTest> {
-        return filter { !$0.isEmpty }
+        filter { !$0.isEmpty }
     }
 }
 

@@ -32,7 +32,7 @@ extension Int {
     }
 
     func shrinkFrom(source: Int) -> [RoseTree<Int>] {
-        return RoseTree<Int>.generateForest(seed: source) { smaller in
+        RoseTree<Int>.generateForest(seed: source) { smaller in
             self.towards(from: smaller)
         }
     }
@@ -40,7 +40,7 @@ extension Int {
 
 extension Array {
     func shrink() -> [[Element]] {
-        return self.count.halves().flatMap { halve in
+        self.count.halves().flatMap { halve in
             self.removing(numberOfElements: halve)
         }
     }
@@ -58,7 +58,7 @@ extension Array {
     }
 
     func removing(numberOfElements: Int) -> [[Element]] {
-        return removing(numberOfElements: numberOfElements, self.count)
+        removing(numberOfElements: numberOfElements, self.count)
     }
 
     private func removing(numberOfElements: Int, _ count: Int) -> [[Element]] {

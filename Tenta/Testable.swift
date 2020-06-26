@@ -11,7 +11,7 @@ protocol Testable {
 
 extension Bool: Testable {
     var isSuccessful: Bool {
-        return self
+        self
     }
 }
 

@@ -7,7 +7,7 @@ import Foundation
 
 extension NSObject {
     func associatedValue<T>(forKey key: UnsafeRawPointer) -> T? {
-        return objc_getAssociatedObject(self, key) as? T
+        objc_getAssociatedObject(self, key) as? T
     }
 
     func associatedValue<T>(forKey key: UnsafeRawPointer, initial: @autoclosure () throws -> T) rethrows -> T {

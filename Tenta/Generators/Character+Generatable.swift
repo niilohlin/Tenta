@@ -7,13 +7,13 @@ import Foundation
 
 public extension Generator where ValueToTest == Character {
     static var char: Generator<Character> {
-        return Generator<UInt8>.element(from: 32...255).map { uInt8 in
+        Generator<UInt8>.element(from: 32...255).map { uInt8 in
             Character(UnicodeScalar(uInt8))
         }
     }
 
     static var utf8: Generator<Character> {
-        return Generator<UInt32>.uInt32.compactMap { int in
+        Generator<UInt32>.uInt32.compactMap { int in
             Unicode.Scalar(int).map { Character($0) }
         }
     }
@@ -24,12 +24,12 @@ public extension Generator where ValueToTest == Character {
     }
 
     func generateString() -> Generator<String> {
-        return reduce("") { $0 + String($1) }
+        reduce("") { $0 + String($1) }
     }
 }
 
 extension Character: Generatable {
     public static var generator: Generator<Character> {
-        return Generator<Character>.char
+        Generator<Character>.char
     }
 }

@@ -16,7 +16,7 @@ extension Generatable {
 
     /// Generate a value without its shrink tree.
     public static func generate(using constructor: inout Constructor) -> Self {
-        return generator.generate(constructor.size, &constructor.rng).root()
+        generator.generate(constructor.size, &constructor.rng).root()
     }
 
     /// Discouraged generator. Has side effects and are not reproducable

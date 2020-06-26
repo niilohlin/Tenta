@@ -27,7 +27,7 @@ public struct Generator<ValueToTest> {
 
     /// Construct a generator without any shrinking. Very simple to do and good for large structs and classes.
     public static func simple(generateValue: @escaping (inout Constructor) -> ValueToTest) -> Generator<ValueToTest> {
-        return Generator { size, rng in
+        Generator { size, rng in
             var constructor = Constructor(size: size, rng: &rng)
             let value = generateValue(&constructor)
             return RoseTree<ValueToTest>(root: value)
@@ -36,13 +36,13 @@ public struct Generator<ValueToTest> {
 
     /// Generate a value without its shrink tree.
     public func generateUsing(_ constructor: inout Constructor) -> ValueToTest {
-        return generate(constructor.size, &constructor.rng).root()
+        generate(constructor.size, &constructor.rng).root()
     }
 }
 
 public extension Generator {
     func map<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed) -> Generator<Transformed> {
-        return Generator<Transformed> { size, rng in
+        Generator<Transformed> { size, rng in
             self.generate(size, &rng).map(transform)
         }
     }
@@ -50,7 +50,7 @@ public extension Generator {
     func flatMap<Transformed>(
             _ transform: @escaping (ValueToTest) -> Generator<Transformed>
     ) -> Generator<Transformed> {
-        return Generator<Transformed> { size, rng in
+        Generator<Transformed> { size, rng in
             let roseTree = self.generate(size, &rng)
 
             let newRng = rng.clone()
@@ -73,7 +73,7 @@ public extension Generator {
      - Returns: A new generator with values which holds for `predicate`
     */
     func filter(_ predicate: @escaping (ValueToTest) -> Bool) -> Generator<ValueToTest> {
-        return Generator { size, rng in
+        Generator { size, rng in
             for retrySize in size..<(size.advanced(by: self.maxFilterTries)) {
                 let rose = self.generate(retrySize, &rng)
                 if let filteredRose = rose.filter(predicate) {
@@ -95,7 +95,7 @@ public extension Generator {
      - Returns: A new generator that returns the transformed values, except for `nil`
      */
     func compactMap<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed?) -> Generator<Transformed> {
-        return Generator<Transformed> { size, rng in
+        Generator<Transformed> { size, rng in
             for retrySize in size..<(size.advanced(by: self.maxFilterTries)) {
                 let rose = self.generate(retrySize, &rng)
                 if let transformedRose = rose.compactMap(transform) {
@@ -142,13 +142,13 @@ public extension Generator {
 
     /// Create a generator which depend on the size.
     static func withSize<Type>(_ createGeneratorWithSize: @escaping (Size) -> Generator<Type>) -> Generator<Type> {
-        return Generator<Type> { size, rng in
+        Generator<Type> { size, rng in
             createGeneratorWithSize(size).generate(size, &rng)
         }
     }
 
     func overrideRoseTree(_ shrink: @escaping (ValueToTest) -> RoseTree<ValueToTest>) -> Generator<ValueToTest> {
-        return Generator { size, rng in
+        Generator { size, rng in
             let value = self.generateWithoutShrinking(size, &rng)
             return shrink(value)
         }

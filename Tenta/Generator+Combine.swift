@@ -9,18 +9,18 @@ public extension Generator {
     func combine<OtherValue, Transformed>(
             with other: Generator<OtherValue>,
             transform: @escaping (ValueToTest, OtherValue) -> Transformed) -> Generator<Transformed> {
-        return Generator<Transformed>.combine(self, other, transform: transform)
+        Generator<Transformed>.combine(self, other, transform: transform)
     }
 
     func combine<OtherValue>(with other: Generator<OtherValue>) -> Generator<(ValueToTest, OtherValue)> {
-        return Generator<(ValueToTest, OtherValue)>.combine(self, other)
+        Generator<(ValueToTest, OtherValue)>.combine(self, other)
     }
 
     static func combine<FirstValue, SecondValue, Transformed>(
             _ firstGenerator: Generator<FirstValue>,
             _ secondGenerator: Generator<SecondValue>,
             transform: @escaping (FirstValue, SecondValue) -> Transformed) -> Generator<Transformed> {
-        return Generator<Transformed> { size, rng in
+        Generator<Transformed> { size, rng in
             let firstRose = firstGenerator.generate(size, &rng)
             let secondRose = secondGenerator.generate(size, &rng)
             return firstRose.combine(with: secondRose, transform: transform)
@@ -31,7 +31,7 @@ public extension Generator {
             _ firstGenerator: Generator<FirstValue>,
             _ secondGenerator: Generator<SecondValue>
             ) -> Generator<(FirstValue, SecondValue)> {
-        return Generator<(FirstValue, SecondValue)> { size, rng in
+        Generator<(FirstValue, SecondValue)> { size, rng in
             let firstRose = firstGenerator.generate(size, &rng)
             let secondRose = secondGenerator.generate(size, &rng)
             return firstRose.combine(with: secondRose, transform: { ($0, $1) })
@@ -43,7 +43,7 @@ public extension Generator {
             _ secondGenerator: Generator<SecondValue>,
             _ thirdGenerator: Generator<ThirdValue>,
             transform: @escaping (FirstValue, SecondValue, ThirdValue) -> Transformed) -> Generator<Transformed> {
-        return Generator<Transformed> { size, rng in
+        Generator<Transformed> { size, rng in
             let firstRose = firstGenerator.generate(size, &rng)
             let secondRose = secondGenerator.generate(size, &rng)
             let thirdRose = thirdGenerator.generate(size, &rng)
@@ -54,7 +54,7 @@ public extension Generator {
     }
 
     static func combine<Value>(_ generators: [Generator<Value>]) -> Generator<[Value]> {
-        return Generator<[Value]> { size, rng in
+        Generator<[Value]> { size, rng in
             // Cannot use map because `rng` is inout
             var forest = [RoseTree<Value>]()
             for generator in generators {
@@ -68,11 +68,11 @@ public extension Generator {
     static func combine<Value, Transformed>(
             _ generators: [Generator<Value>],
             transform: @escaping ([Value]) -> Transformed) -> Generator<Transformed> {
-        return Generator.combine(generators).map(transform)
+        Generator.combine(generators).map(transform)
     }
 
     /// Should only be used when combining large structs or classes.
     func generateWithoutShrinking(_ size: Size, _ rng: inout SeededRandomNumberGenerator) -> ValueToTest {
-        return generate(size, &rng).root()
+        generate(size, &rng).root()
     }
 }

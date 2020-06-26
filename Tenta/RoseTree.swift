@@ -32,7 +32,7 @@ public struct RoseTree<Value> {
             seed: @autoclosure @escaping () -> T,
             _ unfoldFunction: @escaping (T) -> [T]
     ) -> [RoseTree<T>] {
-        return unfoldFunction(seed()).map { RoseTree<T>(seed: $0, unfoldFunction) }
+        unfoldFunction(seed()).map { RoseTree<T>(seed: $0, unfoldFunction) }
     }
 
     func expand(_ expandFunction: @escaping (Value) -> [Value]) -> RoseTree<Value> {
@@ -48,7 +48,7 @@ public struct RoseTree<Value> {
 
 extension RoseTree: Sequence {
     public func makeIterator() -> RoseIterator<Value> {
-        return RoseIterator(roseTree: self)
+        RoseIterator(roseTree: self)
     }
 }
 
@@ -70,7 +70,7 @@ public struct RoseIterator<Value>: IteratorProtocol {
 
 public extension RoseTree {
     func map<T>(_ transform: @escaping (Value) -> T) -> RoseTree<T> {
-        return RoseTree<T>(root: transform(self.root()), forest: self.forest().map { $0.map(transform) })
+        RoseTree<T>(root: transform(self.root()), forest: self.forest().map { $0.map(transform) })
     }
 
     func flatMap<T>(_ createNewTree: @escaping (Value) -> RoseTree<T>) -> RoseTree<T> {
@@ -118,7 +118,7 @@ public extension RoseTree {
             recurse: Bool = true,
             transform: @escaping (Value, OtherValue) -> Transformed) -> RoseTree<Transformed> {
 
-        return self.flatMap { value in
+        self.flatMap { value in
             other.map { transform(value, $0) }
         }
     }
@@ -133,7 +133,7 @@ public extension RoseTree {
 
 extension RoseTree: CustomStringConvertible {
     public var description: String {
-        return getDescription(depth: 0)
+        getDescription(depth: 0)
     }
 
     private func getDescription(depth: Int) -> String {
@@ -151,7 +151,7 @@ extension RoseTree {
 
     public var dotGraph: String {
         func recursiveDotGraph(subTree: RoseTree<Value>) -> String {
-            return subTree
+            subTree
                     .forest()
                     .reduce("") { acc, next in
                         acc + "\(subTree.root()) -> \(next.root());\n"
