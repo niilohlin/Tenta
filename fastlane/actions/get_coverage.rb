@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'net/http'
 require 'uri'
@@ -8,16 +10,16 @@ module Fastlane
       def self.run(options)
         Fastlane::Actions::XcovAction.run(options)
 
-        data = File.read(options[:output_directory] + "/report.json")
-        return JSON.parse(data)
+        data = File.read(options[:output_directory] + '/report.json')
+        JSON.parse(data)
       end
 
       def self.description
-        ""
+        ''
       end
 
       def self.author
-        ["Niil Öhlin"]
+        ['Niil Öhlin']
       end
 
       def self.available_options
@@ -25,10 +27,10 @@ module Fastlane
       end
 
       def self.return_value
-        "Content of the resulting json report"
+        'Content of the resulting json report'
       end
 
-      def self.is_supported?(platform)
+      def self.is_supported?(_platform)
         true
       end
     end

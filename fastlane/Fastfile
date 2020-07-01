@@ -4,7 +4,7 @@ default_platform(:ios)
 
 platform :ios do
   desc 'Build and run unit tests'
-  lane :unit_tests  do
+  lane :unit_tests do
     swiftlint(strict: true)
     scan(
       scheme: 'Tenta-iOS',
@@ -32,7 +32,7 @@ platform :ios do
         description: "Success #{(100 * json['coverage']).round(2)}% coverage",
         context: 'xcov'
       )
-    rescue
+    rescue StandardError
       github_check(
         status: :failure,
         slab: 'niilohlin/Tenta',
