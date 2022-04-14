@@ -5,60 +5,60 @@
 
 import Foundation
 
-public extension Generator where ValueToTest == UInt8 {
-    static var uInt8: Generator<UInt8> {
-        Generator<UInt8>.withSize { size in
-            Generator.element(from: (0...UInt8(truncatingIfNeeded: Int(size))))
+public extension AnyGenerator where ValueToTest == UInt8 {
+    static var uInt8: AnyGenerator<UInt8> {
+        AnyGenerator<UInt8>.withSize { size in
+            AnyGenerator.element(from: (0...UInt8(truncatingIfNeeded: Int(size))))
         }
     }
 }
 
 extension UInt8: Generatable {
-    public static var generator: Generator<UInt8> {
-        Generator<UInt8>.uInt8
+    public static var generator: AnyGenerator<UInt8> {
+        AnyGenerator<UInt8>.uInt8
     }
 }
 
-public extension Generator where ValueToTest == UInt16 {
-    static var uInt16: Generator<UInt16> {
-        Generator<UInt16>.withSize { size in
-            Generator.element(from: (0...UInt16(truncatingIfNeeded: Int(size))))
+public extension AnyGenerator where ValueToTest == UInt16 {
+    static var uInt16: AnyGenerator<UInt16> {
+        AnyGenerator<UInt16>.withSize { size in
+            AnyGenerator.element(from: (0...UInt16(truncatingIfNeeded: Int(size))))
         }
     }
 }
 
 extension UInt16: Generatable {
-    public static var generator: Generator<UInt16> {
-        Generator<UInt16>.uInt16
+    public static var generator: AnyGenerator<UInt16> {
+        AnyGenerator<UInt16>.uInt16
     }
 }
 
-public extension Generator where ValueToTest == UInt32 {
-    static var uInt32: Generator<UInt32> {
-        Generator<UInt32>.withSize { size in
-            Generator.element(from: (0...UInt32(truncatingIfNeeded: Int(size))))
+public extension AnyGenerator where ValueToTest == UInt32 {
+    static var uInt32: AnyGenerator<UInt32> {
+        AnyGenerator<UInt32>.withSize { size in
+            AnyGenerator.element(from: (0...UInt32(truncatingIfNeeded: Int(size))))
         }
     }
 }
 
 extension UInt32: Generatable {
-    public static var generator: Generator<UInt32> {
-        Generator<UInt32>.uInt32
+    public static var generator: AnyGenerator<UInt32> {
+        AnyGenerator<UInt32>.uInt32
     }
 }
 
-public extension Generator where ValueToTest == Int {
+public extension AnyGenerator where ValueToTest == Int {
     /**
      Generates an `Int`s and shrinks towards 0.
 
      Usage:
      ```
-     testProperty(generator: Generator<Int>.int) { int in int % 1 == 0 }
+     testProperty(generator: AnyGenerator<Int>.int) { int in int % 1 == 0 }
      ```
      - Returns: A generator that generates `Int`s.
      */
-    static var int: Generator<Int> {
-        Generator<Int> { size, rng in
+    static var int: AnyGenerator<Int> {
+        AnyGenerator<Int> { size, rng in
             if size <= 0 {
                 return RoseTree(root: 0, forest: [])
             }
@@ -69,29 +69,29 @@ public extension Generator where ValueToTest == Int {
         }
     }
 
-    func nonZero() -> Generator<Int> {
+    func nonZero() -> AnyGenerator<Int> {
         filter { $0 != 0 }
     }
 
-    func nonNegative() -> Generator<Int> {
+    func nonNegative() -> AnyGenerator<Int> {
         map(abs)
     }
 
-    func positive() -> Generator<Int> {
+    func positive() -> AnyGenerator<Int> {
         nonNegative().map { $0 + 1 }
     }
 }
 
 extension Int: Generatable {
     /// The default int generator. Generates `Int`s according to the `size` parameter.
-    public static var generator: Generator<Int> {
-        Generator<Int>.int
+    public static var generator: AnyGenerator<Int> {
+        AnyGenerator<Int>.int
     }
 }
 
-public extension Generator where ValueToTest == Decimal {
-    static var decimal: Generator<Decimal> {
-        Generator<Generator<Decimal>>.element(from: [
+public extension AnyGenerator where ValueToTest == Decimal {
+    static var decimal: AnyGenerator<Decimal> {
+        AnyGenerator<AnyGenerator<Decimal>>.element(from: [
             Int.generator.map { Decimal($0) },
             Double.generator.map { Decimal($0) }
             ]
@@ -100,7 +100,7 @@ public extension Generator where ValueToTest == Decimal {
 }
 
 extension Decimal: Generatable {
-    public static var generator: Generator<Decimal> {
-        Generator<Decimal>.decimal
+    public static var generator: AnyGenerator<Decimal> {
+        AnyGenerator<Decimal>.decimal
     }
 }

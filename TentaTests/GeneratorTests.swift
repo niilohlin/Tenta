@@ -16,8 +16,8 @@ struct ComplexTest: Generatable {
     var zipCode: String
     var sex: String
 
-    static var generator: Generator<ComplexTest> {
-        Generator<ComplexTest> { size, rng in
+    static var generator: AnyGenerator<ComplexTest> {
+        AnyGenerator<ComplexTest> { size, rng in
             let firstName = String.generator.generateWithoutShrinking(size, &rng)
             let lastName = String.generator.generateWithoutShrinking(size, &rng)
             let age = Int.generator.generateWithoutShrinking(size, &rng)
@@ -40,7 +40,7 @@ struct ComplexTest: Generatable {
     }
 }
 
-class GeneratorTests: XCTestCase {
+class AnyGeneratorTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -48,21 +48,21 @@ class GeneratorTests: XCTestCase {
     }
 
     func testTestProperty() {
-        assert(generator: Generator<Int>.int, shrinksTo: 10, predicate: { (int: Int) in
+        assert(generator: AnyGenerator<Int>.int, shrinksTo: 10, predicate: { (int: Int) in
             int < 10
         })
     }
 
     func testRunMoreComplicatedIntTest() {
-        assert(generator: Generator<Int>.int, shrinksTo: 26, predicate: { int in
+        assert(generator: AnyGenerator<Int>.int, shrinksTo: 26, predicate: { int in
             int < 21 || int % 2 == 1
         })
     }
 
     func testRunArray() {
-        let intGenerator: Generator<Int> = Generator<Int>.int
+        let intGenerator: AnyGenerator<Int> = AnyGenerator<Int>.int
         assert(
-                generator: Generator<Int>.array(elementGenerator: intGenerator),
+                generator: AnyGenerator<Int>.array(elementGenerator: intGenerator),
                 shrinksTo: [],
                 isEqual: { arr, _ in arr.count == 20 },
                 predicate: { array in array.count < 20 }
@@ -70,7 +70,7 @@ class GeneratorTests: XCTestCase {
     }
 
     func testFilterGenerator() {
-        let positiveEvenGenerator = Generator<Int>.int.filter { int in
+        let positiveEvenGenerator = AnyGenerator<Int>.int.filter { int in
             (int > 0 && int % 2 == 0)
         }
         testProperty(generator: positiveEvenGenerator) { positiveEven in
@@ -104,14 +104,14 @@ class GeneratorTests: XCTestCase {
     func testInternallyShrinkingArray() {
         // This is why we do not shrink the elements in the array. The shrink tree _really_ explodes.
         let arrayOfGeneratorsGenerator = Int.generator.map {
-            [Generator<Int>](repeating: Int.generator, count: abs($0))
+            [AnyGenerator<Int>](repeating: Int.generator, count: abs($0))
         }
 
-        let arrayGeneratorWithInternalIntShrinks = Generator<[Int]> { size, rng in
+        let arrayGeneratorWithInternalIntShrinks = AnyGenerator<[Int]> { size, rng in
             let treeOfGenerators = arrayOfGeneratorsGenerator.generate(size, &rng)
             var internalRng = rng.clone()
-            let treeOfInts = treeOfGenerators.flatMap { (generators: [Generator<Int>]) -> RoseTree<[Int]> in
-                let forest: [RoseTree<Int>] = generators.map { (generator: Generator<Int>) in
+            let treeOfInts = treeOfGenerators.flatMap { (generators: [AnyGenerator<Int>]) -> RoseTree<[Int]> in
+                let forest: [RoseTree<Int>] = generators.map { (generator: AnyGenerator<Int>) in
                     generator.generate(size, &internalRng)
                 }
                 return RoseTree<[Int]>.combine(forest: forest)
@@ -126,21 +126,21 @@ class GeneratorTests: XCTestCase {
     }
 
     func testShrinkDouble() {
-        assert(generator: Generator<Double>.double, shrinksTo: 5, isEqual: { abs($0 - $1) < 0.01 }, predicate: {
+        assert(generator: AnyGenerator<Double>.double, shrinksTo: 5, isEqual: { abs($0 - $1) < 0.01 }, predicate: {
             $0 < 5
         })
     }
 
     func testGenerateFromSequence() {
         let letters = "abcdefghijklmnopqrstuvwxyz"
-        let letterGenerator = Generator<Character>.element(from: letters)
+        let letterGenerator = AnyGenerator<Character>.element(from: letters)
         assert(generator: letterGenerator, shrinksTo: Character("l"), predicate: { character in
             !"lmnopqrstuvwxyz".contains(character)
         })
     }
 
     func testGenerateElement_withSize() {
-        let generator = Generator<Character>.element(from: 0..<100)
+        let generator = AnyGenerator<Character>.element(from: 0..<100)
         var rng = SeededRandomNumberGenerator(seed: 100)
         let value = generator.generate(100, &rng).root()
         XCTAssertNotEqual(value, 0, "Element should respect size")
@@ -182,7 +182,7 @@ class GeneratorTests: XCTestCase {
             fatalError("Failed to produce unicode scalar")
         }
         assert(
-            generator: Generator<Character>.utf8,
+            generator: AnyGenerator<Character>.utf8,
             shrinksTo: Character(unicodeScalar),
             predicate: { (character: Character) in character.isASCII }
         )
@@ -195,7 +195,7 @@ class GeneratorTests: XCTestCase {
     }
 
     func testSimpleGenerator() {
-        let generator = Generator.simple { constructor -> ComplexTest in
+        let generator = AnyGenerator.simple { constructor -> ComplexTest in
             let firstName = String.generate(using: &constructor)
             let lastName = String.generate(using: &constructor)
             let age = Int.generate(using: &constructor)
@@ -262,7 +262,7 @@ class GeneratorTests: XCTestCase {
     }
 
     func testGenerateAlphaNumeric() {
-        testProperty(generator: Generator<String>.alphaNumeric) { (string: String) in
+        testProperty(generator: AnyGenerator<String>.alphaNumeric) { (string: String) in
             string.allSatisfy("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".contains)
         }
     }
@@ -276,7 +276,7 @@ class GeneratorTests: XCTestCase {
     }
 
     func testFlatMap_shrinks() {
-        let stringGen = Int.generator.flatMap { int -> Generator<String> in
+        let stringGen = Int.generator.flatMap { int -> AnyGenerator<String> in
             String.generator.map { string in
                 String(describing: int) + string
             }
@@ -290,7 +290,7 @@ class GeneratorTests: XCTestCase {
     // Should work when fixed proper shrinking.
     func disabled_testFlatMap_otherWay_shrinks() {
         let stringGen = Int.generator.combine(
-            with: Generator<String>.alphaNumeric) { int, string -> String in
+            with: AnyGenerator<String>.alphaNumeric) { int, string -> String in
             String(describing: int) + string
         }
 
@@ -309,7 +309,7 @@ class GeneratorTests: XCTestCase {
     #if !SWIFT_PACKAGE
 
     func testEvilStrings_doesNotCrash() {
-        testProperty(generator: Generator<String>.evil()) { _ in
+        testProperty(generator: AnyGenerator<String>.evil()) { _ in
             true
         }
     }
@@ -317,7 +317,7 @@ class GeneratorTests: XCTestCase {
     #endif
 
     func assert<T: Equatable>(
-            generator: Generator<T>,
+            generator: AnyGenerator<T>,
             shrinksTo minimumFailing: T,
             predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
@@ -333,7 +333,7 @@ class GeneratorTests: XCTestCase {
     }
 
     func assert<T>(
-            generator: Generator<T>,
+            generator: AnyGenerator<T>,
             shrinksTo minimumFailing: T,
             isEqual: (T, T) -> Bool,
             predicate: @escaping (T) throws -> Bool,

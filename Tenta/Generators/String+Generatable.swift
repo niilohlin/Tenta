@@ -5,23 +5,23 @@
 
 import Foundation
 
-public extension Generator where ValueToTest == String {
-    static var string: Generator<String> {
-        Generator<Character>.char.generateString()
+public extension AnyGenerator where ValueToTest == String {
+    static var string: AnyGenerator<String> {
+        AnyGenerator<Character>.char.generateString()
 
     }
 
-    static var alphaNumeric: Generator<String> {
-        Generator<Character>.alphaNumeric.generateString()
+    static var alphaNumeric: AnyGenerator<String> {
+        AnyGenerator<Character>.alphaNumeric.generateString()
     }
 
-    static var utf8: Generator<String> {
-        Generator<Character>.utf8.generateString()
+    static var utf8: AnyGenerator<String> {
+        AnyGenerator<Character>.utf8.generateString()
     }
 }
 
 extension String: Generatable {
-    public static var generator: Generator<String> {
-        Tenta.Generator<String>.string
+    public static var generator: AnyGenerator<String> {
+        Tenta.AnyGenerator<String>.string
     }
 }

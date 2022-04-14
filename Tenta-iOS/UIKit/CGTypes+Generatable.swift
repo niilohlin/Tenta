@@ -8,57 +8,57 @@ import Foundation
 #if canImport(UIKit)
 import UIKit
 
-public extension Generator where ValueToTest == CGFloat {
-    static var cgFloat: Generator<CGFloat> {
+public extension AnyGenerator where ValueToTest == CGFloat {
+    static var cgFloat: AnyGenerator<CGFloat> {
         return Double.generator.map { CGFloat($0) }
     }
 }
 
 extension CGFloat: Generatable {
-    public static var generator: Generator<CGFloat> {
-        return Generator<CGFloat>.cgFloat
+    public static var generator: AnyGenerator<CGFloat> {
+        return AnyGenerator<CGFloat>.cgFloat
     }
 }
 
-public extension Generator where ValueToTest == CGPoint {
-    static var cgPoint: Generator<CGPoint> {
-        return Generator.combine(CGFloat.generator, CGFloat.generator) { x, y in
+public extension AnyGenerator where ValueToTest == CGPoint {
+    static var cgPoint: AnyGenerator<CGPoint> {
+        return AnyGenerator.combine(CGFloat.generator, CGFloat.generator) { x, y in
             CGPoint(x: x, y: y)
         }
     }
 }
 
 extension CGPoint: Generatable {
-    public static var generator: Generator<CGPoint> {
-        return Generator<CGPoint>.cgPoint
+    public static var generator: AnyGenerator<CGPoint> {
+        return AnyGenerator<CGPoint>.cgPoint
     }
 }
 
-public extension Generator where ValueToTest == CGSize {
-    static var cgSize: Generator<CGSize> {
-        return Generator.combine(CGFloat.generator, CGFloat.generator) { width, height in
+public extension AnyGenerator where ValueToTest == CGSize {
+    static var cgSize: AnyGenerator<CGSize> {
+        return AnyGenerator.combine(CGFloat.generator, CGFloat.generator) { width, height in
             CGSize(width: height, height: height)
         }
     }
 }
 
 extension CGSize: Generatable {
-    public static var generator: Generator<CGSize> {
-        return Generator<CGSize>.cgSize
+    public static var generator: AnyGenerator<CGSize> {
+        return AnyGenerator<CGSize>.cgSize
     }
 }
 
-public extension Generator where ValueToTest == CGRect {
-    static var cgRect: Generator<CGRect> {
-        return Generator.combine(CGPoint.generator, CGSize.generator) { origin, size in
+public extension AnyGenerator where ValueToTest == CGRect {
+    static var cgRect: AnyGenerator<CGRect> {
+        return AnyGenerator.combine(CGPoint.generator, CGSize.generator) { origin, size in
             CGRect(origin: origin, size: size)
         }
     }
 }
 
 extension CGRect: Generatable {
-    public static var generator: Generator<CGRect> {
-        return Generator<CGRect>.cgRect
+    public static var generator: AnyGenerator<CGRect> {
+        return AnyGenerator<CGRect>.cgRect
     }
 }
 

@@ -59,7 +59,7 @@ class ShrinkTests: XCTestCase {
 
     func testShrinkWithRng() {
 
-        let arrayGenWithShrink = Generator<[Int]> { size, rng in
+        let arrayGenWithShrink = AnyGenerator<[Int]> { size, rng in
             if size <= 0 {
                 return RoseTree(root: [])
             }

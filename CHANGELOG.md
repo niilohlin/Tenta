@@ -1,5 +1,5 @@
 ## 0.4
-- Add flatMap to Generator
+- Add flatMap to AnyGenerator
 - Move seed and numberOfTests to XCTestCase
 - Add `runWithXCTest` method
 - Change `gen` label to `Generator`

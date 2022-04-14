@@ -9,8 +9,8 @@ import Foundation
 class DummyClass {
 }
 
-public extension Generator where ValueToTest == String {
-    static func evil() -> Generator<String> {
+public extension AnyGenerator where ValueToTest == String {
+    static func evil() -> AnyGenerator<String> {
         guard let path = Bundle(for: DummyClass.self).path(forResource: "evil-strings", ofType: "txt") else {
             fatalError("could not find evil strings file")
         }
@@ -25,7 +25,7 @@ public extension Generator where ValueToTest == String {
         } catch {
             fatalError("could not load strings")
         }
-        return Generator.element(from: evilStrings)
+        return AnyGenerator.element(from: evilStrings)
     }
 }
 

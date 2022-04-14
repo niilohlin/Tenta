@@ -5,56 +5,56 @@
 
 import Foundation
 
-public extension Generator {
+public extension AnyGenerator {
     func combine<OtherValue, Transformed>(
-            with other: Generator<OtherValue>,
-            transform: @escaping (ValueToTest, OtherValue) -> Transformed) -> Generator<Transformed> {
-        Generator<Transformed>.combine(self, other, transform: transform)
+            with other: AnyGenerator<OtherValue>,
+            transform: @escaping (ValueToTest, OtherValue) -> Transformed) -> AnyGenerator<Transformed> {
+        AnyGenerator<Transformed>.combine(self, other, transform: transform)
     }
 
-    func combine<OtherValue>(with other: Generator<OtherValue>) -> Generator<(ValueToTest, OtherValue)> {
-        Generator<(ValueToTest, OtherValue)>.combine(self, other)
+    func combine<OtherValue>(with other: AnyGenerator<OtherValue>) -> AnyGenerator<(ValueToTest, OtherValue)> {
+        AnyGenerator<(ValueToTest, OtherValue)>.combine(self, other)
     }
 
     static func combine<FirstValue, SecondValue, Transformed>(
-            _ firstGenerator: Generator<FirstValue>,
-            _ secondGenerator: Generator<SecondValue>,
-            transform: @escaping (FirstValue, SecondValue) -> Transformed) -> Generator<Transformed> {
-        Generator<Transformed> { size, rng in
-            let firstRose = firstGenerator.generate(size, &rng)
-            let secondRose = secondGenerator.generate(size, &rng)
+            _ firstAnyGenerator: AnyGenerator<FirstValue>,
+            _ secondAnyGenerator: AnyGenerator<SecondValue>,
+            transform: @escaping (FirstValue, SecondValue) -> Transformed) -> AnyGenerator<Transformed> {
+        AnyGenerator<Transformed> { size, rng in
+            let firstRose = firstAnyGenerator.generate(size, &rng)
+            let secondRose = secondAnyGenerator.generate(size, &rng)
             return firstRose.combine(with: secondRose, transform: transform)
         }
     }
 
     static func combine<FirstValue, SecondValue>(
-            _ firstGenerator: Generator<FirstValue>,
-            _ secondGenerator: Generator<SecondValue>
-            ) -> Generator<(FirstValue, SecondValue)> {
-        Generator<(FirstValue, SecondValue)> { size, rng in
-            let firstRose = firstGenerator.generate(size, &rng)
-            let secondRose = secondGenerator.generate(size, &rng)
+            _ firstAnyGenerator: AnyGenerator<FirstValue>,
+            _ secondAnyGenerator: AnyGenerator<SecondValue>
+            ) -> AnyGenerator<(FirstValue, SecondValue)> {
+        AnyGenerator<(FirstValue, SecondValue)> { size, rng in
+            let firstRose = firstAnyGenerator.generate(size, &rng)
+            let secondRose = secondAnyGenerator.generate(size, &rng)
             return firstRose.combine(with: secondRose, transform: { ($0, $1) })
         }
     }
 
     static func combine<FirstValue, SecondValue, ThirdValue, Transformed>(
-            _ firstGenerator: Generator<FirstValue>,
-            _ secondGenerator: Generator<SecondValue>,
-            _ thirdGenerator: Generator<ThirdValue>,
-            transform: @escaping (FirstValue, SecondValue, ThirdValue) -> Transformed) -> Generator<Transformed> {
-        Generator<Transformed> { size, rng in
-            let firstRose = firstGenerator.generate(size, &rng)
-            let secondRose = secondGenerator.generate(size, &rng)
-            let thirdRose = thirdGenerator.generate(size, &rng)
+            _ firstAnyGenerator: AnyGenerator<FirstValue>,
+            _ secondAnyGenerator: AnyGenerator<SecondValue>,
+            _ thirdAnyGenerator: AnyGenerator<ThirdValue>,
+            transform: @escaping (FirstValue, SecondValue, ThirdValue) -> Transformed) -> AnyGenerator<Transformed> {
+        AnyGenerator<Transformed> { size, rng in
+            let firstRose = firstAnyGenerator.generate(size, &rng)
+            let secondRose = secondAnyGenerator.generate(size, &rng)
+            let thirdRose = thirdAnyGenerator.generate(size, &rng)
             return firstRose
                     .combine(with: secondRose, transform: { ($0, $1) })
                     .combine(with: thirdRose, transform: { transform($0.0, $0.1, $1) })
         }
     }
 
-    static func combine<Value>(_ generators: [Generator<Value>]) -> Generator<[Value]> {
-        Generator<[Value]> { size, rng in
+    static func combine<Value>(_ generators: [AnyGenerator<Value>]) -> AnyGenerator<[Value]> {
+        AnyGenerator<[Value]> { size, rng in
             // Cannot use map because `rng` is inout
             var forest = [RoseTree<Value>]()
             for generator in generators {
@@ -66,9 +66,9 @@ public extension Generator {
     }
 
     static func combine<Value, Transformed>(
-            _ generators: [Generator<Value>],
-            transform: @escaping ([Value]) -> Transformed) -> Generator<Transformed> {
-        Generator.combine(generators).map(transform)
+            _ generators: [AnyGenerator<Value>],
+            transform: @escaping ([Value]) -> Transformed) -> AnyGenerator<Transformed> {
+        AnyGenerator.combine(generators).map(transform)
     }
 
     /// Should only be used when combining large structs or classes.

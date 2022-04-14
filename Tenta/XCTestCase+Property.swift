@@ -51,7 +51,7 @@ public extension XCTestCase {
     func testProperty<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            generator: Generator<TestValue>,
+            generator: AnyGenerator<TestValue>,
             expectFailure: Bool = false,
             predicate: @escaping (TestValue) throws -> Bool
     ) -> TestResult<TestValue> {
@@ -90,8 +90,8 @@ public extension XCTestCase {
     func testProperty<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            _ firstGenerator: Generator<TestValue>,
-            _ secondGenerator: Generator<OtherTestValue>,
+            _ firstGenerator: AnyGenerator<TestValue>,
+            _ secondGenerator: AnyGenerator<OtherTestValue>,
             expectFailure: Bool = false,
             predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
     ) -> TestResult<(TestValue, OtherTestValue)> {
@@ -140,7 +140,7 @@ public extension XCTestCase {
     func testPropertyWithXCTest<TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            generator: Generator<TestValue>,
+            generator: AnyGenerator<TestValue>,
             test: @escaping (TestValue) throws -> Void
     ) -> TestResult<TestValue> {
         let predicate = TestCasePropertyConverter.shared.convert(
@@ -177,8 +177,8 @@ public extension XCTestCase {
     func testPropertyWithXCTest<TestValue, OtherTestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            _ firstGenerator: Generator<TestValue>,
-            _ secondGenerator: Generator<OtherTestValue>,
+            _ firstGenerator: AnyGenerator<TestValue>,
+            _ secondGenerator: AnyGenerator<OtherTestValue>,
             test: @escaping (TestValue, OtherTestValue) throws -> Void
     ) -> TestResult<(TestValue, OtherTestValue)> {
         let predicate = TestCasePropertyConverter.shared.convert(

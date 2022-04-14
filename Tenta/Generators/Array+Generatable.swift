@@ -5,23 +5,23 @@
 
 import Foundation
 
-public extension Generator {
+public extension AnyGenerator {
     /**
      Generates arrays of type `TestValue` and shrinks towards `[]`.
 
      - Usage:
      ```
-     let intGenerator: Generator<Int> = Generator<Int>.int
-     testProperty(generator: Generator<Int>.array(elementGenerator: intGenerator)) { array in
+     let intGenerator: AnyGenerator<Int> = AnyGenerator<Int>.int
+     testProperty(generator: AnyGenerator<Int>.array(elementGenerator: intGenerator)) { array in
          array.count >= 0
      }
      ```
-     - Parameter elementGenerator: Generator used when generating the values of the array.
+     - Parameter elementGenerator: AnyGenerator used when generating the values of the array.
      - Returns: A generator that generates arrays.
      */
     static func array<TestValue>(
-            elementGenerator: Generator<TestValue>) -> Generator<[TestValue]> {
-        Generator<[TestValue]> { size, rng in
+            elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<[TestValue]> {
+        AnyGenerator<[TestValue]> { size, rng in
             if size <= 0 {
                 return RoseTree(root: [], forest: [])
             }
@@ -40,30 +40,30 @@ public extension Generator {
     }
 
     static func sequence<TestValue>(
-            of elementGenerator: Generator<TestValue>) -> Generator<AnySequence<TestValue>> {
-        Generator<AnySequence<TestValue>> { _, _ in
+            of elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<AnySequence<TestValue>> {
+        AnyGenerator<AnySequence<TestValue>> { _, _ in
             fatalError("Not implemented yet")
         }
     }
 
     static func set<TestValue: Hashable>(
-            of elementGenerator: Generator<TestValue>) -> Generator<Set<TestValue>> {
+            of elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<Set<TestValue>> {
         elementGenerator.generateMany().map(Set.init)
     }
 
     func reduce<Result>(
             _ initialResult: Result,
             _ nextPartialResult: @escaping (Result, ValueToTest) -> Result
-    ) -> Generator<Result> {
+    ) -> AnyGenerator<Result> {
         generateMany().map { $0.reduce(initialResult, nextPartialResult) }
     }
 
-    func generateMany() -> Generator<[ValueToTest]> {
-        Generator<[ValueToTest]>.array(elementGenerator: self)
+    func generateMany() -> AnyGenerator<[ValueToTest]> {
+        AnyGenerator<[ValueToTest]>.array(elementGenerator: self)
     }
 
-    func generateManyNonEmpty() -> Generator<[ValueToTest]> {
-        Generator<[ValueToTest]>
+    func generateManyNonEmpty() -> AnyGenerator<[ValueToTest]> {
+        AnyGenerator<[ValueToTest]>
                 .array(elementGenerator: self)
                 .combine(with: self, transform: { [$1] + $0 })
                 .overrideRoseTree { (nonEmptyArray: [ValueToTest]) -> RoseTree<[ValueToTest]> in
@@ -73,9 +73,9 @@ public extension Generator {
                 }
     }
 
-    func generateMany(length: Int) -> Generator<[ValueToTest]> {
+    func generateMany(length: Int) -> AnyGenerator<[ValueToTest]> {
         precondition(length >= 0)
-        return Generator<[ValueToTest]> { size, rng in
+        return AnyGenerator<[ValueToTest]> { size, rng in
             if length <= 0 {
                 return RoseTree(root: [], forest: [])
             }
@@ -88,24 +88,24 @@ public extension Generator {
     }
 }
 
-public extension Generator where ValueToTest: Collection, ValueToTest.Element: Generatable {
+public extension AnyGenerator where ValueToTest: Collection, ValueToTest.Element: Generatable {
 
-    func nonEmpty() -> Generator<ValueToTest> {
+    func nonEmpty() -> AnyGenerator<ValueToTest> {
         filter { !$0.isEmpty }
     }
 }
 
 extension Array: Generatable where Array.Element: Generatable {
     /// The default int generator. Generates `Arrays`s according to the `size` parameter.
-    public static var generator: Generator<[Array.Element]> {
-        let generator: Generator<Element> = Element.generator
-        return Tenta.Generator<Any>.array(elementGenerator: generator)
+    public static var generator: AnyGenerator<[Array.Element]> {
+        let generator: AnyGenerator<Element> = Element.generator
+        return Tenta.AnyGenerator<Any>.array(elementGenerator: generator)
     }
 }
 
 extension Set: Generatable where Set.Element: Generatable {
-    public static var generator: Generator<Set<Set.Element>> {
-        let generator: Generator<Element> = Element.generator
-        return Tenta.Generator<Set.Element>.set(of: generator)
+    public static var generator: AnyGenerator<Set<Set.Element>> {
+        let generator: AnyGenerator<Element> = Element.generator
+        return Tenta.AnyGenerator<Set.Element>.set(of: generator)
     }
 }

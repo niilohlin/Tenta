@@ -10,7 +10,7 @@ import Foundation
  */
 public struct Property<Value> {
     let description: String
-    let generator: Generator<Value>
+    let generator: AnyGenerator<Value>
     let predicate: (Value) throws -> Bool
     let seed: UInt64
     let numberOfTests: UInt
@@ -18,7 +18,7 @@ public struct Property<Value> {
 
     public init(
             description: String = #function,
-            generator: Generator<Value>,
+            generator: AnyGenerator<Value>,
             seed: UInt64,
             numberOfTests: UInt,
             expectFailure: Bool,

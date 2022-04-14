@@ -3,7 +3,7 @@ import XCTest
 
 ///: Lets start with some generators and generator combinators.
 
-extension Generator {
+extension AnyGenerator {
     func sample() -> ValueToTest {
         var constructor = Constructor(size: 10)
         return generateUsing(&constructor)
@@ -28,7 +28,7 @@ struct Person {
 
 // Conform it to Generatable by creating a default generator.
 extension Person: Generatable {
-    public static var generator: Generator<Person> {
+    public static var generator: AnyGenerator<Person> {
         return String.generator.combine(with: Int.generator) { name, age in
             return Person(name: name, age: age)
         }
@@ -68,9 +68,9 @@ class GeneratedEmailTests: XCTestCase {
     }
 
     // Let's start with creating a generator for valid emails.
-    var validEmailGenerator: Generator<String> {
+    var validEmailGenerator: AnyGenerator<String> {
         // Generates strings like "a", "aa.b", "aaa.bbb.ccc"
-        let localPart = Generator<String>
+        let localPart = AnyGenerator<String>
             .alphaNumeric // generates containing only alphanumeric strings. e.g "", "aaa", "bb254cONE"
             .nonEmpty()   // remove the empty strings.
             .generateManyNonEmpty() // generates a non empty list of those strings e.g. ["aa", "bb", "c"]
@@ -82,9 +82,9 @@ class GeneratedEmailTests: XCTestCase {
         let domain = localPart
 
         // Generate Either "se", "com", "io"
-        let topLevelDomain: Generator<String> = Generator<[String]>.element(from: ["se", "com", "io"])
+        let topLevelDomain: AnyGenerator<String> = AnyGenerator<[String]>.element(from: ["se", "com", "io"])
 
-        return Generator<String>.combine(localPart, domain, topLevelDomain) { (local, domain, tld) -> String in
+        return AnyGenerator<String>.combine(localPart, domain, topLevelDomain) { (local, domain, tld) -> String in
             local + "@" + domain + "." + tld
         }
     }

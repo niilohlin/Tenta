@@ -36,9 +36,9 @@ extension Float {
     }
 }
 
-public extension Generator where ValueToTest == Double {
-    static var double: Generator<Double> {
-        Generator<Double> { size, rng in
+public extension AnyGenerator where ValueToTest == Double {
+    static var double: AnyGenerator<Double> {
+        AnyGenerator<Double> { size, rng in
             let value = Double.random(in: -Double(size)...Double(size), using: &rng)
             return RoseTree<Double>(seed: value) { 0.0.towards(source: $0) }
         }
@@ -46,14 +46,14 @@ public extension Generator where ValueToTest == Double {
 }
 
 extension Double: Generatable {
-    public static var generator: Generator<Double> {
-        Generator<Double>.double
+    public static var generator: AnyGenerator<Double> {
+        AnyGenerator<Double>.double
     }
 }
 
-public extension Generator where ValueToTest == Float {
-    static var float: Generator<Float> {
-        Generator<Float> { size, rng in
+public extension AnyGenerator where ValueToTest == Float {
+    static var float: AnyGenerator<Float> {
+        AnyGenerator<Float> { size, rng in
             let value = Float.random(in: -Float(size)...Float(size), using: &rng)
             return RoseTree<Float>(seed: value) { Float(0.0).towards(source: $0) }
         }
@@ -61,7 +61,7 @@ public extension Generator where ValueToTest == Float {
 }
 
 extension Float: Generatable {
-    public static var generator: Generator<Float> {
-        Generator<Float>.float
+    public static var generator: AnyGenerator<Float> {
+        AnyGenerator<Float>.float
     }
 }

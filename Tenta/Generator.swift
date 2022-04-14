@@ -8,26 +8,36 @@ import XCTest
 
 public typealias Size = UInt
 
+protocol Generator {
+    associatedtype ValueToTest
+
+    func generate(_ size: Size, _ rng: inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+}
+
 /**
-   Generator is a wrapper for a function that generates a value with accompanying shrink values in a `RoseTree`
+   AnyGenerator is a wrapper for a function that generates a value with accompanying shrink values in a `RoseTree`
 */
-public struct Generator<ValueToTest> {
+public struct AnyGenerator<ValueToTest>: Generator {
     private let maxFilterTries = 500
-    public let generate: (Size, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
+    public let generateClosure: (Size, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>
 
     public init(generate: @escaping (Size, inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest>) {
-        self.generate = generate
+        self.generateClosure = generate
+    }
+
+    public func generate(_ size: Size, _ rng: inout SeededRandomNumberGenerator) -> RoseTree<ValueToTest> {
+        generateClosure(size, &rng)
     }
 
     public init(value: ValueToTest) {
-        generate = { _, _ in
+        generateClosure = { _, _ in
             RoseTree<ValueToTest>(root: value)
         }
     }
 
     /// Construct a generator without any shrinking. Very simple to do and good for large structs and classes.
-    public static func simple(generateValue: @escaping (inout Constructor) -> ValueToTest) -> Generator<ValueToTest> {
-        Generator { size, rng in
+    public static func simple(generateValue: @escaping (inout Constructor) -> ValueToTest) -> AnyGenerator<ValueToTest> {
+        AnyGenerator { size, rng in
             var constructor = Constructor(size: size, rng: &rng)
             let value = generateValue(&constructor)
             return RoseTree<ValueToTest>(root: value)
@@ -40,17 +50,17 @@ public struct Generator<ValueToTest> {
     }
 }
 
-public extension Generator {
-    func map<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed) -> Generator<Transformed> {
-        Generator<Transformed> { size, rng in
+public extension AnyGenerator {
+    func map<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed) -> AnyGenerator<Transformed> {
+        AnyGenerator<Transformed> { size, rng in
             self.generate(size, &rng).map(transform)
         }
     }
 
     func flatMap<Transformed>(
-            _ transform: @escaping (ValueToTest) -> Generator<Transformed>
-    ) -> Generator<Transformed> {
-        Generator<Transformed> { size, rng in
+            _ transform: @escaping (ValueToTest) -> AnyGenerator<Transformed>
+    ) -> AnyGenerator<Transformed> {
+        AnyGenerator<Transformed> { size, rng in
             let roseTree = self.generate(size, &rng)
 
             let newRng = rng.clone()
@@ -67,13 +77,13 @@ public extension Generator {
 
      Usage:
      ```
-     let even = Generator<Int>.int.filter { $0 % 2 == 0 }
+     let even = AnyGenerator<Int>.int.filter { $0 % 2 == 0 }
      ```
      - Parameter predicate: The predicate for which the values must pass.
      - Returns: A new generator with values which holds for `predicate`
     */
-    func filter(_ predicate: @escaping (ValueToTest) -> Bool) -> Generator<ValueToTest> {
-        Generator { size, rng in
+    func filter(_ predicate: @escaping (ValueToTest) -> Bool) -> AnyGenerator<ValueToTest> {
+        AnyGenerator { size, rng in
             for retrySize in size..<(size.advanced(by: self.maxFilterTries)) {
                 let rose = self.generate(retrySize, &rng)
                 if let filteredRose = rose.filter(predicate) {
@@ -89,13 +99,13 @@ public extension Generator {
 
      Usage:
      ```
-     let urlGenerator = Generator<String>.compactMap(URL.init(string:))
+     let urlAnyGenerator = AnyGenerator<String>.compactMap(URL.init(string:))
      ```
      - Parameter transform: The transform to be applied.
      - Returns: A new generator that returns the transformed values, except for `nil`
      */
-    func compactMap<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed?) -> Generator<Transformed> {
-        Generator<Transformed> { size, rng in
+    func compactMap<Transformed>(_ transform: @escaping (ValueToTest) -> Transformed?) -> AnyGenerator<Transformed> {
+        AnyGenerator<Transformed> { size, rng in
             for retrySize in size..<(size.advanced(by: self.maxFilterTries)) {
                 let rose = self.generate(retrySize, &rng)
                 if let transformedRose = rose.compactMap(transform) {
@@ -107,10 +117,10 @@ public extension Generator {
     }
 
     /// Create a generator that generate elements in `Sequence`
-    static func element<SequenceType: Sequence>(from sequence: SequenceType) -> Generator<SequenceType.Element> {
+    static func element<SequenceType: Sequence>(from sequence: SequenceType) -> AnyGenerator<SequenceType.Element> {
         var array = [SequenceType.Element]()
         var iterator = sequence.makeIterator()
-        return Generator<SequenceType.Element> { size, rng in
+        return AnyGenerator<SequenceType.Element> { size, rng in
             for _ in 0..<(size + 1) {
                 if let nextElement = iterator.next() {
                     array.append(nextElement)
@@ -128,12 +138,12 @@ public extension Generator {
         }
     }
 
-    static func chooseGeneratorFrom<S: Sequence>(_ generators: S)
-                    -> Generator<ValueToTest> where S.Iterator.Element == (Int, Generator<ValueToTest>) {
-        let generators: [(Int, Generator<ValueToTest>)] = Array(generators)
+    static func chooseAnyGeneratorFrom<S: Sequence>(_ generators: S)
+                    -> AnyGenerator<ValueToTest> where S.Iterator.Element == (Int, AnyGenerator<ValueToTest>) {
+        let generators: [(Int, AnyGenerator<ValueToTest>)] = Array(generators)
         assert(!generators.isEmpty, "Cannot chose from an empty sequence")
         let generatorList = generators.flatMap { tuple in
-            [Generator<ValueToTest>](repeating: tuple.1, count: tuple.0)
+            [AnyGenerator<ValueToTest>](repeating: tuple.1, count: tuple.0)
         }
         return Int.generator.nonNegative().flatMap { index in
             generatorList[index % generatorList.count]
@@ -141,14 +151,14 @@ public extension Generator {
     }
 
     /// Create a generator which depend on the size.
-    static func withSize<Type>(_ createGeneratorWithSize: @escaping (Size) -> Generator<Type>) -> Generator<Type> {
-        Generator<Type> { size, rng in
-            createGeneratorWithSize(size).generate(size, &rng)
+    static func withSize<Type>(_ createAnyGeneratorWithSize: @escaping (Size) -> AnyGenerator<Type>) -> AnyGenerator<Type> {
+        AnyGenerator<Type> { size, rng in
+            createAnyGeneratorWithSize(size).generate(size, &rng)
         }
     }
 
-    func overrideRoseTree(_ shrink: @escaping (ValueToTest) -> RoseTree<ValueToTest>) -> Generator<ValueToTest> {
-        Generator { size, rng in
+    func overrideRoseTree(_ shrink: @escaping (ValueToTest) -> RoseTree<ValueToTest>) -> AnyGenerator<ValueToTest> {
+        AnyGenerator { size, rng in
             let value = self.generateWithoutShrinking(size, &rng)
             return shrink(value)
         }

@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-public extension Generator where ValueToTest == UIColor {
-    static var color: Generator<UIColor> {
-        return Generator.combine([Generator<UInt8>](repeating: UInt8.generator, count: 4)) { array in
+public extension AnyGenerator where ValueToTest == UIColor {
+    static var color: AnyGenerator<UIColor> {
+        return AnyGenerator.combine([Generator<UInt8>](repeating: UInt8.generator, count: 4)) { array in
             UIColor(
                     red: CGFloat(array[0]) / CGFloat(UInt8.max),
                     green: CGFloat(array[1]) / CGFloat(UInt8.max),
@@ -25,7 +25,7 @@ public extension Generator where ValueToTest == UIColor {
 
 // cannot conform due to swifts type system.
 //extension UIColor: Generatable {
-//    public static var generator: Generator<UIColor> {
-//        return Generator<UIColor>.color
+//    public static var generator: AnyGenerator<UIColor> {
+//        return AnyGenerator<UIColor>.color
 //    }
 //}

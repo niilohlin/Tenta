@@ -5,9 +5,9 @@
 
 import Foundation
 
-public extension Generator where ValueToTest == Bool {
-    static var bool: Generator<Bool> {
-        Generator<Bool> { _, rng in
+public extension AnyGenerator where ValueToTest == Bool {
+    static var bool: AnyGenerator<Bool> {
+        AnyGenerator<Bool> { _, rng in
             let value = Bool.random(using: &rng)
             return RoseTree<Bool>(
                     root: value,
@@ -18,7 +18,7 @@ public extension Generator where ValueToTest == Bool {
 }
 
 extension Bool: Generatable {
-    public static var generator: Generator<Bool> {
-        Generator<Bool>.bool
+    public static var generator: AnyGenerator<Bool> {
+        AnyGenerator<Bool>.bool
     }
 }
