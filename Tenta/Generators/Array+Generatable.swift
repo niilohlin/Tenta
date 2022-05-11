@@ -42,14 +42,13 @@ extension Array: Generatable where Array.Element: Generatable {
 
     /// The default int generator. Generates `Arrays`s according to the `size` parameter.
     public static var generator: AnyGenerator<[Array.Element]> {
-        let generator: AnyGenerator<Element> = Element.generator
-        return Generators.generateMany(elementGenerator: generator).eraseToAnyGenerator()
+        return Generators.generateMany(elementGenerator: Element.generator).eraseToAnyGenerator()
     }
 }
 
 extension Set: Generatable where Set.Element: Generatable {
     public static var generator: AnyGenerator<Set<Set.Element>> {
-        let generator: AnyGenerator<Element> = Element.generator
+        let generator: AnyGenerator<Element> = Element.generator.eraseToAnyGenerator()
         return Tenta.AnyGenerator<Set.Element>.set(of: generator)
     }
 }

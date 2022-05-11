@@ -6,11 +6,6 @@
 import Foundation
 
 public extension AnyGenerator where ValueToTest == Character {
-    static var char: AnyGenerator<Character> {
-        Generators.element(from: 32...255).map { uInt8 in
-            Character(UnicodeScalar(uInt8))
-        }.eraseToAnyGenerator()
-    }
 
     static var utf8: AnyGenerator<Character> {
         AnyGenerator<UInt32>.uInt32.compactMap { int in
@@ -30,7 +25,7 @@ public extension AnyGenerator where ValueToTest == Character {
 }
 
 extension Character: Generatable {
-    public static var generator: AnyGenerator<Character> {
-        AnyGenerator<Character>.char
+    public static var generator: Generators.CharGenerator {
+        Generators.char
     }
 }

@@ -38,6 +38,66 @@ extension Int {
     }
 }
 
+extension UInt {
+    func halves() -> [UInt] {
+        var result: [UInt] = []
+        var half = self
+        while true {
+            if half == 0 {
+                return result
+            }
+            result.append(half)
+            half /= 2
+        }
+    }
+
+    /// Shrink towards `self` from `from`
+    func towards(from: UInt) -> [UInt] {
+        if self == from {
+            return []
+        }
+        let difference = from / 2 - self / 2
+        let result = difference.halves().map { from - $0 }
+        return result.contains(self) ? result : [self] + result
+    }
+
+    func shrinkFrom(source: UInt) -> [RoseTree<UInt>] {
+        RoseTree<UInt>.generateForest(seed: source) { smaller in
+            self.towards(from: smaller)
+        }
+    }
+}
+
+extension UInt8 {
+    func halves() -> [UInt8] {
+        var result: [UInt8] = []
+        var half = self
+        while true {
+            if half == 0 {
+                return result
+            }
+            result.append(half)
+            half /= 2
+        }
+    }
+
+    /// Shrink towards `self` from `from`
+    func towards(from: UInt8) -> [UInt8] {
+        if self == from {
+            return []
+        }
+        let difference = from / 2 - self / 2
+        let result = difference.halves().map { from - $0 }
+        return result.contains(self) ? result : [self] + result
+    }
+
+    func shrinkFrom(source: UInt8) -> [RoseTree<UInt8>] {
+        RoseTree<UInt8>.generateForest(seed: source) { smaller in
+            self.towards(from: smaller)
+        }
+    }
+}
+
 extension Array {
     func shrink() -> [[Element]] {
         self.count.halves().flatMap { halve in

@@ -26,6 +26,8 @@
 		A9653863282C47BA00C5B189 /* Generators+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653862282C47BA00C5B189 /* Generators+Optional.swift */; };
 		A9653865282C49DE00C5B189 /* Generators+Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653864282C49DE00C5B189 /* Generators+Reduce.swift */; };
 		A9653867282C4CA600C5B189 /* Generators+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653866282C4CA600C5B189 /* Generators+Int.swift */; };
+		A9653869282C594D00C5B189 /* Generators+Char.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653868282C594D00C5B189 /* Generators+Char.swift */; };
+		A965386B282C5D2100C5B189 /* Generators+UInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A965386A282C5D2100C5B189 /* Generators+UInt.swift */; };
 		A99289E1282C36DB009427D5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99289E0282C36DB009427D5 /* XCTest.framework */; };
 		A99289E3282C3740009427D5 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E2282C3740009427D5 /* Generator.swift */; };
 		A99289E5282C3772009427D5 /* Generators+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E4282C3772009427D5 /* Generators+Element.swift */; };
@@ -95,6 +97,8 @@
 		A9653862282C47BA00C5B189 /* Generators+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Optional.swift"; sourceTree = "<group>"; };
 		A9653864282C49DE00C5B189 /* Generators+Reduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Reduce.swift"; sourceTree = "<group>"; };
 		A9653866282C4CA600C5B189 /* Generators+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Int.swift"; sourceTree = "<group>"; };
+		A9653868282C594D00C5B189 /* Generators+Char.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Char.swift"; sourceTree = "<group>"; };
+		A965386A282C5D2100C5B189 /* Generators+UInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+UInt.swift"; sourceTree = "<group>"; };
 		A99289E0282C36DB009427D5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/WatchOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A99289E2282C3740009427D5 /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		A99289E4282C3772009427D5 /* Generators+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Element.swift"; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				A9653860282C456100C5B189 /* Generators+Combine.swift */,
 				A9653862282C47BA00C5B189 /* Generators+Optional.swift */,
 				A9653866282C4CA600C5B189 /* Generators+Int.swift */,
+				A965386A282C5D2100C5B189 /* Generators+UInt.swift */,
+				A9653868282C594D00C5B189 /* Generators+Char.swift */,
 			);
 			path = GeneratorCombinators;
 			sourceTree = "<group>";
@@ -425,10 +431,12 @@
 				OBJ_74 /* Generator+Combine.swift in Sources */,
 				OBJ_75 /* Generators+Always.swift in Sources */,
 				OBJ_76 /* Generators+CompactMap.swift in Sources */,
+				A965386B282C5D2100C5B189 /* Generators+UInt.swift in Sources */,
 				OBJ_77 /* Generators+Filter.swift in Sources */,
 				OBJ_78 /* Generators+FlatMap.swift in Sources */,
 				A9653865282C49DE00C5B189 /* Generators+Reduce.swift in Sources */,
 				OBJ_79 /* Generators+Map.swift in Sources */,
+				A9653869282C594D00C5B189 /* Generators+Char.swift in Sources */,
 				OBJ_80 /* Generators+Simple.swift in Sources */,
 				OBJ_81 /* Array+Generatable.swift in Sources */,
 				OBJ_82 /* Bool+Generatable.swift in Sources */,

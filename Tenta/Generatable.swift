@@ -9,7 +9,8 @@ import Foundation
  Represents a type that has a default generator. Used alongside tests to make a shorthand for the default generator.
  */
 public protocol Generatable {
-    static var generator: AnyGenerator<Self> { get }
+    associatedtype SelfGenerator: Generator where SelfGenerator.ValueToTest == Self
+    static var generator: SelfGenerator { get }
 }
 
 extension Generatable {

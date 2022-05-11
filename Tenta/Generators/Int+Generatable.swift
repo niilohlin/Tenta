@@ -5,17 +5,9 @@
 
 import Foundation
 
-public extension AnyGenerator where ValueToTest == UInt8 {
-    static var uInt8: AnyGenerator<UInt8> {
-        Generators.withSize { size in
-            Generators.element(from: (0...UInt8(truncatingIfNeeded: Int(size))))
-        }.eraseToAnyGenerator()
-    }
-}
-
 extension UInt8: Generatable {
-    public static var generator: AnyGenerator<UInt8> {
-        AnyGenerator<UInt8>.uInt8
+    public static var generator: Generators.UInt8Generator {
+        Generators.uInt8
     }
 }
 

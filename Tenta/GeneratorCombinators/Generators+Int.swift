@@ -11,8 +11,8 @@ extension Generators {
             if size <= 0 {
                 return RoseTree(root: 0, forest: [])
             }
-            let range = -Swift.Int(size) ... Swift.Int(size)
-            let value = Swift.Int.random(in: range, using: &rng)
+            let range = -Int(size) ... Int(size)
+            let value = Int.random(in: range, using: &rng)
             return RoseTree(root: value, forest: 0.shrinkFrom(source: value))
         }
     }

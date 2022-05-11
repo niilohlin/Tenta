@@ -6,20 +6,6 @@
 import Foundation
 
 public extension AnyGenerator {
-    func combine<OtherValue>(with other: AnyGenerator<OtherValue>) -> AnyGenerator<(ValueToTest, OtherValue)> {
-        AnyGenerator<(ValueToTest, OtherValue)>.combine(self, other)
-    }
-
-    static func combine<FirstValue, SecondValue>(
-        _ firstAnyGenerator: AnyGenerator<FirstValue>,
-        _ secondAnyGenerator: AnyGenerator<SecondValue>
-    ) -> AnyGenerator<(FirstValue, SecondValue)> {
-        AnyGenerator<(FirstValue, SecondValue)> { size, rng in
-            let firstRose = firstAnyGenerator.generate(size, &rng)
-            let secondRose = secondAnyGenerator.generate(size, &rng)
-            return firstRose.combine(with: secondRose, transform: { ($0, $1) })
-        }
-    }
 
     static func combine<FirstValue, SecondValue, ThirdValue, Transformed>(
         _ firstAnyGenerator: AnyGenerator<FirstValue>,

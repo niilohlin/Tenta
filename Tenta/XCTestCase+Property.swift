@@ -87,14 +87,14 @@ public extension XCTestCase {
     }
 
     @discardableResult
-    func testProperty<TestValue, OtherTestValue>(
+    func testProperty<G: Generator, H: Generator>(
             file: StaticString = #file,
             line: UInt = #line,
-            _ firstGenerator: AnyGenerator<TestValue>,
-            _ secondGenerator: AnyGenerator<OtherTestValue>,
+            _ firstGenerator: G,
+            _ secondGenerator: H,
             expectFailure: Bool = false,
-            predicate: @escaping (TestValue, OtherTestValue) throws -> Bool
-    ) -> TestResult<(TestValue, OtherTestValue)> {
+            predicate: @escaping (G.ValueToTest, H.ValueToTest) throws -> Bool
+    ) -> TestResult<(G.ValueToTest, H.ValueToTest)> {
         let property = Property(
                 description: "",
                 generator: firstGenerator.combine(with: secondGenerator, transform: { ($0, $1) }),
@@ -137,12 +137,12 @@ public extension XCTestCase {
     }
 
     @discardableResult
-    func testPropertyWithXCTest<TestValue>(
+    func testPropertyWithXCTest<G: Generator>(
             file: StaticString = #file,
             line: UInt = #line,
-            generator: AnyGenerator<TestValue>,
-            test: @escaping (TestValue) throws -> Void
-    ) -> TestResult<TestValue> {
+            generator: G,
+            test: @escaping (G.ValueToTest) throws -> Void
+    ) -> TestResult<G.ValueToTest> {
         let predicate = TestCasePropertyConverter.shared.convert(
                 predicate: test,
                 toBoolPredicate: (),
@@ -174,13 +174,13 @@ public extension XCTestCase {
     }
 
     @discardableResult
-    func testPropertyWithXCTest<TestValue, OtherTestValue>(
+    func testPropertyWithXCTest<G: Generator, H: Generator>(
             file: StaticString = #file,
             line: UInt = #line,
-            _ firstGenerator: AnyGenerator<TestValue>,
-            _ secondGenerator: AnyGenerator<OtherTestValue>,
-            test: @escaping (TestValue, OtherTestValue) throws -> Void
-    ) -> TestResult<(TestValue, OtherTestValue)> {
+            _ firstGenerator: G,
+            _ secondGenerator: H,
+            test: @escaping (G.ValueToTest, H.ValueToTest) throws -> Void
+    ) -> TestResult<(G.ValueToTest, H.ValueToTest)> {
         let predicate = TestCasePropertyConverter.shared.convert(
                 predicate: test,
                 toBoolPredicate: (),

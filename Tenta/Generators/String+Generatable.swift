@@ -7,7 +7,7 @@ import Foundation
 
 public extension AnyGenerator where ValueToTest == String {
     static var string: AnyGenerator<String> {
-        AnyGenerator<Character>.char.generateString()
+        Generators.char.eraseToAnyGenerator().generateString()
 
     }
 
