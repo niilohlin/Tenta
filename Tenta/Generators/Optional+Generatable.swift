@@ -5,16 +5,8 @@
 
 import Foundation
 
-public extension AnyGenerator {
-    func optional() -> AnyGenerator<ValueToTest?> {
-        combine(with: Bool.generator) { value, bool in
-            bool ? value : nil
-        }
-    }
-}
-
 extension Optional: Generatable where Wrapped: Generatable {
     public static var generator: AnyGenerator<Wrapped?> {
-        Wrapped.generator.optional()
+        Wrapped.generator.optional().eraseToAnyGenerator()
     }
 }

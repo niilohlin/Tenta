@@ -18,13 +18,6 @@ public extension AnyGenerator {
             elementGenerator.generateMany().map(Set.init).eraseToAnyGenerator()
         }
 
-    func reduce<Result>(
-        _ initialResult: Result,
-        _ nextPartialResult: @escaping (Result, ValueToTest) -> Result
-    ) -> AnyGenerator<Result> {
-        generateMany().map { $0.reduce(initialResult, nextPartialResult) }.eraseToAnyGenerator()
-    }
-
     func generateManyNonEmpty() -> AnyGenerator<[ValueToTest]> {
         Generators
             .generateMany(elementGenerator: self).eraseToAnyGenerator()
@@ -35,20 +28,6 @@ public extension AnyGenerator {
                 }
             }
             .eraseToAnyGenerator()
-    }
-
-    func generateMany(length: Int) -> AnyGenerator<[ValueToTest]> {
-        precondition(length >= 0)
-        return AnyGenerator<[ValueToTest]> { size, rng in
-            if length <= 0 {
-                return RoseTree(root: [], forest: [])
-            }
-            var value = [RoseTree<ValueToTest>]()
-            for _ in 0 ..< length {
-                value.append(self.generate(size, &rng))
-            }
-            return RoseTree<[Int]>.combine(forest: value)
-        }
     }
 }
 

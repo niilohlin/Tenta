@@ -21,13 +21,18 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		A965385F282C443700C5B189 /* Generators+GenerateManyLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = A965385E282C443700C5B189 /* Generators+GenerateManyLength.swift */; };
+		A9653861282C456100C5B189 /* Generators+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653860282C456100C5B189 /* Generators+Combine.swift */; };
+		A9653863282C47BA00C5B189 /* Generators+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653862282C47BA00C5B189 /* Generators+Optional.swift */; };
+		A9653865282C49DE00C5B189 /* Generators+Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653864282C49DE00C5B189 /* Generators+Reduce.swift */; };
+		A9653867282C4CA600C5B189 /* Generators+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9653866282C4CA600C5B189 /* Generators+Int.swift */; };
 		A99289E1282C36DB009427D5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99289E0282C36DB009427D5 /* XCTest.framework */; };
 		A99289E3282C3740009427D5 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E2282C3740009427D5 /* Generator.swift */; };
 		A99289E5282C3772009427D5 /* Generators+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E4282C3772009427D5 /* Generators+Element.swift */; };
 		A99289E7282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E6282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift */; };
 		A99289E9282C3B13009427D5 /* Generators+WithSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E8282C3B13009427D5 /* Generators+WithSize.swift */; };
 		A99289EB282C3C64009427D5 /* Generators+OverrideRoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289EA282C3C64009427D5 /* Generators+OverrideRoseTree.swift */; };
-		A99289ED282C3E65009427D5 /* Generators+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289EC282C3E65009427D5 /* Generators+Array.swift */; };
+		A99289ED282C3E65009427D5 /* Generators+GenerateMany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289EC282C3E65009427D5 /* Generators+GenerateMany.swift */; };
 		OBJ_105 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_116 /* CircularBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* CircularBufferTests.swift */; };
 		OBJ_117 /* FoundationGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* FoundationGeneratorTests.swift */; };
@@ -85,13 +90,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A965385E282C443700C5B189 /* Generators+GenerateManyLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+GenerateManyLength.swift"; sourceTree = "<group>"; };
+		A9653860282C456100C5B189 /* Generators+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Combine.swift"; sourceTree = "<group>"; };
+		A9653862282C47BA00C5B189 /* Generators+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Optional.swift"; sourceTree = "<group>"; };
+		A9653864282C49DE00C5B189 /* Generators+Reduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Reduce.swift"; sourceTree = "<group>"; };
+		A9653866282C4CA600C5B189 /* Generators+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Int.swift"; sourceTree = "<group>"; };
 		A99289E0282C36DB009427D5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/WatchOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A99289E2282C3740009427D5 /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		A99289E4282C3772009427D5 /* Generators+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Element.swift"; sourceTree = "<group>"; };
 		A99289E6282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+ChooseAnyGeneratorFrom.swift"; sourceTree = "<group>"; };
 		A99289E8282C3B13009427D5 /* Generators+WithSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+WithSize.swift"; sourceTree = "<group>"; };
 		A99289EA282C3C64009427D5 /* Generators+OverrideRoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+OverrideRoseTree.swift"; sourceTree = "<group>"; };
-		A99289EC282C3E65009427D5 /* Generators+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Array.swift"; sourceTree = "<group>"; };
+		A99289EC282C3E65009427D5 /* Generators+GenerateMany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+GenerateMany.swift"; sourceTree = "<group>"; };
 		OBJ_10 /* Tenta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tenta.h; sourceTree = "<group>"; };
 		OBJ_11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		OBJ_12 /* AnyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyGenerator.swift; sourceTree = "<group>"; };
@@ -186,9 +196,14 @@
 				OBJ_22 /* Generators+Simple.swift */,
 				A99289E4282C3772009427D5 /* Generators+Element.swift */,
 				A99289E6282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift */,
+				A9653864282C49DE00C5B189 /* Generators+Reduce.swift */,
 				A99289E8282C3B13009427D5 /* Generators+WithSize.swift */,
 				A99289EA282C3C64009427D5 /* Generators+OverrideRoseTree.swift */,
-				A99289EC282C3E65009427D5 /* Generators+Array.swift */,
+				A99289EC282C3E65009427D5 /* Generators+GenerateMany.swift */,
+				A965385E282C443700C5B189 /* Generators+GenerateManyLength.swift */,
+				A9653860282C456100C5B189 /* Generators+Combine.swift */,
+				A9653862282C47BA00C5B189 /* Generators+Optional.swift */,
+				A9653866282C4CA600C5B189 /* Generators+Int.swift */,
 			);
 			path = GeneratorCombinators;
 			sourceTree = "<group>";
@@ -232,7 +247,7 @@
 			path = TentaTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -252,7 +267,6 @@
 				OBJ_65 /* Gemfile.lock */,
 				A99289DF282C36DB009427D5 /* Frameworks */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_52 /* Products */ = {
@@ -364,7 +378,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_52 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -405,7 +419,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_71 /* AnyGenerator.swift in Sources */,
-				A99289ED282C3E65009427D5 /* Generators+Array.swift in Sources */,
+				A99289ED282C3E65009427D5 /* Generators+GenerateMany.swift in Sources */,
 				OBJ_72 /* Constructor.swift in Sources */,
 				OBJ_73 /* Generatable.swift in Sources */,
 				OBJ_74 /* Generator+Combine.swift in Sources */,
@@ -413,6 +427,7 @@
 				OBJ_76 /* Generators+CompactMap.swift in Sources */,
 				OBJ_77 /* Generators+Filter.swift in Sources */,
 				OBJ_78 /* Generators+FlatMap.swift in Sources */,
+				A9653865282C49DE00C5B189 /* Generators+Reduce.swift in Sources */,
 				OBJ_79 /* Generators+Map.swift in Sources */,
 				OBJ_80 /* Generators+Simple.swift in Sources */,
 				OBJ_81 /* Array+Generatable.swift in Sources */,
@@ -425,8 +440,11 @@
 				A99289EB282C3C64009427D5 /* Generators+OverrideRoseTree.swift in Sources */,
 				OBJ_86 /* Generator+Evil.swift in Sources */,
 				A99289E5282C3772009427D5 /* Generators+Element.swift in Sources */,
+				A9653861282C456100C5B189 /* Generators+Combine.swift in Sources */,
+				A965385F282C443700C5B189 /* Generators+GenerateManyLength.swift in Sources */,
 				OBJ_87 /* Int+Generatable.swift in Sources */,
 				OBJ_88 /* Optional+Generatable.swift in Sources */,
+				A9653867282C4CA600C5B189 /* Generators+Int.swift in Sources */,
 				OBJ_89 /* String+Generatable.swift in Sources */,
 				A99289E3282C3740009427D5 /* Generator.swift in Sources */,
 				OBJ_90 /* NSObject+AssociatedValue.swift in Sources */,
@@ -437,6 +455,7 @@
 				OBJ_95 /* TestObservation.swift in Sources */,
 				OBJ_96 /* TestResult.swift in Sources */,
 				OBJ_97 /* Testable.swift in Sources */,
+				A9653863282C47BA00C5B189 /* Generators+Optional.swift in Sources */,
 				OBJ_98 /* XCTestCase+Property.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

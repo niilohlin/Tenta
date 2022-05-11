@@ -48,19 +48,19 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testTestProperty() {
-        assert(generator: AnyGenerator<Int>.int, shrinksTo: 10, predicate: { (int: Int) in
+        assert(generator: Generators.int, shrinksTo: 10, predicate: { (int: Int) in
             int < 10
         })
     }
 
     func testRunMoreComplicatedIntTest() {
-        assert(generator: AnyGenerator<Int>.int, shrinksTo: 24, predicate: { int in
+        assert(generator: Generators.int, shrinksTo: 24, predicate: { int in
             int < 21 || int % 2 == 1
         })
     }
 
     func testRunArray() {
-        let intGenerator: AnyGenerator<Int> = AnyGenerator<Int>.int
+        let intGenerator = Generators.int
         assert(
                 generator: Generators.generateMany(elementGenerator: intGenerator),
                 shrinksTo: [],
@@ -70,7 +70,7 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testFilterGenerator() {
-        let positiveEvenGenerator = AnyGenerator<Int>.int.filter { int in
+        let positiveEvenGenerator = Generators.int.filter { int in
             (int > 0 && int % 2 == 0)
         }
         testProperty(generator: positiveEvenGenerator) { positiveEven in
@@ -300,7 +300,7 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testGenerateManyFixedLength() {
-        let intGenerator = Int.generator.generateMany(length: 10)
+        let intGenerator = Int.generator.generateMany(length: 10).eraseToAnyGenerator()
         testPropertyWithXCTest(generator: intGenerator) { (integers: [Int]) in
             XCTAssertEqual(integers.count, 10)
         }

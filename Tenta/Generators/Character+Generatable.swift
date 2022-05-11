@@ -24,7 +24,8 @@ public extension AnyGenerator where ValueToTest == Character {
     }
 
     func generateString() -> AnyGenerator<String> {
-        reduce("") { $0 + String($1) }
+        // Maybe use join instead?
+        reduce("") { $0 + String($1) }.eraseToAnyGenerator()
     }
 }
 

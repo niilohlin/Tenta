@@ -48,26 +48,6 @@ extension UInt32: Generatable {
 }
 
 public extension AnyGenerator where ValueToTest == Int {
-    /**
-     Generates an `Int`s and shrinks towards 0.
-
-     Usage:
-     ```
-     testProperty(generator: AnyGenerator<Int>.int) { int in int % 1 == 0 }
-     ```
-     - Returns: A generator that generates `Int`s.
-     */
-    static var int: AnyGenerator<Int> {
-        AnyGenerator<Int> { size, rng in
-            if size <= 0 {
-                return RoseTree(root: 0, forest: [])
-            }
-            let range = -Int(size) ... Int(size)
-            let value = Int.random(in: range, using: &rng)
-            return RoseTree(root: value, forest: 0.shrinkFrom(source: value))
-
-        }
-    }
 
     func nonZero() -> Generators.Filter<AnyGenerator<Int>> {
         filter { $0 != 0 }
@@ -85,7 +65,7 @@ public extension AnyGenerator where ValueToTest == Int {
 extension Int: Generatable {
     /// The default int generator. Generates `Int`s according to the `size` parameter.
     public static var generator: AnyGenerator<Int> {
-        AnyGenerator<Int>.int
+        Generators.int.eraseToAnyGenerator()
     }
 }
 
