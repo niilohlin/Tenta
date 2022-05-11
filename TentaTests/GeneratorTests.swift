@@ -62,7 +62,7 @@ class AnyGeneratorTests: XCTestCase {
     func testRunArray() {
         let intGenerator: AnyGenerator<Int> = AnyGenerator<Int>.int
         assert(
-                generator: AnyGenerator<Int>.array(elementGenerator: intGenerator),
+                generator: Generators.generateMany(elementGenerator: intGenerator),
                 shrinksTo: [],
                 isEqual: { arr, _ in arr.count == 20 },
                 predicate: { array in array.count < 20 }
@@ -242,7 +242,7 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testGenerateNonEmpty() {
-        let nonEmpty = Int.generator.generateMany().nonEmpty()
+        let nonEmpty = Int.generator.generateMany().eraseToAnyGenerator().nonEmpty()
         testProperty(generator: nonEmpty) { (integers: [Int]) in
             !integers.isEmpty
         }

@@ -11,7 +11,7 @@ extension Generators {
         }
 
         public func generate(_ size: Size, _ rng: inout SeededRandomNumberGenerator) -> RoseTree<G.ValueToTest> {
-            let generators: [(Int, G)] = Array(generators)
+            let generators: [(Int, G)] = Swift.Array(generators)
             assert(!generators.isEmpty, "Cannot chose from an empty sequence")
             let generatorList = generators.flatMap { tuple in
                 [G](repeating: tuple.1, count: tuple.0)

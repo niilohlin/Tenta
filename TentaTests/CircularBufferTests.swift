@@ -55,7 +55,7 @@ class CircularBufferTests: XCTestCase {
 
         testPropertyWithXCTest(
             sizeGenerator,
-            transitionGenerator.generateMany()
+            transitionGenerator.generateMany().eraseToAnyGenerator()
         ) { (size: Int, transitions: [Transition]) in
             var buffer = CircularBuffer<Int>(size: abs(size))
             var model = [Int]()

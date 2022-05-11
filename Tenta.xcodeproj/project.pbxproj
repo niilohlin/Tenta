@@ -27,6 +27,7 @@
 		A99289E7282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E6282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift */; };
 		A99289E9282C3B13009427D5 /* Generators+WithSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289E8282C3B13009427D5 /* Generators+WithSize.swift */; };
 		A99289EB282C3C64009427D5 /* Generators+OverrideRoseTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289EA282C3C64009427D5 /* Generators+OverrideRoseTree.swift */; };
+		A99289ED282C3E65009427D5 /* Generators+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99289EC282C3E65009427D5 /* Generators+Array.swift */; };
 		OBJ_105 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_116 /* CircularBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* CircularBufferTests.swift */; };
 		OBJ_117 /* FoundationGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* FoundationGeneratorTests.swift */; };
@@ -90,6 +91,7 @@
 		A99289E6282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+ChooseAnyGeneratorFrom.swift"; sourceTree = "<group>"; };
 		A99289E8282C3B13009427D5 /* Generators+WithSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+WithSize.swift"; sourceTree = "<group>"; };
 		A99289EA282C3C64009427D5 /* Generators+OverrideRoseTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+OverrideRoseTree.swift"; sourceTree = "<group>"; };
+		A99289EC282C3E65009427D5 /* Generators+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generators+Array.swift"; sourceTree = "<group>"; };
 		OBJ_10 /* Tenta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tenta.h; sourceTree = "<group>"; };
 		OBJ_11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		OBJ_12 /* AnyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyGenerator.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				A99289E6282C395A009427D5 /* Generators+ChooseAnyGeneratorFrom.swift */,
 				A99289E8282C3B13009427D5 /* Generators+WithSize.swift */,
 				A99289EA282C3C64009427D5 /* Generators+OverrideRoseTree.swift */,
+				A99289EC282C3E65009427D5 /* Generators+Array.swift */,
 			);
 			path = GeneratorCombinators;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_71 /* AnyGenerator.swift in Sources */,
+				A99289ED282C3E65009427D5 /* Generators+Array.swift in Sources */,
 				OBJ_72 /* Constructor.swift in Sources */,
 				OBJ_73 /* Generatable.swift in Sources */,
 				OBJ_74 /* Generator+Combine.swift in Sources */,
