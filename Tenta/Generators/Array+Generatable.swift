@@ -13,49 +13,49 @@ public extension AnyGenerator {
      ```
      let intGenerator: AnyGenerator<Int> = AnyGenerator<Int>.int
      testProperty(generator: AnyGenerator<Int>.array(elementGenerator: intGenerator)) { array in
-         array.count >= 0
+     array.count >= 0
      }
      ```
      - Parameter elementGenerator: AnyGenerator used when generating the values of the array.
      - Returns: A generator that generates arrays.
      */
     static func array<TestValue>(
-            elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<[TestValue]> {
-        AnyGenerator<[TestValue]> { size, rng in
-            if size <= 0 {
-                return RoseTree(root: [], forest: [])
-            }
-            let value = (0 ... Int(size)).map { _ in elementGenerator.generate(size, &rng) }
+        elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<[TestValue]> {
+            AnyGenerator<[TestValue]> { size, rng in
+                if size <= 0 {
+                    return RoseTree(root: [], forest: [])
+                }
+                let value = (0 ... Int(size)).map { _ in elementGenerator.generate(size, &rng) }
 
-//            let resultingArray = value.map { $0.root() }
-//            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
-//                parentArray.shrink()
-//            }
-            return RoseTree<[TestValue]>.combine(forest: value).flatMap { array in
-                RoseTree(seed: array) { (parentArray: [TestValue]) in
-                    parentArray.shrink()
+                //            let resultingArray = value.map { $0.root() }
+                //            return RoseTree<[TestValue]>(seed: resultingArray) { (parentArray: [TestValue]) in
+                //                parentArray.shrink()
+                //            }
+                return RoseTree<[TestValue]>.combine(forest: value).flatMap { array in
+                    RoseTree(seed: array) { (parentArray: [TestValue]) in
+                        parentArray.shrink()
+                    }
                 }
             }
         }
-    }
 
     static func sequence<TestValue>(
-            of elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<AnySequence<TestValue>> {
-        AnyGenerator<AnySequence<TestValue>> { _, _ in
-            fatalError("Not implemented yet")
+        of elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<AnySequence<TestValue>> {
+            AnyGenerator<AnySequence<TestValue>> { _, _ in
+                fatalError("Not implemented yet")
+            }
         }
-    }
 
     static func set<TestValue: Hashable>(
-            of elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<Set<TestValue>> {
-        elementGenerator.generateMany().map(Set.init)
-    }
+        of elementGenerator: AnyGenerator<TestValue>) -> AnyGenerator<Set<TestValue>> {
+            elementGenerator.generateMany().map(Set.init).eraseToAnyGenerator()
+        }
 
     func reduce<Result>(
-            _ initialResult: Result,
-            _ nextPartialResult: @escaping (Result, ValueToTest) -> Result
+        _ initialResult: Result,
+        _ nextPartialResult: @escaping (Result, ValueToTest) -> Result
     ) -> AnyGenerator<Result> {
-        generateMany().map { $0.reduce(initialResult, nextPartialResult) }
+        generateMany().map { $0.reduce(initialResult, nextPartialResult) }.eraseToAnyGenerator()
     }
 
     func generateMany() -> AnyGenerator<[ValueToTest]> {
@@ -64,13 +64,13 @@ public extension AnyGenerator {
 
     func generateManyNonEmpty() -> AnyGenerator<[ValueToTest]> {
         AnyGenerator<[ValueToTest]>
-                .array(elementGenerator: self)
-                .combine(with: self, transform: { [$1] + $0 })
-                .overrideRoseTree { (nonEmptyArray: [ValueToTest]) -> RoseTree<[ValueToTest]> in
-                    RoseTree<[ValueToTest]>(seed: nonEmptyArray) { (parentArray: [ValueToTest]) in
-                        parentArray.shrink().filter { !$0.isEmpty }
-                    }
+            .array(elementGenerator: self)
+            .combine(with: self, transform: { [$1] + $0 })
+            .overrideRoseTree { (nonEmptyArray: [ValueToTest]) -> RoseTree<[ValueToTest]> in
+                RoseTree<[ValueToTest]>(seed: nonEmptyArray) { (parentArray: [ValueToTest]) in
+                    parentArray.shrink().filter { !$0.isEmpty }
                 }
+            }
     }
 
     func generateMany(length: Int) -> AnyGenerator<[ValueToTest]> {
@@ -90,7 +90,7 @@ public extension AnyGenerator {
 
 public extension AnyGenerator where ValueToTest: Collection, ValueToTest.Element: Generatable {
 
-    func nonEmpty() -> AnyGenerator<ValueToTest> {
+    func nonEmpty() -> Generators.Filter<AnyGenerator<ValueToTest>> {
         filter { !$0.isEmpty }
     }
 }

@@ -54,7 +54,7 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testRunMoreComplicatedIntTest() {
-        assert(generator: AnyGenerator<Int>.int, shrinksTo: 26, predicate: { int in
+        assert(generator: AnyGenerator<Int>.int, shrinksTo: 24, predicate: { int in
             int < 21 || int % 2 == 1
         })
     }
@@ -96,7 +96,7 @@ class AnyGeneratorTests: XCTestCase {
             Point(x: x, y: y)
         }
 
-        assert(generator: pointGenerator, shrinksTo: Point(x: 0, y: 20), predicate: { (point: Point) in
+        assert(generator: pointGenerator, shrinksTo: Point(x: 2, y: 20), predicate: { (point: Point) in
             point.y < 20
         })
     }
@@ -120,7 +120,7 @@ class AnyGeneratorTests: XCTestCase {
         }
         assert(
             generator: arrayGeneratorWithInternalIntShrinks,
-            shrinksTo: [-3, 1, 0],
+            shrinksTo: [-4, 3, 0],
             predicate: { (integers: [Int]) in integers.count < 3 }
         )
     }
@@ -195,7 +195,7 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testSimpleGenerator() {
-        let generator = AnyGenerator.simple { constructor -> ComplexTest in
+        let generator = Generators.simple { constructor -> ComplexTest in
             let firstName = String.generate(using: &constructor)
             let lastName = String.generate(using: &constructor)
             let age = Int.generate(using: &constructor)
@@ -276,11 +276,11 @@ class AnyGeneratorTests: XCTestCase {
     }
 
     func testFlatMap_shrinks() {
-        let stringGen = Int.generator.flatMap { int -> AnyGenerator<String> in
+        let stringGen = Int.generator.flatMap { int in
             String.generator.map { string in
                 String(describing: int) + string
             }
-        }
+        }.eraseToAnyGenerator()
 
         assert(generator: stringGen, shrinksTo: "-1", predicate: { (string: String) in
             !string.starts(with: "-")
@@ -316,12 +316,12 @@ class AnyGeneratorTests: XCTestCase {
 
     #endif
 
-    func assert<T: Equatable>(
-            generator: AnyGenerator<T>,
+    func assert<G: Generator, T: Equatable>(
+            generator: G,
             shrinksTo minimumFailing: T,
             predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
-            line: UInt = #line) {
+            line: UInt = #line) where G.ValueToTest == T {
         assert(
                 generator: generator,
                 shrinksTo: minimumFailing,
@@ -332,13 +332,13 @@ class AnyGeneratorTests: XCTestCase {
         )
     }
 
-    func assert<T>(
-            generator: AnyGenerator<T>,
+    func assert<G: Generator, T>(
+            generator: G,
             shrinksTo minimumFailing: T,
             isEqual: (T, T) -> Bool,
             predicate: @escaping (T) throws -> Bool,
             file: StaticString = #file,
-            line: UInt = #line) {
+            line: UInt = #line) where G.ValueToTest == T {
         let property = Property(
                 generator: generator,
                 seed: seed,

@@ -9,13 +9,13 @@ public extension AnyGenerator where ValueToTest == Character {
     static var char: AnyGenerator<Character> {
         AnyGenerator<UInt8>.element(from: 32...255).map { uInt8 in
             Character(UnicodeScalar(uInt8))
-        }
+        }.eraseToAnyGenerator()
     }
 
     static var utf8: AnyGenerator<Character> {
         AnyGenerator<UInt32>.uInt32.compactMap { int in
             Unicode.Scalar(int).map { Character($0) }
-        }
+        }.eraseToAnyGenerator()
     }
 
     static var alphaNumeric: AnyGenerator<Character> {

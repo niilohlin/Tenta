@@ -7,7 +7,7 @@ import Foundation
 
 public extension AnyGenerator where ValueToTest == Data {
     static var data: AnyGenerator<Data> {
-        [UInt8].generator.map { Data($0) }
+        [UInt8].generator.map { Data($0) }.eraseToAnyGenerator()
     }
 }
 
@@ -21,7 +21,7 @@ public extension AnyGenerator where ValueToTest == URLQueryItem {
     static var urlQueryItem: AnyGenerator<URLQueryItem> {
         String.generator.combine(with: (String?).generator).map {
             URLQueryItem(name: $0, value: $1)
-        }
+        }.eraseToAnyGenerator()
     }
 }
 

@@ -69,16 +69,16 @@ public extension AnyGenerator where ValueToTest == Int {
         }
     }
 
-    func nonZero() -> AnyGenerator<Int> {
+    func nonZero() -> Generators.Filter<AnyGenerator<Int>> {
         filter { $0 != 0 }
     }
 
     func nonNegative() -> AnyGenerator<Int> {
-        map(abs)
+        map(abs).eraseToAnyGenerator()
     }
 
     func positive() -> AnyGenerator<Int> {
-        nonNegative().map { $0 + 1 }
+        nonNegative().map { $0 + 1 }.eraseToAnyGenerator()
     }
 }
 
@@ -92,10 +92,10 @@ extension Int: Generatable {
 public extension AnyGenerator where ValueToTest == Decimal {
     static var decimal: AnyGenerator<Decimal> {
         AnyGenerator<AnyGenerator<Decimal>>.element(from: [
-            Int.generator.map { Decimal($0) },
-            Double.generator.map { Decimal($0) }
+            Int.generator.map { Decimal($0) }.eraseToAnyGenerator(),
+            Double.generator.map { Decimal($0) }.eraseToAnyGenerator()
             ]
-        ).flatMap { $0 }
+        ).flatMap { $0 }.eraseToAnyGenerator()
     }
 }
 

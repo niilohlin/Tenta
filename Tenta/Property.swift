@@ -8,9 +8,9 @@ import Foundation
 /**
  Contains everything needed to run and rerun a `testProperty` without needing to invoke the XCTestCase
  */
-public struct Property<Value> {
+public struct Property<G: Generator, Value> where G.ValueToTest == Value {
     let description: String
-    let generator: AnyGenerator<Value>
+    let generator: G
     let predicate: (Value) throws -> Bool
     let seed: UInt64
     let numberOfTests: UInt
@@ -18,7 +18,7 @@ public struct Property<Value> {
 
     public init(
             description: String = #function,
-            generator: AnyGenerator<Value>,
+            generator: G,
             seed: UInt64,
             numberOfTests: UInt,
             expectFailure: Bool,

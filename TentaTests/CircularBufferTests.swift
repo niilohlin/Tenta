@@ -50,8 +50,8 @@ class CircularBufferTests: XCTestCase {
     }
 
     func testCircularBuffer_prop() {
-        let transitionGenerator = Int?.generator.map { $0.map(Transition.put) ?? Transition.get }
-        let sizeGenerator = Int.generator.map { abs($0) + 1 }
+        let transitionGenerator = Int?.generator.map { $0.map(Transition.put) ?? Transition.get }.eraseToAnyGenerator()
+        let sizeGenerator = Int.generator.map { abs($0) + 1 }.eraseToAnyGenerator()
 
         testPropertyWithXCTest(
             sizeGenerator,

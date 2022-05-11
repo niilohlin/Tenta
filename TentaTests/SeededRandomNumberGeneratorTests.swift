@@ -23,7 +23,7 @@ class SeededRandomNumberGeneratorTests: XCTestCase {
         let array = (0..<10).map { _ in
             Int.random(in: 0..<100, using: &rng)
         }
-        XCTAssertEqual(array, [63, 26, 29, 72, 27, 66, 77, 28, 55, 54])
+        XCTAssertEqual(array, [57, 87, 90, 56, 56, 52, 56, 29, 17, 63])
     }
 
     func testClone() {

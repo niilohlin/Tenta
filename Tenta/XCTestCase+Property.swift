@@ -30,11 +30,11 @@ public extension XCTestCase {
 public extension XCTestCase {
 
     @discardableResult
-    func runProperty<TestValue>(
-            _ property: Property<TestValue>,
+    func runProperty<Gen: Generator, TestValue>(
+            _ property: Property<Gen, TestValue>,
             file: StaticString = #file,
             line: UInt = #line
-    ) -> TestResult<TestValue> {
+    ) -> TestResult<TestValue> where Gen.ValueToTest == TestValue {
         let testResult = property.checkProperty()
         if case let .failed(_, shrunk, _) = testResult, !property.expectFailure {
             XCTFail("failed with value: \(shrunk), reproduce run with seed: \(seed)", file: file, line: line)
@@ -48,13 +48,13 @@ public extension XCTestCase {
      Run test with specified generator.
      */
     @discardableResult
-    func testProperty<TestValue>(
+    func testProperty<Gen: Generator, TestValue>(
             file: StaticString = #file,
             line: UInt = #line,
-            generator: AnyGenerator<TestValue>,
+            generator: Gen,
             expectFailure: Bool = false,
             predicate: @escaping (TestValue) throws -> Bool
-    ) -> TestResult<TestValue> {
+    ) -> TestResult<TestValue> where Gen.ValueToTest == TestValue {
         let property = Property(
                 description: "testDesc",
                 generator: generator,
