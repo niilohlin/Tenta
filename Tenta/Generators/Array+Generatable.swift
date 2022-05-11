@@ -71,6 +71,7 @@ public extension AnyGenerator {
                     parentArray.shrink().filter { !$0.isEmpty }
                 }
             }
+            .eraseToAnyGenerator()
     }
 
     func generateMany(length: Int) -> AnyGenerator<[ValueToTest]> {

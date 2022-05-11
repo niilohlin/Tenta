@@ -7,7 +7,7 @@ import Foundation
 
 public extension AnyGenerator where ValueToTest == Character {
     static var char: AnyGenerator<Character> {
-        AnyGenerator<UInt8>.element(from: 32...255).map { uInt8 in
+        Generators.element(from: 32...255).map { uInt8 in
             Character(UnicodeScalar(uInt8))
         }.eraseToAnyGenerator()
     }
@@ -20,7 +20,7 @@ public extension AnyGenerator where ValueToTest == Character {
 
     static var alphaNumeric: AnyGenerator<Character> {
         let alphabet = "abcdefghijklmnopqrstuvwxyz"
-        return AnyGenerator<Character>.element(from: alphabet + alphabet.uppercased() + "1234567890")
+        return Generators.element(from: alphabet + alphabet.uppercased() + "1234567890").eraseToAnyGenerator()
     }
 
     func generateString() -> AnyGenerator<String> {

@@ -133,14 +133,14 @@ class AnyGeneratorTests: XCTestCase {
 
     func testGenerateFromSequence() {
         let letters = "abcdefghijklmnopqrstuvwxyz"
-        let letterGenerator = AnyGenerator<Character>.element(from: letters)
+        let letterGenerator = Generators.element(from: letters)
         assert(generator: letterGenerator, shrinksTo: Character("l"), predicate: { character in
             !"lmnopqrstuvwxyz".contains(character)
         })
     }
 
     func testGenerateElement_withSize() {
-        let generator = AnyGenerator<Character>.element(from: 0..<100)
+        let generator = Generators.element(from: 0..<100)
         var rng = SeededRandomNumberGenerator(seed: 100)
         let value = generator.generate(100, &rng).root()
         XCTAssertNotEqual(value, 0, "Element should respect size")

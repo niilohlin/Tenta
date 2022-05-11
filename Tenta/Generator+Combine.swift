@@ -70,10 +70,5 @@ public extension AnyGenerator {
         transform: @escaping ([Value]) -> Transformed
     ) -> AnyGenerator<Transformed> {
             AnyGenerator.combine(generators).map(transform).eraseToAnyGenerator()
-        }
-
-    /// Should only be used when combining large structs or classes.
-    func generateWithoutShrinking(_ size: Size, _ rng: inout SeededRandomNumberGenerator) -> ValueToTest {
-        generate(size, &rng).root()
     }
 }

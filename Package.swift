@@ -3,6 +3,9 @@ import PackageDescription
 
 let package = Package(
     name: "Tenta",
+    platforms: [
+        .macOS("12.0")
+    ],
     products: [
         .library(
             name: "Tenta",
